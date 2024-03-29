@@ -1,0 +1,45 @@
+{
+  "name": "@sumor/docker-deployer",
+  "description": "A simple tool to deploy docker containers to a remote server.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": "sumor-cloud/docker-deployer",
+  "author": "Sumor Cloud Ltd",
+  "homepage": "https://www.sumor.com",
+  "type": "module",
+  "main": "./index.js",
+  "exports": "./index.js",
+  "keywords": [
+    "docker",
+    "deploy",
+    "logging"
+  ],
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "axios": "^1.6.8",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
+    "push-tag": "git push --tags && git push",
+    "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
+    "publish-release-patch": "npm version patch && npm run push-tag",
+    "publish-release-minor": "npm version minor && npm run push-tag",
+    "publish-release-major": "npm version major && npm run push-tag",
+    "prepare": "husky",
+    "check": "eslint --fix . && npm audit fix && npm test"
+  }
+}
