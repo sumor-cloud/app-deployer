@@ -1,5 +1,6 @@
 import YAML from 'yaml'
 import fse from 'fs-extra'
+import path from 'path'
 
 export default async (root, name) => {
   const ymlPath = `${root}/${name}.yml`
@@ -20,7 +21,8 @@ export default async (root, name) => {
       result = JSON.parse(data)
     }
   } catch (e) {
-    console.log(`配置文件${name}解析失败`)
+    const filePath = path.normalize(path.join(process.cwd(), 'tmp/test', name))
+    console.log(`Failed to parse configuration file ${filePath}.yml`)
   }
   return result || {}
 }

@@ -20,6 +20,7 @@
   "dependencies": {
     "commander": "^12.0.0",
     "fs-extra": "^11.2.0",
+    "node-ssh": "^13.1.0",
     "selfsigned": "^2.4.1",
     "yaml": "^2.4.1"
   },

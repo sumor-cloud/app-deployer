@@ -17,5 +17,7 @@ jobs:
         run: npm ci
       - name: Check dependencies size
         run: du -sh node_modules
+      - name: Export config TEST_SERVER
+        run: echo '${{ secrets.TEST_SERVER }}' > ./test/config/server.json
       - name: Unit test with coverage using Jest
         run: npm run coverage

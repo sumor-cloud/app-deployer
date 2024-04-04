@@ -10,3 +10,7 @@ output/
 
 # runtime config
 ./ssl/
+
+# config
+/config/
+/test/config/
