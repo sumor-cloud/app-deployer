@@ -14,6 +14,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm i @sumor/app-deployer
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Dependency Check
         run: npm ls
       - name: Audit

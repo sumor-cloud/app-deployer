@@ -16,5 +16,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Run NPM audit
         run: npm audit

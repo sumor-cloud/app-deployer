@@ -15,5 +15,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Unit test with coverage using Jest
         run: npm run coverage
