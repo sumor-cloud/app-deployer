@@ -1,6 +1,11 @@
 # app-deployer
 A simple tool to deploy applications to a docker container.
 
+[![CI](https://github.com/sumor-cloud/app-deployer/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/app-deployer/actions/workflows/ci.yml)
+[![Test](https://github.com/sumor-cloud/app-deployer/actions/workflows/ut.yml/badge.svg)](https://github.com/sumor-cloud/app-deployer/actions/workflows/ut.yml)
+[![Coverage](https://github.com/sumor-cloud/app-deployer/actions/workflows/coverage.yml/badge.svg)](https://github.com/sumor-cloud/app-deployer/actions/workflows/coverage.yml)
+[![Audit](https://github.com/sumor-cloud/app-deployer/actions/workflows/audit.yml/badge.svg)](https://github.com/sumor-cloud/app-deployer/actions/workflows/audit.yml)
+
 ## Installation
 ```bash
 npm install app-deployer -g
