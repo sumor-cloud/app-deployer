@@ -1,11 +1,11 @@
 import https from 'https'
-import { URL } from 'url'
+import parseUrl from './parseUrl.js'
 
 export default (sslUrl) => {
   return new Promise((resolve, reject) => {
-    const sslUrlObject = new URL(sslUrl)
+    const sslUrlObject = parseUrl(sslUrl)
     const hostname = sslUrlObject.hostname
-    const port = sslUrlObject.port || 443
+    const port = sslUrlObject.port
     const options = {
       hostname,
       port,

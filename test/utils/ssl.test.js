@@ -7,8 +7,22 @@ import {
 import selfsigned from 'selfsigned'
 import checkSSL from '../../src/utils/ssl/checkSSL.js'
 import hostSSL from '../../src/utils/ssl/hostSSL.js'
+import parseUrl from '../../src/utils/ssl/parseUrl.js'
 
 describe('SSL', () => {
+  it('parse URL', async () => {
+    const url = parseUrl('https://localhost:11111')
+    expect(url.hostname).toStrictEqual('localhost')
+    expect(url.port).toStrictEqual(11111)
+
+    const url1 = parseUrl('https://localhost')
+    expect(url1.hostname).toStrictEqual('localhost')
+    expect(url1.port).toStrictEqual(443)
+
+    const url2 = parseUrl('http://www.sumor.com')
+    expect(url2.hostname).toStrictEqual('www.sumor.com')
+    expect(url2.port).toStrictEqual(80)
+  })
   it('checkSSLInfo', async () => {
     const domain = 'localhost'
     const port = 11111
@@ -29,5 +43,14 @@ describe('SSL', () => {
     expect((sslInfo.validTo - Date.now()) < 365 * 24 * 60 * 60 * 1000).toStrictEqual(true)
 
     closer()
+  })
+  it('check SSL failed', async () => {
+    let err = null
+    try {
+      await checkSSL('https://localhost:11112')
+    } catch (error) {
+      err = error
+    }
+    expect(err).not.toBeNull()
   })
 })
