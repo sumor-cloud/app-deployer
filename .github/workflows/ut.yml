@@ -1,5 +1,4 @@
 name: Test
-description: Unit Test for latest dependencies
 on:
   schedule:
     - cron: '0 * * * *'

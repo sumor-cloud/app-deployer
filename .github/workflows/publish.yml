@@ -1,5 +1,4 @@
 name: Continuous Publish
-description: Continuous Integration and Continuous Deployment
 on:
   push:
     tags:

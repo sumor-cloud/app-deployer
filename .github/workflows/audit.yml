@@ -1,5 +1,4 @@
 name: Audit
-description: Check for vulnerabilities in the package
 on:
   schedule:
     - cron: '0 * * * *'

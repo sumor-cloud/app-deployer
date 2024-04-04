@@ -1,5 +1,4 @@
 name: Available
-description: Check if latest version of the package is available
 on:
   schedule:
     - cron: '*/1 * * * *'
