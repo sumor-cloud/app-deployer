@@ -1,5 +1,5 @@
 {
-  "name": "@sumor/docker-deployer",
+  "name": "@sumor/app-deployer",
   "description": "A simple tool to deploy docker containers to a remote server.",
   "version": "0.0.1",
   "license": "MIT",
@@ -14,6 +14,13 @@
     "deploy",
     "logging"
   ],
+  "bin": {
+    "ade": "index.js"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "selfsigned": "^2.4.1"
+  },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "axios": "^1.6.8",
@@ -26,20 +33,22 @@
   "files": [
     "src",
     "LICENSE",
-    "index.js"
+    "index.js",
+    ".gitignore"
   ],
   "engines": {
     "node": ">=16.0.0"
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
+    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
     "publish-release-patch": "npm version patch && npm run push-tag",
     "publish-release-minor": "npm version minor && npm run push-tag",
     "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky",
-    "check": "eslint --fix . && npm audit fix && npm test"
+    "check": "eslint --fix . && npm audit fix --force && npm run coverage"
   }
 }
