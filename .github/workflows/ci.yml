@@ -1,4 +1,5 @@
 name: CI
+description: Continuous Integration
 on:
   - push
 jobs:

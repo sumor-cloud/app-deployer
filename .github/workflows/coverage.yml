@@ -1,4 +1,5 @@
 name: Coverage
+description: Code coverage check
 on:
   - push
 jobs:
