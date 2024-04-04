@@ -8,11 +8,7 @@ export default class SSH {
   async connect () {
     if (!this.connection) {
       this.connection = new NodeSSH()
-      try {
-        await this.connection.connect(this.config)
-      } catch (e) {
-        throw new Error('服务器SSH连接失败')
-      }
+      await this.connection.connect(this.config)
     }
   }
 
