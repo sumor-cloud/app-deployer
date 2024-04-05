@@ -24,10 +24,10 @@ export default class SSH {
     options = options || {}
     options.cwd = options.cwd || '~'
     const result = await this.connection.execCommand(cmd, options)
-    if (result.code === 0) {
-      return result.stdout
+    if (result.code !== 0) {
+      throw new Error(result.stderr)
     }
-    throw new Error(result.stderr)
+    return result.stdout
   }
 
   async isInstalled (software) {
@@ -43,10 +43,11 @@ export default class SSH {
   async install (software) {
     if (!await this.isInstalled(software)) {
       try {
-        await this.connection.exec('apt-get update')
-        await this.connection.exec(`apt-get install ${software} -y`)
+        await this.exec('apt-get update')
+        await this.exec(`apt-get install ${software} -y`)
       } catch (e) {
-        throw new Error(`服务器软件安装失败:${e.message}`)
+        // console.log(e);
+        throw new Error(`Server software installation failed: ${e.message}`)
       }
     }
   }
@@ -56,7 +57,8 @@ export default class SSH {
       try {
         await this.exec(`apt-get --purge remove ${software} -y`)
       } catch (e) {
-        throw new Error(`服务器软件卸载失败:${e.message}`)
+        // console.log(e);
+        throw new Error(`Server software uninstallation failed: ${e.message}`)
       }
     }
   }

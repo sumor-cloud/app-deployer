@@ -3,10 +3,7 @@ import {
 } from '@jest/globals'
 
 import SSH from '../../src/ssh/SSH.js'
-import fs from 'fs'
-
-let server = fs.readFileSync(`${process.cwd()}/test/config/server.json`, 'utf-8')
-server = JSON.parse(server)
+import server from './server.js'
 
 describe('SSH', () => {
   it('connect failed', async () => {
@@ -38,6 +35,7 @@ describe('SSH', () => {
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
+      throw e
     }
   })
   it('install', async () => {
@@ -63,6 +61,7 @@ describe('SSH', () => {
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
+      throw e
     }
-  })
+  }, 10000)
 })

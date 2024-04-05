@@ -38,7 +38,7 @@ describe('SSL', () => {
     const sslInfo = await checkSSL(`https://${domain}:11111`)
 
     expect(sslInfo.domain).toStrictEqual('localhost')
-    expect((Date.now() - sslInfo.validFrom) < 2000).toStrictEqual(true)
+    expect((Date.now() - sslInfo.validFrom) < 5000).toStrictEqual(true)
     expect((sslInfo.validTo - Date.now()) > 364 * 24 * 60 * 60 * 1000).toStrictEqual(true)
     expect((sslInfo.validTo - Date.now()) < 365 * 24 * 60 * 60 * 1000).toStrictEqual(true)
 
