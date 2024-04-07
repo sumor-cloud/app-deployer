@@ -2,11 +2,19 @@ import {
   describe, expect, it
 } from '@jest/globals'
 
+import entry from '../../src/ssh/index.js'
 import SSH from '../../src/ssh/SSH.js'
 import server from '../server.js'
 import lock from '../../src/ssh/tools/lock.js'
 
 describe('SSH', () => {
+  it('entry', () => {
+    const ssh = entry(server)
+    expect(ssh).toBeInstanceOf(SSH)
+    expect(ssh.file).not.toBeNull()
+    expect(ssh.port).not.toBeNull()
+    expect(ssh.lock).not.toBeNull()
+  })
   it('connect failed', async () => {
     const wrongServer = {
       host: 'wrong',
