@@ -54,7 +54,7 @@ describe('SSH', () => {
     try {
       const lockTool = lock(ssh)
       const name = 'app-deployer-test-ssh-install'
-      const lockInstance = await lockTool.lock(name)
+      const lockInstance = await lockTool.lock(name, 2 * 60 * 1000)
 
       // clean up the environment
       await ssh.uninstall('htop')
@@ -80,5 +80,5 @@ describe('SSH', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 60 * 1000)
+  }, 5 * 60 * 1000)
 })

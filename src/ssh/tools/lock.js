@@ -12,10 +12,14 @@ export default (ssh) => {
   const release = async (name, id) => {
     const lockPath = `${lockRoot}/${name}.lock`
     if (await sshFileUtils.exists(lockPath)) {
-      let lockData = await sshFileUtils.readFile(lockPath)
-      lockData = JSON.parse(lockData)
-      if (lockData.id === id) {
-        await sshFileUtils.delete(lockPath)
+      try {
+        let lockData = await sshFileUtils.readFile(lockPath)
+        lockData = JSON.parse(lockData)
+        if (lockData.id === id) {
+          await sshFileUtils.delete(lockPath)
+        }
+      } catch (e) {
+        // do nothing
       }
     }
   }
@@ -26,11 +30,15 @@ export default (ssh) => {
       await sshFileUtils.ensureDir(lockRoot)
     }
     if (await sshFileUtils.exists(lockPath)) {
-      let lockData = await sshFileUtils.readFile(lockPath)
-      lockData = JSON.parse(lockData)
-      if (Date.now() - lockData.time < lockData.timeout) {
-        return true
-      } else {
+      try {
+        let lockData = await sshFileUtils.readFile(lockPath)
+        lockData = JSON.parse(lockData)
+        if (Date.now() - lockData.time < lockData.timeout) {
+          return true
+        } else {
+          return false
+        }
+      } catch (e) {
         return false
       }
     } else {
