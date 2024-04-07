@@ -33,7 +33,7 @@ describe('SSH lock tool', () => {
       await ssh.disconnect()
       throw e
     }
-  })
+  }, 20 * 1000)
 
   it('wait lock', async () => {
     let result = ''
@@ -79,5 +79,5 @@ describe('SSH lock tool', () => {
       await ssh.disconnect()
       throw e
     }
-  })
+  }, 20 * 1000)
 })

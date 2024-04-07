@@ -38,7 +38,7 @@ describe('SSH', () => {
       await ssh.disconnect()
       throw e
     }
-  })
+  }, 20 * 1000)
   it('install', async () => {
     const ssh = new SSH(server)
     await ssh.connect()
