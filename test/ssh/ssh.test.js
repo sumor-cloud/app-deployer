@@ -3,7 +3,7 @@ import {
 } from '@jest/globals'
 
 import SSH from '../../src/ssh/SSH.js'
-import server from '../config/server.js'
+import server from '../server.js'
 import lock from '../../src/ssh/tools/lock.js'
 
 describe('SSH', () => {

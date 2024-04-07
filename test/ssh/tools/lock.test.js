@@ -7,7 +7,7 @@ import {
 import SSH from '../../../src/ssh/SSH.js'
 import lock from '../../../src/ssh/tools/lock.js'
 import file from '../../../src/ssh/tools/file.js'
-import server from '../../config/server.js'
+import server from '../../server.js'
 
 describe('SSH lock tool', () => {
   const lockRoot = '/usr/sumor/lock'

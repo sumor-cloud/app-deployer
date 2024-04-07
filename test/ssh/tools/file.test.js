@@ -4,7 +4,7 @@ import {
 
 import SSH from '../../../src/ssh/SSH.js'
 import file from '../../../src/ssh/tools/file.js'
-import server from '../../config/server.js'
+import server from '../../server.js'
 import fse from 'fs-extra'
 
 describe('SSH file tool', () => {
