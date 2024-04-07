@@ -47,10 +47,12 @@ describe('SSH lock tool', () => {
 
     try {
       const lockTool = lock(ssh)
+      let locked = false
       let finishedThreadCount = 0
       const thread1 = async () => {
         result += '1'
         const lockInstance = await lockTool.lock(name)
+        locked = true
         await new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve()
@@ -62,6 +64,14 @@ describe('SSH lock tool', () => {
       }
       const thread2 = async () => {
         result += '3'
+        await new Promise((resolve, reject) => {
+          const interval = setInterval(() => {
+            if (locked) {
+              clearInterval(interval)
+              resolve()
+            }
+          }, 100)
+        })
         const lockInstance = await lockTool.lock(name)
         result += '4'
         await lockInstance.release()
