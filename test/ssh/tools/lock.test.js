@@ -9,9 +9,13 @@ import lock from '../../../src/ssh/tools/lock.js'
 import file from '../../../src/ssh/tools/file.js'
 import server from '../../server.js'
 
+const randomId = () => {
+  return Math.random().toString(36).substr(2)
+}
+
 describe('SSH lock tool', () => {
   const lockRoot = '/usr/sumor/lock'
-  const name = 'test-lock'
+  const name = `test-lock-${randomId()}`
   const lockPath = `${lockRoot}/${name}.lock`
 
   it('lock', async () => {
@@ -70,7 +74,7 @@ describe('SSH lock tool', () => {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()
-        }, 3000)
+        }, 5000)
       })
       expect(result).toBe('1324')
 
