@@ -6,7 +6,7 @@ import {
 
 import SSH from '../../../src/ssh/SSH.js'
 import port from '../../../src/ssh/tools/port.js'
-import server from '../server.js'
+import server from '../../config/server.js'
 
 describe('SSH port tool', () => {
   it('is occupied', async () => {

@@ -30,6 +30,16 @@ export default class SSH {
     return result.stdout
   }
 
+  async _putFile (localFile, remoteFile) {
+    await this.connect()
+    await this.connection.putFile(localFile, remoteFile)
+  }
+
+  async _getFile (remoteFile, localFile) {
+    await this.connect()
+    await this.connection.getFile(localFile, remoteFile)
+  }
+
   async isInstalled (software) {
     let installed = true
     try {

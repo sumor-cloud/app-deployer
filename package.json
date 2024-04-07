@@ -22,7 +22,9 @@
     "fs-extra": "^11.2.0",
     "node-ssh": "^13.1.0",
     "selfsigned": "^2.4.1",
-    "yaml": "^2.4.1"
+    "yaml": "^2.4.1",
+    "archiver": "^2.1.1",
+    "extract-zip": "^1.6.6"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
@@ -45,6 +47,9 @@
   "scripts": {
     "lint": "eslint .",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
+    "test-ssh": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssh.test.js'",
+    "test-file": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/file.test.js'",
+    "test-lock": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/lock.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",

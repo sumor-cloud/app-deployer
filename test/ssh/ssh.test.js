@@ -3,7 +3,8 @@ import {
 } from '@jest/globals'
 
 import SSH from '../../src/ssh/SSH.js'
-import server from './server.js'
+import server from '../config/server.js'
+import lock from '../../src/ssh/tools/lock.js'
 
 describe('SSH', () => {
   it('connect failed', async () => {
@@ -43,6 +44,13 @@ describe('SSH', () => {
     await ssh.connect()
 
     try {
+      const lockTool = lock(ssh)
+      const name = 'app-deployer-test-ssh-install'
+      const lockInstance = await lockTool.lock(name)
+
+      // clean up the environment
+      await ssh.uninstall('htop')
+
       let installed = await ssh.isInstalled('htop')
       expect(installed).toStrictEqual(false)
 
@@ -58,10 +66,11 @@ describe('SSH', () => {
       installed = await ssh.isInstalled('htop')
       expect(installed).toStrictEqual(false)
 
+      await lockInstance.release()
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
       throw e
     }
-  }, 10000)
+  }, 60 * 1000)
 })
