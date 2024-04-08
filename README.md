@@ -11,6 +11,11 @@ A simple tool to deploy applications to a docker container.
 npm install app-deployer -g
 ```
 
+## Prerequisites
+
+### Node.JS version
+Require Node.JS version 18.x or above
+
 ## Usage
 
 You can use the `ade --help` command to get a list of all available commands.
