@@ -1,4 +1,5 @@
 import { NodeSSH } from 'node-ssh'
+import retry from '../utils/retry.js'
 
 export default class SSH {
   constructor (config) {
@@ -52,11 +53,13 @@ export default class SSH {
 
   async install (software) {
     if (!await this.isInstalled(software)) {
-      try {
+      const _install = async () => {
         await this.exec('apt-get update')
         await this.exec(`apt-get install ${software} -y`)
+      }
+      try {
+        await retry(_install, 3, 1000)
       } catch (e) {
-        // console.log(e);
         throw new Error(`Server software installation failed: ${e.message}`)
       }
     }
@@ -64,10 +67,12 @@ export default class SSH {
 
   async uninstall (software) {
     if (await this.isInstalled(software)) {
-      try {
+      const _uninstall = async () => {
         await this.exec(`apt-get --purge remove ${software} -y`)
+      }
+      try {
+        await retry(_uninstall, 3, 1000)
       } catch (e) {
-        // console.log(e);
         throw new Error(`Server software uninstallation failed: ${e.message}`)
       }
     }

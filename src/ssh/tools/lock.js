@@ -1,5 +1,6 @@
 // action lock, when the lock is not acquired, it will wait for the lock to be released
 import file from './file'
+import delay from '../../utils/delay.js'
 
 const randomId = () => {
   return Math.random().toString(36).substring(2, 15)
@@ -54,11 +55,7 @@ export default (ssh) => {
     const checkValid = async () => {
       const valid = await check(name, true)
       if (valid) {
-        await new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve()
-          }, 100)
-        })
+        await delay(100)
         await checkValid()
       }
     }

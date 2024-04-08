@@ -47,7 +47,7 @@ describe('SSH', () => {
       throw e
     }
   }, 20 * 1000)
-  it('install', async () => {
+  it('install & uninstall', async () => {
     const ssh = new SSH(server)
     await ssh.connect()
 
@@ -81,4 +81,38 @@ describe('SSH', () => {
       throw e
     }
   }, 5 * 60 * 1000)
+
+  // it('install & uninstall failed', async () => {
+  //   const ssh = new SSH(server)
+  //   await ssh.connect()
+  //
+  //   try {
+  //     const lockTool = lock(ssh)
+  //     const name = 'app-deployer-test-ssh-install-failed'
+  //     const lockInstance = await lockTool.lock(name, 2 * 60 * 1000)
+  //
+  //     // Test software installation failed
+  //     let error1 = null
+  //     try {
+  //       await ssh.install('wrongwrongwrong123')
+  //     } catch (e) {
+  //       error1 = e
+  //     }
+  //     expect(error1).not.toBeNull()
+  //
+  //     let error2 = null
+  //     try {
+  //       await ssh.uninstall('wrongwrongwrong123')
+  //     } catch (e) {
+  //       error2 = e
+  //     }
+  //     expect(error2).not.toBeNull()
+  //
+  //     await lockInstance.release()
+  //     await ssh.disconnect()
+  //   } catch (e) {
+  //     await ssh.disconnect()
+  //     throw e
+  //   }
+  // }, 5 * 60 * 1000)
 })

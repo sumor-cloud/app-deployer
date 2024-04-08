@@ -148,15 +148,9 @@ export default (ssh) => {
       const text = await ssh.exec(`stat ${target} -c "%X|%Y|%Z"`)
       const items = text.split('|')
       const result = {}
-      if (items[0]) {
-        result.access = parseInt(items[0], 10)
-      }
-      if (items[1]) {
-        result.modify = parseInt(items[1], 10)
-      }
-      if (items[2]) {
-        result.change = parseInt(items[2], 10)
-      }
+      result.access = parseInt(items[0], 10)
+      result.modify = parseInt(items[1], 10)
+      result.change = parseInt(items[2], 10)
       return result
     }
   }
