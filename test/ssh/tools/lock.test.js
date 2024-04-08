@@ -17,9 +17,9 @@ const randomId = () => {
 describe('SSH lock tool', () => {
   const lockRoot = '/usr/sumor/lock'
   const name = `test-lock-${randomId()}`
-  const lockPath = `${lockRoot}/${name}.lock`
 
   it('lock', async () => {
+    const lockPath = `${lockRoot}/${name}1.lock`
     const ssh = new SSH(server)
     await ssh.connect()
 
@@ -27,7 +27,7 @@ describe('SSH lock tool', () => {
       const lockTool = lock(ssh)
       const fileTool = file(ssh)
 
-      const lockInstance = await lockTool.lock(name)
+      const lockInstance = await lockTool.lock(name + '1')
       expect(await fileTool.exists(lockPath)).toBe(true)
 
       await lockInstance.release()
@@ -41,7 +41,7 @@ describe('SSH lock tool', () => {
   }, 20 * 1000)
 
   it('wait lock', async () => {
-    // thread 1: print 1 -> lock -> wait 1s -> print 2 -> release
+    // thread 1: print 1 -> lock -> wait 2s -> print 2 -> release
     // thread 2: wait 0.5s -> print 3 -> wait lock -> print 4 -> release
 
     let result = ''
@@ -55,9 +55,9 @@ describe('SSH lock tool', () => {
       let finishedThreadCount = 0
       const thread1 = async () => {
         result += '1'
-        const lockInstance = await lockTool.lock(name)
+        const lockInstance = await lockTool.lock(name + '2')
         locked = true
-        await delay(1000)
+        await delay(2000)
         result += '2'
         await lockInstance.release()
         finishedThreadCount++
@@ -72,7 +72,7 @@ describe('SSH lock tool', () => {
             }
           }, 100)
         })
-        const lockInstance = await lockTool.lock(name)
+        const lockInstance = await lockTool.lock(name + '2')
         result += '4'
         await lockInstance.release()
         finishedThreadCount++
@@ -81,7 +81,7 @@ describe('SSH lock tool', () => {
       await delay(500)
       thread2()
 
-      const lockStatus = await lockTool.check(name)
+      const lockStatus = await lockTool.check(name + '2')
       expect(lockStatus).toBe(true)
 
       await new Promise((resolve, reject) => {
