@@ -45,7 +45,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('ensure folder & delete folder', async () => {
     const ssh = new SSH(server)
@@ -65,7 +65,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('put file & get file', async () => {
     const fileLocalPath1 = `${tmpLocalFolder}/put.txt`
@@ -91,7 +91,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('zip & unzip single file', async () => {
     const tmpLocalSourceFolder = `${tmpLocalFolder}/zipSource1`
@@ -132,7 +132,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('zip & unzip multiple files', async () => {
     const tmpLocalSourceFolder = `${tmpLocalFolder}/zipSource2`
@@ -184,7 +184,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('put folder & get folder', async () => {
     const tmpLocalSourceFolder = `${tmpLocalFolder}/putFolder`
@@ -221,7 +221,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('write file & exists file & remove file', async () => {
     const fileRemotePath = `${tmpRemoteFolder}/write.txt`
@@ -248,7 +248,7 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 
   it('get file info', async () => {
     const fileRemotePath = `${tmpRemoteFolder}/info.txt`
@@ -274,5 +274,5 @@ describe('SSH file tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 })

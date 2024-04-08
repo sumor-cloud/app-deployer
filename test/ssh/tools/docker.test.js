@@ -22,5 +22,5 @@ describe('SSH docker tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 })

@@ -38,7 +38,7 @@ describe('SSH lock tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 5 * 60 * 1000)
+  }, 2 * 60 * 1000)
 
   it('wait lock', async () => {
     // thread 1: wait 2s -> print 1 -> release
@@ -88,5 +88,5 @@ describe('SSH lock tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 5 * 60 * 1000)
+  }, 2 * 60 * 1000)
 })

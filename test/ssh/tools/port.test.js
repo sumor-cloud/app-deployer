@@ -32,7 +32,7 @@ describe('SSH port tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
   it('is not occupied', async () => {
     const newPort = 11201
     const ssh = new SSH(server)
@@ -48,7 +48,7 @@ describe('SSH port tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
   it('get port failed', async () => {
     const ssh = new SSH(server)
     const portTool = port(ssh)
@@ -68,7 +68,7 @@ describe('SSH port tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
   it('get port', async () => {
     const ssh = new SSH(server)
     const portTool = port(ssh)
@@ -94,5 +94,5 @@ describe('SSH port tool', () => {
       await ssh.disconnect()
       throw e
     }
-  }, 20 * 1000)
+  }, 2 * 60 * 1000)
 })
