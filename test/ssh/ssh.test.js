@@ -14,6 +14,7 @@ describe('SSH', () => {
     expect(ssh.file).not.toBeNull()
     expect(ssh.port).not.toBeNull()
     expect(ssh.lock).not.toBeNull()
+    expect(ssh.monitor).not.toBeNull()
   })
   it('connect failed', async () => {
     const wrongServer = {
