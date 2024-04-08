@@ -58,7 +58,7 @@ export default class SSH {
         await this.exec(`apt-get install ${software} -y`)
       }
       try {
-        await retry(_install, 3, 1000)
+        await retry(_install, 5, 5000)
       } catch (e) {
         throw new Error(`Server software installation failed: ${e.message}`)
       }
@@ -71,7 +71,7 @@ export default class SSH {
         await this.exec(`apt-get --purge remove ${software} -y`)
       }
       try {
-        await retry(_uninstall, 3, 1000)
+        await retry(_uninstall, 5, 5000)
       } catch (e) {
         throw new Error(`Server software uninstallation failed: ${e.message}`)
       }
