@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "sumor-cloud/docker-deployer",
   "author": "Sumor Cloud Ltd",
-  "homepage": "https://www.sumor.com",
+  "homepage": "https://sumor.cloud",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
@@ -45,6 +45,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
+    "link": "npm link",
     "lint": "eslint .",
     "audit": "npm audit fix --force",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",

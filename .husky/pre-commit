@@ -1,9 +1,9 @@
-printf "正在做提交前检查，请查看以下错误报告\n"
+printf "Checking before commit, please review the error report below\n"
 
-# 打印系统版本
-printf "系统版本: $(uname -a)\n"
+# Print system version
+printf "System version: $(uname -a)\n"
 
-# 判断是否为windows系统，或者Github客户端，如果是，则使用npm.cmd
+# Determine if it is a windows system or Github client, if so, use npm.cmd
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" || -n "$GITHUB_ACTIONS" ]]; then
     npm.cmd run lint
     npm.cmd audit

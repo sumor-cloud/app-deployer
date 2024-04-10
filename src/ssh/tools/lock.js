@@ -1,5 +1,5 @@
 // action lock, when the lock is not acquired, it will wait for the lock to be released
-import file from './file'
+import file from './file.js'
 import delay from '../../utils/delay.js'
 
 const randomId = () => {

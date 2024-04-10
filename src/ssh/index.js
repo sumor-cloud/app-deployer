@@ -3,7 +3,7 @@ import port from './tools/port.js'
 import file from './tools/file.js'
 import lock from './tools/lock.js'
 import monitor from './tools/monitor.js'
-// import docker from './tools/docker.js'
+import docker from './tools/docker.js'
 
 export default (config) => {
   const ssh = new SSH(config)
@@ -12,7 +12,7 @@ export default (config) => {
   ssh.addTool('file', file)
   ssh.addTool('lock', lock)
   ssh.addTool('monitor', monitor)
-  // ssh.addTool('docker', docker)
+  ssh.addTool('docker', docker)
 
   return ssh
 }

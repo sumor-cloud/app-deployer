@@ -1,6 +1,6 @@
 import YAML from 'yaml'
 import fse from 'fs-extra'
-import load from './load'
+import load from './load.js'
 
 export default async (root, name, type) => {
   const config = await load(root, name)
