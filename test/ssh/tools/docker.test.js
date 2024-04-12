@@ -2,7 +2,7 @@ import {
   describe, expect, it
 } from '@jest/globals'
 
-import SSH from '../../../src/ssh/SSH.js'
+import SSH from '@sumor/ssh-tools'
 // import docker from '../../../src/ssh/tools/docker.js'
 import server from '../../server.js'
 

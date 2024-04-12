@@ -3,7 +3,7 @@
   "description": "A simple tool to deploy docker containers to a remote server.",
   "version": "1.0.0",
   "license": "MIT",
-  "repository": "sumor-cloud/docker-deployer",
+  "repository": "sumor-cloud/app-deployer",
   "author": "Sumor Cloud Ltd",
   "homepage": "https://sumor.cloud",
   "type": "module",
@@ -20,11 +20,9 @@
   "dependencies": {
     "commander": "^12.0.0",
     "fs-extra": "^11.2.0",
-    "node-ssh": "^13.1.0",
     "selfsigned": "^2.4.1",
     "yaml": "^2.4.1",
-    "archiver": "^2.1.1",
-    "extract-zip": "^1.6.6"
+    "@sumor/ssh-tools": "^1.0.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
@@ -42,18 +40,14 @@
     ".gitignore"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "link": "npm link",
     "lint": "eslint .",
     "audit": "npm audit fix --force",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
-    "test-ssh": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssh.test.js'",
-    "test-file": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/file.test.js'",
-    "test-lock": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/lock.test.js'",
-    "test-utils": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/utils.test.js'",
-    "test-monitor": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/monitor.test.js'",
+    "test-config": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/config.test.js'",
     "test-docker": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/docker.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
