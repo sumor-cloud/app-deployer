@@ -1,5 +1,5 @@
-import clone from '../git/setup/index.js'
-import getVersions from './getVersions.js'
+import clone from '../setup/index.js'
+import getBranchVersions from './getBranchVersions.js'
 
 export default async (config) => {
   const versions = {}
@@ -7,7 +7,7 @@ export default async (config) => {
     console.log(`应用${app}正在检查应用版本`)
     const clonePath = `${process.cwd()}/tmp/version/${app}`
     await clone(clonePath, config.source[app])
-    versions[app] = await getVersions(clonePath)
+    versions[app] = await getBranchVersions(clonePath)
     console.log('应用版本列表')
     for (const version in versions[app]) {
       console.log(`- ${version}${versions[app][version].beta ? ' 测试版' : ''}`)

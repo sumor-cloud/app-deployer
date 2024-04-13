@@ -9,18 +9,16 @@ export default (tag) => {
 
   if (fullVersionNameRule.test(tag)) {
     result = {
-      name: tag,
-      code: tag.substring(1)
+      name: tag.substring(1)
     }
   } else if (shortVersionNameRule.test(tag)) {
     result = {
-      name: tag,
-      code: tag
+      name: tag
     }
   }
 
   if (result) {
-    const versionNumbers = result.code.split('.')
+    const versionNumbers = result.name.split('.')
     result.major = parseInt(versionNumbers[0], 10)
     result.minor = parseInt(versionNumbers[1], 10)
     result.patch = parseInt(versionNumbers[2], 10)

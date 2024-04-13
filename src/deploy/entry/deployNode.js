@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 import cmd from '../../utils/cmd.js'
 import SSH from '../ssh/index.js'
-import clone from '../version/git/setup/index.js'
+import clone from '../version/setup/index.js'
 
 // const checkDockerStatus = async (ssh, host, port, wait) => {
 //   const checkStatus = async () => {

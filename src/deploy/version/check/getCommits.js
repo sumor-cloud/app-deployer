@@ -1,6 +1,8 @@
 import cmd from '../../../utils/cmd.js'
 
 export default async (root, branch) => {
+  await cmd(`git checkout ${branch}`, { cwd: root })
+
   const info = await cmd(`git log ${branch} --pretty=format:"%H|%ad|%cd|%D|%s" --date=iso-strict-local`, { cwd: root })
 
   const commits = info.split('\n')
@@ -22,11 +24,12 @@ export default async (root, branch) => {
     }
     result.push({
       id: fields[0],
-      authorDate: new Date(fields[1]),
-      committerDate: new Date(fields[2]),
+      authorDate: new Date(fields[1]).getTime(),
+      committerDate: new Date(fields[2]).getTime(),
       tags,
       subject
     })
   }
-  return result
+
+  return result.reverse()
 }
