@@ -1,7 +1,7 @@
-import git from '../../git/git.js'
+import cmd from '../../../utils/cmd.js'
 
 export default async (root, branch) => {
-  const info = await git(root, `log ${branch} --pretty=format:"%H|%ad|%cd|%D|%s" --date=iso-strict-local`)
+  const info = await cmd(`git log ${branch} --pretty=format:"%H|%ad|%cd|%D|%s" --date=iso-strict-local`, { cwd: root })
 
   const commits = info.split('\n')
   const result = []

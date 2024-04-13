@@ -1,7 +1,7 @@
-import git from '../../git/git.js'
-import getBranches from '../../git/branches.js'
+import getBranches from './getBranches.js'
 import getCommits from '../utils/commits.js'
 import parseVersion from './parseVersion.js'
+import cmd from '../../../utils/cmd.js'
 
 const timeFormatter = (val) => Math.round(new Date(val).getTime())
 
@@ -15,9 +15,8 @@ export default async (root) => {
         branch.major = branch.name.split('.')[0]
         branch.minor = branch.name.split('.')[1]
 
-        await git(root, 'reset --hard HEAD')
-        await git(root, `checkout ${branch.origin}`)
-        let commits = await getCommits(root, branch.origin)
+        await cmd(`git checkout ${branch.remote}`, { cwd: root })
+        let commits = await getCommits(root, branch.remote)
         commits = commits.reverse()
         let current = 0
         let betaVersion
