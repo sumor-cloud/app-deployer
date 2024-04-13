@@ -12,8 +12,9 @@ import getCommits from '../../../src/deploy/version/check/getCommits.js'
 import parseBranchVersion from '../../../src/deploy/version/check/parseBranchVersion.js'
 import getBranchVersions from '../../../src/deploy/version/check/getBranchVersions.js'
 import check from '../../../src/deploy/version/check/index.js'
+import os from 'os'
 describe('Version Tools', () => {
-  const root = `${process.cwd()}/tmp/test/git/version/check`
+  const root = `${os.tmpdir()}/sumor-deployer-test/git/version/check`
   beforeAll(async () => {
     await fse.remove(root)
   })

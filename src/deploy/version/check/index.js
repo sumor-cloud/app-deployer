@@ -2,13 +2,11 @@ import clone from '../setup/index.js'
 import getBranchVersions from './getBranchVersions.js'
 import os from 'os'
 
-const tmpPath = `${os.tmpdir()}/version`
-
 export default async (config) => {
   const versions = {}
   for (const app in config.source) {
     console.log(`应用${app}正在检查应用版本`)
-    const clonePath = `${tmpPath}/sumor-deploy/version/${app}`
+    const clonePath = `${os.tmpdir()}/sumor-deploy/version/${app}`
     await clone(clonePath, config.source[app])
     versions[app] = await getBranchVersions(clonePath)
     console.log('应用版本列表')

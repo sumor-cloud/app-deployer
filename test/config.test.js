@@ -5,13 +5,13 @@ import {
 } from '@jest/globals'
 import fse from 'fs-extra'
 import YAML from 'yaml'
-import path from 'path'
 
 import convert from '../src/config/convert.js'
 import load from '../src/config/load.js'
+import os from 'os'
 
 describe('Config', () => {
-  const root = path.join(process.cwd(), 'tmp/test')
+  const root = `${os.tmpdir()}/sumor-deployer-test/config`
   beforeEach(async () => {
     await fse.remove(root)
     await fse.ensureDir(root)

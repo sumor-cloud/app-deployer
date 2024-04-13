@@ -7,9 +7,10 @@ import repo from '../../repo.js'
 import clone from '../../../src/deploy/version/setup/index.js'
 import fse from 'fs-extra'
 import getCurrentBranch from '../../../src/deploy/version/setup/getCurrentBranch.js'
+import os from 'os'
 
 describe('Git Tools', () => {
-  const root = `${process.cwd()}/tmp/test/git/version/setup`
+  const root = `${os.tmpdir()}/sumor-deployer-test/git/version/setup`
   beforeAll(async () => {
     await fse.remove(root)
   })
