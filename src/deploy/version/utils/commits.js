@@ -1,4 +1,4 @@
-import git from './git.js'
+import git from '../../git/git.js'
 
 export default async (root, branch) => {
   const info = await git(root, `log ${branch} --pretty=format:"%H|%ad|%cd|%D|%s" --date=iso-strict-local`)

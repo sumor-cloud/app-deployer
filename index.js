@@ -3,7 +3,7 @@
 import { Command } from 'commander'
 import fs from 'fs'
 
-import deploy from './src/deploy/index.js'
+import deploy from './src/index.js'
 
 // ESM not support __dirname, so we need to use import.meta.url
 const pkgPath = new URL('./package.json', import.meta.url)

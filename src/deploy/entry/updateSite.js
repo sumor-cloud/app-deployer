@@ -1,17 +1,17 @@
 import parseInstanceId from './parseInstanceId.js'
 import conf from './site/conf/index.js'
 import pages from './site/pages.js'
-import SSH from '../../ssh/index.js'
+import SSH from '../ssh/index.js'
 
-export default async (scope, scale, instances, force) => {
+export default async (config, instances, force) => {
   const site = {}
-  for (const env in scope.env) {
-    for (const app in scope.env[env]) {
-      const { domain, entry } = scope.env[env][app]
+  for (const env in config.env) {
+    for (const app in config.env[env]) {
+      const { domain, entry } = config.env[env][app]
       site[entry] = site[entry] || {}
       site[entry][domain] = []
 
-      const envScale = scale[env] || {}
+      const envScale = config.scale[env] || {}
       const appScale = envScale[app] || {}
       let liveVersion
       for (const version in appScale) {
@@ -22,7 +22,7 @@ export default async (scope, scale, instances, force) => {
       }
 
       for (const server in instances) {
-        const serverInfo = scope.server[server]
+        const serverInfo = config.server[server]
         const serverInstances = instances[server]
           .map((o) => parseInstanceId(o))
           .filter((o) => o.app === app && o.env === env && o.version === liveVersion)
@@ -49,7 +49,7 @@ export default async (scope, scale, instances, force) => {
 
     const nginxConfig = conf(apps)
 
-    const ssh = SSH(scope.server[server])
+    const ssh = SSH(config.server[server])
     const sitePath = '/usr/sumor-cloud/site'
     await ssh.file.ensureDir(sitePath)
     await ssh.file.ensureDir(`${sitePath}/pages`)

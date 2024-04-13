@@ -1,4 +1,4 @@
-import git from '../../../../utils/git/git.js'
+import git from '../../git/git.js'
 
 export default async (root, target) => {
   await git(root, 'clean -df')

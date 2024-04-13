@@ -1,4 +1,4 @@
-import SSH from '../../ssh/index.js'
+import SSH from '../ssh/index.js'
 
 // 格式化时间为yyyy-mm-dd hh:mm:ss， 自动补零
 const formatTime = (time) => {

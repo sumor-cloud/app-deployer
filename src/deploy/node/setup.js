@@ -19,7 +19,7 @@ export default async (ssh, { env, version, logger }) => {
   await ssh.docker.exec(dockerId, 'cp -r /usr/sumor/source /usr/sumor/runtime')
   await ssh.docker.exec(dockerId, 'ln -s /usr/sumor/data /usr/sumor/runtime/data')
   await ssh.docker.exec(dockerId, 'ln -s /usr/sumor/ssl /usr/sumor/runtime/ssl')
-  const log = await ssh.docker.exec(dockerId, 'cd /usr/sumor/runtime;node setup.js')
+  const log = await ssh.docker.exec(dockerId, 'cd /usr/sumor/runtime;node index.js')
   await ssh.file.writeFile(`${logPath}/setup.log`, log)
   await ssh.docker.delete(dockerId)
 }

@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
-import cmd from '../cmd.js'
-import git from './git'
+import cmd from '../../utils/cmd.js'
+import git from './git.js'
 import parsePath from './parsePath.js'
 
 export default async (root) => {

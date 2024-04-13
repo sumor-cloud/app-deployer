@@ -1,4 +1,4 @@
-import cmd from '../cmd.js'
+import cmd from '../../utils/cmd.js'
 
 export default async (root) => {
   const info = await cmd('git branch -vva', { cwd: root })
