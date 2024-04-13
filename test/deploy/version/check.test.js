@@ -11,6 +11,7 @@ import getVersions from '../../../src/deploy/version/check/getVersions.js'
 import getCommits from '../../../src/deploy/version/check/getCommits.js'
 import parseBranchVersion from '../../../src/deploy/version/check/parseBranchVersion.js'
 import getBranchVersions from '../../../src/deploy/version/check/getBranchVersions.js'
+import check from '../../../src/deploy/version/check/index.js'
 describe('Version Tools', () => {
   const root = `${process.cwd()}/tmp/test/git/version/check`
   beforeAll(async () => {
@@ -154,5 +155,19 @@ describe('Version Tools', () => {
     // await fse.writeFile(expectFilePath3,JSON.stringify(branchVersion,null,4));
     const expectResult3 = await fse.readJson(expectFilePath3)
     expect(branchVersion).toEqual(expectResult3)
+  }, 60 * 1000)
+  it('Entry', async () => {
+    const config = {
+      source: {
+        version: repo.version
+      }
+    }
+    const versions = await check(config)
+    expect(versions).toBeDefined()
+    const expectFilePath = `${process.cwd()}/test/deploy/version/expect/branchVersion.json`
+    const expectResult = await fse.readJson(expectFilePath)
+    expect(versions).toEqual({
+      version: expectResult
+    })
   }, 60 * 1000)
 })

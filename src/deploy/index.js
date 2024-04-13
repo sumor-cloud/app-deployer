@@ -18,10 +18,6 @@ export default async (config) => {
     console.log('\n\n ==================== 更新证书 ==================== \n')
     await updateSSL(config)
 
-    // 检查应用版本
-    console.log('\n\n ==================== 检查应用版本 ==================== \n')
-    const versions = await checkVersions(config)
-
     // 获取服务器运行状态
     console.log('\n\n ==================== 获取服务器运行状态 ==================== \n')
     for (const server in config.server) {
@@ -39,6 +35,10 @@ export default async (config) => {
         console.log(`- ${instances[server][i]}`)
       }
     }
+
+    // 检查应用版本
+    console.log('\n\n ==================== 检查应用版本 ==================== \n')
+    const versions = await checkVersions(config)
 
     // 部署应用
     console.log('\n\n ==================== 部署应用 ==================== \n')

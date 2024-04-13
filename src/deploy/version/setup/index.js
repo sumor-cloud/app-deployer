@@ -3,6 +3,10 @@ import cmd from '../../../utils/cmd.js'
 import stringifyUrl from './stringifyUrl.js'
 
 export default async (folder, config, branch) => {
+  // if OS is windows
+  // if(process.platform === 'win32') {
+  //   await cmd("ipconfig /flushdns", { cwd: folder });
+  // }
   if (!await fse.exists(folder)) {
     const parentFolder = folder.split('/').slice(0, -1).join('/')
     const name = folder.split('/').pop()
