@@ -1,7 +1,7 @@
 import {
   describe, expect, it
 } from '@jest/globals'
-import parseVersion from '../../../src/deploy/version/utils/parseVersion.js'
+import parseVersion from '../../../src/deploy/version/check/parseVersion.js'
 describe('Version Tools', () => {
   it('Parse Version Failed', async () => {
     const tag = 'other'

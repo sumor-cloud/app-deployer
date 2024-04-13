@@ -1,8 +1,7 @@
 import fse from 'fs-extra'
-import setup from '../version/git/setup/index.js'
-import checkout from '../version/git/checkout.js'
 import cmd from '../../utils/cmd.js'
 import SSH from '../ssh/index.js'
+import clone from '../version/git/setup/index.js'
 
 // const checkDockerStatus = async (ssh, host, port, wait) => {
 //   const checkStatus = async () => {
@@ -52,15 +51,12 @@ export default async ({
   const existsImage = await checkExists()
   if (!existsImage) {
     console.log('开始构建代码')
-    const urlArr = git.url.split('/')
-    const authedUrl = `${urlArr[0]}//${git.username}:${git.password}@${urlArr[2]}/${urlArr.slice(3, urlArr.length).join('/')}`
     const buildPath = `${process.cwd()}/tmp/build/${app}/${version.name}`
     if (!await fse.exists(buildPath)) {
       console.log(`正在构建源代码到${buildPath}`)
       await fse.ensureDir(`${process.cwd()}/tmp/build`)
       try {
-        await setup(buildPath, authedUrl)
-        await checkout(buildPath, version.id)
+        await clone(buildPath, git, version.id)
         await cmd('npm i', { cwd: buildPath })
         await cmd('npm run build', { cwd: buildPath })
         await fse.remove(`${buildPath}/web`)

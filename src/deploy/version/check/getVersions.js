@@ -1,12 +1,11 @@
 import git from '../../git/git.js'
 import getBranches from '../../git/branches.js'
-import getCommits from './commits.js'
+import getCommits from '../utils/commits.js'
 import parseVersion from './parseVersion.js'
 
 const timeFormatter = (val) => Math.round(new Date(val).getTime())
 
 export default async (root) => {
-  await git(root, 'fetch')
   const branches = await getBranches(root)
   const validParentVersionRule = /^\d+\.\d+?$/
   const versions = {}
