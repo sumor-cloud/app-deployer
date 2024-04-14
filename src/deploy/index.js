@@ -1,6 +1,6 @@
 import updateRoute from './route/index.js'
 import updateSSL from './updateSSL/index.js'
-import monitorSystem from './monitor/system.js'
+import monitor from './monitor/index.js'
 
 import checkVersions from './version/check/index.js'
 import scale from './version/scale/index.js'
@@ -18,7 +18,7 @@ export default async (config) => {
     // 获取服务器运行状态
     console.log('\n\n ==================== 获取服务器运行状态 ==================== \n')
     for (const server in config.server) {
-      const system = await monitorSystem(config.server[server])
+      const system = await monitor(config.server[server])
       console.log(`服务器${server}运行状态`)
       console.log(system)
     }

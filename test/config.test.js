@@ -119,4 +119,23 @@ describe('Config', () => {
     const expectResult = await fse.readJson(expectFilePath)
     expect(scopeConfig).toEqual(expectResult)
   })
+  it('Empty config', async () => {
+    const scopeConfig = configFormatter({
+      env: {
+        production: {}
+      },
+      scale: {
+        production: {}
+      }
+    })
+    expect(scopeConfig).toEqual({
+      env: {
+        production: {}
+      },
+      scale: {
+        production: {}
+      },
+      live: []
+    })
+  })
 })
