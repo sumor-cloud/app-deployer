@@ -1,4 +1,4 @@
-import cmd from '../../../utils/cmd.js'
+import cmd from '../../utils/cmd.js'
 
 export default async (folder) => {
   const currentBranch = await cmd('git branch --show-current', { cwd: folder })

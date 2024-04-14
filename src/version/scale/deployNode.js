@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import cmd from '../../../utils/cmd.js'
+import cmd from '../../utils/cmd.js'
 import SSH from '../../ssh/index.js'
 import clone from '../setup/index.js'
 

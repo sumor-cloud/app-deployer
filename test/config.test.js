@@ -113,7 +113,6 @@ describe('Config', () => {
       url: 'https://github.com/demo/demo.git'
     }
     const scopeConfig = configFormatter(config)
-    console.log(JSON.stringify(scopeConfig, null, 4))
     const expectFilePath = `${process.cwd()}/test/expect/configFormatter.json`
     // await fse.writeFile(expectFilePath, JSON.stringify(scopeConfig, null, 4))
     const expectResult = await fse.readJson(expectFilePath)

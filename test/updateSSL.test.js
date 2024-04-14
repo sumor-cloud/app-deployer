@@ -2,9 +2,9 @@ import {
   describe, expect, it, beforeAll, afterAll
 } from '@jest/globals'
 
-import testConfig from '../config.js'
-import SSH from '../../src/deploy/ssh/index.js'
-import updateSSL from '../../src/deploy/updateSSL/index.js'
+import testConfig from './config.js'
+import SSH from '../src/ssh/index.js'
+import updateSSL from '../src/updateSSL/index.js'
 
 describe('Update SSL', () => {
   beforeAll(async () => {

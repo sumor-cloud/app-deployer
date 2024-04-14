@@ -1,10 +1,10 @@
-import updateRoute from './route/index.js'
-import updateSSL from './updateSSL/index.js'
-import monitor from './monitor/index.js'
+import updateRoute from './deploy/route/index.js'
+import updateSSL from './deploy/updateSSL/index.js'
+import monitor from './deploy/monitor/index.js'
 
-import checkVersions from './version/check/index.js'
-import scale from './version/scale/index.js'
-import SSH from './ssh/index.js'
+import checkVersions from './deploy/version/check/index.js'
+import scale from './deploy/version/scale/index.js'
+import SSH from './deploy/ssh/index.js'
 
 export default async (config) => {
   try {

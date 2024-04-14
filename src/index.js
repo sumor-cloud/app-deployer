@@ -1,5 +1,5 @@
 import loadConfig from './config/index.js'
-import deploy from './deploy/index.js'
+import deploy from './deploy.js'
 
 export default async (options) => {
   options = options || {}

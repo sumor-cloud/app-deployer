@@ -2,11 +2,11 @@ import {
   describe, expect, it, beforeAll
 } from '@jest/globals'
 
-import stringifyUrl from '../../../src/deploy/version/setup/stringifyUrl.js'
-import repo from '../../repo.js'
-import clone from '../../../src/deploy/version/setup/index.js'
+import stringifyUrl from '../../src/version/setup/stringifyUrl.js'
+import repo from '../repo.js'
+import clone from '../../src/version/setup/index.js'
 import fse from 'fs-extra'
-import getCurrentBranch from '../../../src/deploy/version/setup/getCurrentBranch.js'
+import getCurrentBranch from '../../src/version/setup/getCurrentBranch.js'
 import os from 'os'
 
 describe('Git Tools', () => {

@@ -2,16 +2,16 @@ import {
   beforeAll,
   describe, expect, it
 } from '@jest/globals'
-import parseTagVersion from '../../../src/deploy/version/check/parseTagVersion.js'
+import parseTagVersion from '../../src/version/check/parseTagVersion.js'
 import fse from 'fs-extra'
-import clone from '../../../src/deploy/version/setup/index.js'
-import repo from '../../repo.js'
-import getBranches from '../../../src/deploy/version/check/getBranches.js'
-import getVersions from '../../../src/deploy/version/check/getVersions.js'
-import getCommits from '../../../src/deploy/version/check/getCommits.js'
-import parseBranchVersion from '../../../src/deploy/version/check/parseBranchVersion.js'
-import getBranchVersions from '../../../src/deploy/version/check/getBranchVersions.js'
-import check from '../../../src/deploy/version/check/index.js'
+import clone from '../../src/version/setup/index.js'
+import repo from '../repo.js'
+import getBranches from '../../src/version/check/getBranches.js'
+import getVersions from '../../src/version/check/getVersions.js'
+import getCommits from '../../src/version/check/getCommits.js'
+import parseBranchVersion from '../../src/version/check/parseBranchVersion.js'
+import getBranchVersions from '../../src/version/check/getBranchVersions.js'
+import check from '../../src/version/check/index.js'
 import os from 'os'
 describe('Version Tools', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/git/version/check`

@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import cmd from '../../../utils/cmd.js'
+import cmd from '../../utils/cmd.js'
 import stringifyUrl from './stringifyUrl.js'
 
 export default async (folder, config, branch) => {
