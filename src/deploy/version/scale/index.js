@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import SSH from '../../ssh/index.js'
 import updateRoute from '../../route/index.js'
 import deployNode from './deployNode.js'
-import cleanup from './cleanup/index.js'
+import cleanup from './cleanup.js'
 import OperateInstances from './operateInstances.js'
 
 export default async (config, versions, instances) => {

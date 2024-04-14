@@ -21,9 +21,7 @@ export default (ssh) => ({
       }
     }
   },
-  async run ({
-    mode, image, name, folder, port
-  }) {
+  async run ({ mode, image, name, folder, port }) {
     folder = folder || []
     port = port || []
 
