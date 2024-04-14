@@ -8,6 +8,7 @@ import YAML from 'yaml'
 
 import convert from '../src/config/convert.js'
 import load from '../src/config/load.js'
+import entry from '../src/config/index.js'
 import os from 'os'
 import configFormatter from '../src/config/formatter/index.js'
 import testConfig from './config.js'
@@ -59,6 +60,29 @@ describe('Config', () => {
     await fse.writeFile(`${root}/dummy.yaml`, '{"type":!@123}')
     const config = await load(root, 'dummy')
     expect(config.type).toBe(undefined)
+  })
+  it('Load scope config', async () => {
+    await fse.writeFile(`${root}/scope.json`, JSON.stringify({
+      env: {},
+      server: {
+        main: {
+        }
+      }
+    }))
+    await fse.writeFile(`${root}/scale.json`, JSON.stringify({
+
+    }))
+    const config = await entry(root, 'yml')
+    expect(config).toEqual({
+      env: {},
+      server: {
+        main: {
+          name: 'main'
+        }
+      },
+      scale: {},
+      live: []
+    })
   })
   it('获取实例配置', async () => {
     const config = {

@@ -3,7 +3,8 @@
 import { Command } from 'commander'
 import fs from 'fs'
 
-import deploy from './src/index.js'
+import deploy from './src/deploy.js'
+import loadConfig from './src/config/index.js'
 
 // ESM not support __dirname, so we need to use import.meta.url
 const pkgPath = new URL('./package.json', import.meta.url)
@@ -21,7 +22,10 @@ program
   .description('Deploy')
   .option('-t, --type [type]', 'Target configuration file type, such as yaml, json')
   .action(async (options) => {
-    await deploy(options)
+    options = options || {}
+    options.root = options.root || process.cwd()
+    const config = await loadConfig(options.root, options.type)
+    await deploy(config)
   })
 
 program.parse()
