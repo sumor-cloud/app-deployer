@@ -76,7 +76,7 @@ describe('Version Tools', () => {
     const commits = await getCommits(path, 'v1.x')
     expect(commits).toBeDefined()
 
-    const expectFilePath = `${process.cwd()}/test/deploy/version/expect/commits.json`
+    const expectFilePath = `${process.cwd()}/test/expect/commits.json`
     // await fse.writeFile(expectFilePath,JSON.stringify(commits,null,4));
     const expectResult = await fse.readJson(expectFilePath)
     expect(commits).toEqual(expectResult)
@@ -131,28 +131,28 @@ describe('Version Tools', () => {
 
     const versions = await getVersions(path, 'main')
     expect(versions).toBeDefined()
-    const expectFilePath = `${process.cwd()}/test/deploy/version/expect/versions.json`
+    const expectFilePath = `${process.cwd()}/test/expect/versions.json`
     // await fse.writeFile(expectFilePath,JSON.stringify(versions,null,4));
     const expectResult = await fse.readJson(expectFilePath)
     expect(versions).toEqual(expectResult)
 
     const versions1 = await getVersions(path, 'v1.x')
     expect(versions1).toBeDefined()
-    const expectFilePath1 = `${process.cwd()}/test/deploy/version/expect/versions1.json`
+    const expectFilePath1 = `${process.cwd()}/test/expect/versions1.json`
     // await fse.writeFile(expectFilePath1,JSON.stringify(versions1,null,4));
     const expectResult1 = await fse.readJson(expectFilePath1)
     expect(versions1).toEqual(expectResult1)
 
     const versions2 = await getVersions(path, 'v2.x')
     expect(versions2).toBeDefined()
-    const expectFilePath2 = `${process.cwd()}/test/deploy/version/expect/versions2.json`
+    const expectFilePath2 = `${process.cwd()}/test/expect/versions2.json`
     // await fse.writeFile(expectFilePath2,JSON.stringify(versions2,null,4));
     const expectResult2 = await fse.readJson(expectFilePath2)
     expect(versions2).toEqual(expectResult2)
 
     const branchVersion = await getBranchVersions(path)
     expect(branchVersion).toBeDefined()
-    const expectFilePath3 = `${process.cwd()}/test/deploy/version/expect/branchVersion.json`
+    const expectFilePath3 = `${process.cwd()}/test/expect/branchVersion.json`
     // await fse.writeFile(expectFilePath3,JSON.stringify(branchVersion,null,4));
     const expectResult3 = await fse.readJson(expectFilePath3)
     expect(branchVersion).toEqual(expectResult3)
@@ -165,7 +165,7 @@ describe('Version Tools', () => {
     }
     const versions = await check(config)
     expect(versions).toBeDefined()
-    const expectFilePath = `${process.cwd()}/test/deploy/version/expect/branchVersion.json`
+    const expectFilePath = `${process.cwd()}/test/expect/branchVersion.json`
     const expectResult = await fse.readJson(expectFilePath)
     expect(versions).toEqual({
       version: expectResult

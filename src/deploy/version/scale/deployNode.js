@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
-import cmd from '../../utils/cmd.js'
-import SSH from '../ssh/index.js'
-import clone from '../version/setup/index.js'
+import cmd from '../../../utils/cmd.js'
+import SSH from '../../ssh/index.js'
+import clone from '../setup/index.js'
 
 // const checkDockerStatus = async (ssh, host, port, wait) => {
 //   const checkStatus = async () => {
@@ -57,9 +57,12 @@ export default async ({
       await fse.ensureDir(`${process.cwd()}/tmp/build`)
       try {
         await clone(buildPath, git, version.id)
-        await cmd('npm i', { cwd: buildPath })
-        await cmd('npm run build', { cwd: buildPath })
-        await fse.remove(`${buildPath}/web`)
+        await cmd('npm i', { cwd: buildPath }, (data) => {
+          console.log(data)
+        })
+        await cmd('npm run build', { cwd: buildPath }, (data) => {
+          console.log(data)
+        })
         await fse.remove(`${buildPath}/node_modules`)
         await fse.remove(`${buildPath}/tmp`)
       } catch (e) {

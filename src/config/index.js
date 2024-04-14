@@ -1,5 +1,6 @@
 import load from './load.js'
 import convert from './convert.js'
+import configFormatter from './formatter/index.js'
 
 export default async (root, type) => {
   const config = await load(root, 'scope')
@@ -19,6 +20,7 @@ export default async (root, type) => {
   }
 
   config.scale = scale
+  Object.assign(config, configFormatter(config))
 
   return config
 }

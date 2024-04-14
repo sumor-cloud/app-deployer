@@ -1,4 +1,4 @@
-import SSH from '../ssh/index.js'
+import SSH from './index.js'
 
 export default async (scope) => {
   const instances = {}

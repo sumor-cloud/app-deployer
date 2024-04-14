@@ -9,6 +9,7 @@ import YAML from 'yaml'
 import convert from '../src/config/convert.js'
 import load from '../src/config/load.js'
 import os from 'os'
+import configFormatter from '../src/config/formatter/index.js'
 
 describe('Config', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/config`
@@ -57,5 +58,54 @@ describe('Config', () => {
     await fse.writeFile(`${root}/dummy.yaml`, '{"type":!@123}')
     const config = await load(root, 'dummy')
     expect(config.type).toBe(undefined)
+  })
+  it('获取实例配置', async () => {
+    const config = {
+      source: {
+        demo: {
+          url: 'https://github.com/demo/demo.git'
+        }
+      },
+      server: {
+        main: {
+          host: '1.2.3.4',
+          port: 22,
+          username: 'root',
+          password: 'Abcd1234'
+        }
+      },
+      env: {
+        production: {
+          demo: {
+            domain: 'www.demo.com',
+            entry: 'main'
+          }
+        }
+      },
+      scale: {
+        production: {
+          demo: {
+            '1.0.0': {
+              instance: {
+                main: 2
+              }
+            },
+            '1.0.1': {
+              live: true,
+              instance: {
+                main: 4
+              }
+            }
+          }
+        }
+
+      }
+    }
+    const scopeConfig = configFormatter(config)
+    console.log(JSON.stringify(scopeConfig, null, 4))
+    const expectFilePath = `${process.cwd()}/test/expect/configFormatter.json`
+    await fse.writeFile(expectFilePath, JSON.stringify(scopeConfig, null, 4))
+    const expectResult = await fse.readJson(expectFilePath)
+    expect(scopeConfig).toEqual(expectResult)
   })
 })

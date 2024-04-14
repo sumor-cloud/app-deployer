@@ -1,6 +1,6 @@
 import parseInstanceId from './parseInstanceId.js'
-import conf from './site/conf/index.js'
-import pages from './site/pages.js'
+import conf from './nginx/conf/index.js'
+import pages from './nginx/pages.js'
 import SSH from '../ssh/index.js'
 
 export default async (config, instances, force) => {
@@ -50,7 +50,7 @@ export default async (config, instances, force) => {
     const nginxConfig = conf(apps)
 
     const ssh = SSH(config.server[server])
-    const sitePath = '/usr/sumor-cloud/site'
+    const sitePath = '/usr/sumor-cloud/nginx'
     await ssh.file.ensureDir(sitePath)
     await ssh.file.ensureDir(`${sitePath}/pages`)
     await ssh.file.writeFile(`${sitePath}/nginx.conf`, nginxConfig)
@@ -78,8 +78,8 @@ export default async (config, instances, force) => {
           { from: `${sitePath}/nginx.conf`, to: '/etc/nginx/nginx.conf' },
           { from: `${sitePath}/pages`, to: '/etc/nginx/pages' },
           { from: sslPath, to: '/etc/nginx/ssl' },
-          { from: '/tmp/sumor-cloud/site', to: '/tmp' },
-          { from: '/tmp/sumor-cloud/site-nginx', to: '/var/log/nginx' }
+          { from: '/tmp/sumor-cloud/nginx', to: '/tmp' },
+          { from: '/tmp/sumor-cloud/nginx-nginx', to: '/var/log/nginx' }
         ],
         port: ports.map((port) => ({ from: port, to: port }))
       })
@@ -88,6 +88,7 @@ export default async (config, instances, force) => {
     await ssh.docker.exec(instanceId, 'nginx -s stop')
     await ssh.docker.exec(instanceId, 'nginx -c /etc/nginx/nginx.conf')
     // await ssh.docker.exec(instanceId, "nginx -s reload");
+    // service nginx start
 
     await ssh.disconnect()
   }

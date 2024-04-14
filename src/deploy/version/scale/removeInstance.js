@@ -1,4 +1,4 @@
-import SSH from '../ssh/index.js'
+import SSH from '../../ssh/index.js'
 
 export default async (server, id) => {
   const ssh = SSH(server)

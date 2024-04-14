@@ -16,6 +16,8 @@ npm install app-deployer -g
 ### Node.JS version
 Require Node.JS version 18.x or above
 
+### Git Client
+Require [Git Client](https://git-scm.com/) to clone the repository
 ## Usage
 
 You can use the `ade --help` command to get a list of all available commands.
