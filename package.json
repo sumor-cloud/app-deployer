@@ -48,6 +48,7 @@
     "audit": "npm audit fix --force",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
     "test-config": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/config.test.js'",
+    "test-updateSSL": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/updateSSL.test.js'",
     "test-docker": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/docker.test.js'",
     "test-deploy-version": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/deploy/version/**/*.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",

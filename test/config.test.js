@@ -10,6 +10,7 @@ import convert from '../src/config/convert.js'
 import load from '../src/config/load.js'
 import os from 'os'
 import configFormatter from '../src/config/formatter/index.js'
+import testConfig from './config.js'
 
 describe('Config', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/config`
@@ -61,6 +62,7 @@ describe('Config', () => {
   })
   it('获取实例配置', async () => {
     const config = {
+      ...testConfig,
       source: {
         demo: {
           url: 'https://github.com/demo/demo.git'
@@ -101,10 +103,19 @@ describe('Config', () => {
 
       }
     }
+    config.server.main = {
+      host: '1.2.3.4',
+      port: 22,
+      username: 'root',
+      password: 'Abcd1234'
+    }
+    config.source.demo = {
+      url: 'https://github.com/demo/demo.git'
+    }
     const scopeConfig = configFormatter(config)
     console.log(JSON.stringify(scopeConfig, null, 4))
     const expectFilePath = `${process.cwd()}/test/expect/configFormatter.json`
-    await fse.writeFile(expectFilePath, JSON.stringify(scopeConfig, null, 4))
+    // await fse.writeFile(expectFilePath, JSON.stringify(scopeConfig, null, 4))
     const expectResult = await fse.readJson(expectFilePath)
     expect(scopeConfig).toEqual(expectResult)
   })

@@ -30,7 +30,7 @@ const formatSize = (size) => {
 }
 
 export default async (server) => {
-  const ssh = SSH(server)
+  const ssh = new SSH(server)
   const system = await ssh.monitor.system()
   await ssh.disconnect()
 

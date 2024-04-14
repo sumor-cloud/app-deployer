@@ -44,7 +44,7 @@ export default async (config, versions, instances) => {
               buildGenerated[`${app}|${version}`] = true
             }
             if (versionInfo.beta && !imageGenerated[`${app}|${version}|${server}`]) {
-              const ssh = SSH(config.server[server])
+              const ssh = new SSH(config.server[server])
               await ssh.docker.deleteImage(app, version)
               await ssh.disconnect()
               imageGenerated[`${app}|${version}|${server}`] = true

@@ -49,7 +49,7 @@ export default async (config, instances, force) => {
 
     const nginxConfig = conf(apps)
 
-    const ssh = SSH(config.server[server])
+    const ssh = new SSH(config.server[server])
     const sitePath = '/usr/sumor-cloud/nginx'
     await ssh.file.ensureDir(sitePath)
     await ssh.file.ensureDir(`${sitePath}/pages`)

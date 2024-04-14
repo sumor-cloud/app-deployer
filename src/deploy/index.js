@@ -1,10 +1,10 @@
-import loadInstances from './ssh/loadInstances.js'
 import updateRoute from './route/index.js'
 import updateSSL from './updateSSL/index.js'
 import monitorSystem from './monitor/system.js'
 
 import checkVersions from './version/check/index.js'
 import scale from './version/scale/index.js'
+import SSH from './ssh/index.js'
 
 export default async (config) => {
   try {
@@ -25,7 +25,15 @@ export default async (config) => {
 
     // 获取服务器实例状态
     console.log('\n\n ==================== 获取服务器实例状态 ==================== \n')
-    const instances = await loadInstances(config)
+    const instances = {}
+    for (const server in config.server) {
+      const ssh = new SSH(config.server[server])
+      let serverInstances = await ssh.docker.instances()
+      // serverInstances = serverInstances.sort((x, y) => x.instanceId > y.instanceId ? 1 : -1);
+      serverInstances = serverInstances.filter((obj) => obj.instanceId.indexOf('sumor_app') === 0)
+      instances[server] = serverInstances.map((o) => o.instanceId)
+      await ssh.disconnect()
+    }
     for (const server in instances) {
       console.log(`服务器${server}现存实例列表`)
       for (const i in instances[server]) {

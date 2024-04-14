@@ -41,7 +41,7 @@ import clone from '../setup/index.js'
 export default async ({
   server, app, env, git, version, domain
 }) => {
-  const ssh = SSH(server)
+  const ssh = new SSH(server)
 
   const checkExists = async () => {
     const images = await ssh.docker.images()
