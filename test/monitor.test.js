@@ -21,9 +21,13 @@ describe('Monitor', () => {
     expect(system.uptime).toBeGreaterThan(0)
   })
   it('Format Time', async () => {
-    const UTC0Time = 1713102828681 - 8 * 60 * 60 * 1000
-    const time = formatTime(UTC0Time - new Date().getTimezoneOffset() * 60 * 1000)
-    expect(time).toBe('2024-04-14 21:53:48')
+    const UTC0Time = 1713102828681
+    const time1 = formatTime(UTC0Time, 0)
+    expect(time1).toBe('2024-04-14 13:53:48')
+    const time2 = formatTime(UTC0Time, 8)
+    expect(time2).toBe('2024-04-14 21:53:48')
+    const time3 = formatTime(UTC0Time - new Date().getTimezoneOffset() * 60 * 1000)
+    expect(time3).toBe('2024-04-14 13:53:48')
   })
   it('Format Size', async () => {
     expect(formatSize(500)).toBe('500.00MB')
