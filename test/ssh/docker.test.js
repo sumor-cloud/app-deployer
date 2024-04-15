@@ -4,7 +4,7 @@ import {
 
 import SSH from '@sumor/ssh-tools'
 // import docker from '../../src/ssh/tools/docker.js'
-import server from '../../server.js'
+import server from '../server.js'
 
 describe('SSH docker tool', () => {
   it('init', async () => {

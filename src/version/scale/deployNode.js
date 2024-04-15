@@ -1,42 +1,7 @@
 import fse from 'fs-extra'
-import cmd from '../../utils/cmd.js'
 import SSH from '../../ssh/index.js'
 import clone from '../setup/index.js'
-
-// const checkDockerStatus = async (ssh, host, port, wait) => {
-//   const checkStatus = async () => {
-//     try {
-//       const res = await ssh.docker.execCommand(`https://${host}:${port}`);
-//       console.log(res);
-//       if (res.status === 200) {
-//         return true;
-//       }
-//     } catch (e) {
-//       return false;
-//     }
-//   };
-//   if (wait) {
-//     let status = false;
-//     return await new Promise((resolve, reject) => {
-//       let costTime = 0;
-//       const timer = setInterval(async () => {
-//         status = await checkStatus();
-//         if (status) {
-//           clearInterval(timer);
-//           resolve(true);
-//         } else {
-//           costTime += 1000;
-//           if (costTime > wait) {
-//             clearInterval(timer);
-//             resolve(false);
-//           }
-//         }
-//       }, 1000);
-//     });
-//   } else {
-//     return await checkStatus();
-//   }
-// };
+import buildNodeJS from './buildNodeJS.js'
 
 export default async ({
   server, app, env, git, version, domain
@@ -55,19 +20,8 @@ export default async ({
     if (!await fse.exists(buildPath)) {
       console.log(`正在构建源代码到${buildPath}`)
       await fse.ensureDir(`${process.cwd()}/tmp/build`)
-      try {
-        await clone(buildPath, git, version.id)
-        await cmd('npm i', { cwd: buildPath }, (data) => {
-          console.log(data)
-        })
-        await cmd('npm run build', { cwd: buildPath }, (data) => {
-          console.log(data)
-        })
-        await fse.remove(`${buildPath}/node_modules`)
-        await fse.remove(`${buildPath}/tmp`)
-      } catch (e) {
-        console.log(e)
-      }
+      await clone(buildPath, git, version.id)
+      await buildNodeJS(buildPath)
     }
     console.log('代码构建完成')
     console.log(`正在构建版本${version.name}镜像`)

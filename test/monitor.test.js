@@ -21,7 +21,8 @@ describe('Monitor', () => {
     expect(system.uptime).toBeGreaterThan(0)
   })
   it('Format Time', async () => {
-    const time = formatTime(1713102828681)
+    const UTC0Time = 1713102828681 - 8 * 60 * 60 * 1000
+    const time = formatTime(UTC0Time - new Date().getTimezoneOffset() * 60 * 1000)
     expect(time).toBe('2024-04-14 21:53:48')
   })
   it('Format Size', async () => {
