@@ -24,5 +24,11 @@ jobs:
         run: echo '${{ secrets.TEST_SERVER }}' > ./test/config/server.json
       - name: Export config TEST_REPO
         run: echo '${{ secrets.TEST_REPO }}' > ./test/config/repo.json
+      - name: Ensure ssl directory exists
+        run: mkdir -p ./test/config/ssl
+      - name: Export config TEST_SSL_PUBLIC
+        run: echo '${{ secrets.TEST_SSL_PUBLIC }}' > ./test/config/ssl/domain.cer
+      - name: Export config TEST_SSL_PRIVATE
+        run: echo '${{ secrets.TEST_SSL_PRIVATE }}' > ./test/config/ssl/domain.key
       - name: Unit test using Jest
         run: npm run test

@@ -22,7 +22,7 @@
     "fs-extra": "^11.2.0",
     "selfsigned": "^2.4.1",
     "yaml": "^2.4.1",
-    "@sumor/ssh-tools": "^1.0.3"
+    "@sumor/ssh-tools": "^1.0.4"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

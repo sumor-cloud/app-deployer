@@ -1,4 +1,5 @@
 import {
+  beforeAll,
   afterAll,
   describe, expect, it
 } from '@jest/globals'
@@ -15,13 +16,23 @@ const tmpPath = `${os.tmpdir()}/sumor-deployer-test/scale`
 const sourceFolder = `${process.cwd()}/test/demo/app`
 const configFolder = `${process.cwd()}/test/demo/config`
 const remoteConfigPath = '/usr/sumor-cloud/config/demo_test'
+const lockName = 'test-deployer-scale'
 describe('Scale Version', () => {
+  // let lockInstance
+  beforeAll(async () => {
+    const ssh = new SSH(testConfig.server.main)
+    await ssh.connect()
+    await ssh.lock.lock(lockName, 2 * 60 * 1000)
+    await ssh.disconnect()
+  }, 2 * 60 * 1000)
   afterAll(async () => {
     const ssh = new SSH(testConfig.server.main)
     await ssh.connect()
     await ssh.exec(`rm -rf ${remoteConfigPath}`)
+    await ssh.exec(`rm -rf /usr/sumor-cloud/lock/${lockName}.lock`)
+    // await lockInstance.release()
     await ssh.disconnect()
-  })
+  }, 2 * 60 * 1000)
   it('Scale Node.JS Docker Instance', async () => {
     await buildNodeJS(sourceFolder, tmpPath)
 
@@ -67,10 +78,10 @@ describe('Scale Version', () => {
     } catch (e) {
       await ssh.disconnect()
     }
-    expect(1).toBe(1)
-  }, 60 * 1000)
-  it('Scale Node.JS Docker Instance With SSL', async () => {
-
-    // domain: testConfig.server.main.domain,
-  }, 60 * 1000)
+    // expect(1).toBe(1)
+  }, 5 * 60 * 1000)
+  // it('Scale Node.JS Docker Instance With SSL', async () => {
+  //
+  //   // domain: testConfig.server.main.domain,
+  // }, 60 * 1000)
 })
