@@ -1,4 +1,4 @@
-import updateRoute from '../../route/index.js'
+import updateRoute from '../route/index.js'
 import removeInstance from './removeInstance.js'
 
 export default async (config, keep, server, cut) => {

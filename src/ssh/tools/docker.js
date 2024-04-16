@@ -80,42 +80,6 @@ export default (ssh) => ({
   async build (app, version, remotePath) {
     await this.execCommand(`docker build -t ${app}:${version} .`, { cwd: remotePath })
   },
-  async buildNode (app, version, localPath) {
-    const dockerfile = `FROM node:18.15.0
-
-# 创建/usr/runtime目录
-RUN mkdir -p /usr/runtime
-RUN mkdir -p /usr/ssl
-
-# 初始化源代码目录
-WORKDIR /usr/source
-COPY ./source /usr/source
-RUN npm install
-
-CMD ["npm", "start"]`
-    const root = `/tmp/sumor-deployer-version/${app}_${version}`
-    const sourcePath = `${root}/source`
-    await ssh.file.ensureDir(sourcePath)
-    await ssh.file.putFolder(localPath, sourcePath)
-    if (!await ssh.file.exists(`${sourcePath}/.npmrc`)) {
-      const npmrc = `registry=https://registry.npmmirror.com
-sass_binary_site=https://registry.npmmirror.com/mirrors/node-sass/
-sharp_binary_host=https://registry.npmmirror.com/mirrors/sharp
-sharp_libvips_binary_host=https://registry.npmmirror.com/mirrors/sharp-libvips
-electron_mirror=https://registry.npmmirror.com/mirrors/electron/
-puppeteer_download_host=https://registry.npmmirror.com/mirrors/
-phantomjs_cdnurl=https://registry.npmmirror.com/mirrors/phantomjs/
-sentrycli_cdnurl=https://registry.npmmirror.com/mirrors/sentry-cli/
-sqlite3_binary_site=https://registry.npmmirror.com/mirrors/sqlite3/
-python_mirror=https://registry.npmmirror.com/mirrors/python/`
-
-      await ssh.file.writeFile(`${sourcePath}/.npmrc`, npmrc)
-    }
-    await ssh.file.writeFile(`${root}/Dockerfile`, dockerfile)
-    const logs = await this.execCommand(`docker build -t ${app}:${version} .`, { cwd: root })
-    console.log(logs)
-    await ssh.file.remove(root)
-  },
   async instances () {
     const list = await this._checkInfo('docker ps -a', ['Names', 'CreatedAt', 'Status', 'Ports', 'Size'])
     for (const i in list) {

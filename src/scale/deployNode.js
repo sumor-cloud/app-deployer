@@ -1,19 +1,16 @@
 import fse from 'fs-extra'
-import SSH from '../../ssh/index.js'
-import clone from '../setup/index.js'
-import buildNodeJS from './buildNodeJS.js'
+import SSH from '../ssh/index.js'
+import clone from '../version/setup/index.js'
+import buildNodeJS from '../version/build/buildNodeJS.js'
+import buildImage from '../version/build/buildImage.js'
+import checkImageExists from '../version/build/checkImageExists.js'
 
 export default async ({
   server, app, env, git, version, domain
 }) => {
   const ssh = new SSH(server)
 
-  const checkExists = async () => {
-    const images = await ssh.docker.images()
-    const image = images.find((image) => image.Repository === app && image.Tag === version.name)
-    return !!image
-  }
-  const existsImage = await checkExists()
+  const existsImage = await checkImageExists(ssh, app, version.name)
   if (!existsImage) {
     console.log('开始构建代码')
     const buildPath = `${process.cwd()}/tmp/build/${app}/${version.name}`
@@ -25,7 +22,7 @@ export default async ({
     }
     console.log('代码构建完成')
     console.log(`正在构建版本${version.name}镜像`)
-    await ssh.docker.buildNode(app, version.name, buildPath)
+    await buildImage(ssh, { app, version: version.name, source: buildPath })
     console.log('构建版本镜像完成')
   }
 
@@ -58,11 +55,7 @@ export default async ({
   console.log(`正在部署实例到容器${dockerId}`)
   await ssh.docker.execCommand(`docker run -itd --restart=on-failure -v ${remoteInstance}:/usr/source/instance.json:ro -v ${remoteEnv}:/usr/source/config:ro -v /usr/sumor-cloud/ssl/${domain}:/usr/source/ssl:ro -p ${port}:443 --name ${dockerId} -d ${app}:${version.name}`)
 
-  // const status = await checkDockerStatus(ssh, serverConfig.iHost || serverConfig.host, port, 10 * 1000);
   await ssh.disconnect()
-  // if (!status) {
-  //   throw new Error(`容器启动失败`);
-  // }
 
   return dockerId
 }

@@ -4,14 +4,15 @@ import {
 } from '@jest/globals'
 import os from 'os'
 import fse from 'fs-extra'
-import buildNodeJS from '../../src/version/scale/buildNodeJS.js'
-import buildImage from '../../src/version/scale/buildImage.js'
+import buildNodeJS from '../../src/version/build/buildNodeJS.js'
+import buildImage from '../../src/version/build/buildImage.js'
+import checkImageExists from '../../src/version/build/checkImageExists.js'
 import testConfig from '../config.js'
 import SSH from '../../src/ssh/index.js'
 
-const tmpPath = `${os.tmpdir()}/sumor-deployer-test/scale`
+const tmpPath = `${os.tmpdir()}/sumor-deployer-test/build`
 
-describe('Scale Version', () => {
+describe('Build Version', () => {
   beforeAll(async () => {
     await fse.remove(tmpPath)
   })
@@ -33,9 +34,9 @@ describe('Scale Version', () => {
     try {
       await ssh.connect()
 
-      let images = await ssh.docker.images()
-      const existsImage = images.filter((obj) => obj.Repository === 'test-deployer' && obj.Tag === '1.0.0')[0]
-      if (existsImage) {
+      // clean up the image before testing
+      const imageExists = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      if (imageExists) {
         await ssh.docker.deleteImage('test-deployer', '1.0.0')
       }
 
@@ -45,15 +46,13 @@ describe('Scale Version', () => {
         source: tmpPath
       })
 
-      images = await ssh.docker.images()
-      const image1 = images.filter((obj) => obj.Repository === 'test-deployer' && obj.Tag === '1.0.0')[0]
-      expect(image1).toBeTruthy()
+      const imageExists1 = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      expect(imageExists1).toBeTruthy()
 
       await ssh.docker.deleteImage('test-deployer', '1.0.0')
 
-      images = await ssh.docker.images()
-      const image2 = images.filter((obj) => obj.Repository === 'test-deployer' && obj.Tag === '1.0.0')[0]
-      expect(image2).toBeFalsy()
+      const imageExists2 = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      expect(imageExists2).toBeFalsy()
 
       await ssh.disconnect()
     } catch (e) {
