@@ -12,15 +12,6 @@ export default (ssh) => ({
       }
     }
   },
-  async delete (id) {
-    try {
-      await this.execCommand(`docker rm -f ${id}`)
-    } catch (e) {
-      if (e.message.indexOf('No such container') < 0) {
-        throw e
-      }
-    }
-  },
   async run ({ mode, image, name, folder, port }) {
     folder = folder || []
     port = port || []
@@ -74,7 +65,7 @@ export default (ssh) => ({
   async images () {
     return await this._checkInfo('docker images', ['Repository', 'Tag', 'Size'])
   },
-  async deleteImage (app, version) {
+  async removeImage (app, version) {
     await this.execCommand(`docker image rmi -f ${app}:${version}`)
   },
   async build (app, version, remotePath) {

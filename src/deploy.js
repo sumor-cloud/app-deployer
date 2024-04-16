@@ -3,7 +3,7 @@ import updateSSL from './updateSSL/index.js'
 import monitor from './monitor/index.js'
 
 import checkVersions from './version/check/index.js'
-import scale from './scale/index.js'
+import scale from './deploy/index.js'
 import SSH from './ssh/index.js'
 
 export default async (config) => {

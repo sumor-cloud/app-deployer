@@ -60,7 +60,7 @@ export default async (config, instances, force) => {
     const instanceId = 'sumor_site'
 
     if (force) {
-      await ssh.docker.delete(instanceId)
+      await ssh.docker.remove(instanceId)
     }
 
     // 确保站点存在

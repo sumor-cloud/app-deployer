@@ -17,7 +17,7 @@ describe('Build Version', () => {
     await fse.remove(tmpPath)
   })
   it('Build Node.JS Package', async () => {
-    const sourceFolder = `${process.cwd()}/test/demoapp`
+    const sourceFolder = `${process.cwd()}/test/demo/app`
     await buildNodeJS(sourceFolder, tmpPath)
 
     const demoFile = await fse.readFile(`${tmpPath}/demo.js`, 'utf-8')
@@ -35,23 +35,23 @@ describe('Build Version', () => {
       await ssh.connect()
 
       // clean up the image before testing
-      const imageExists = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      const imageExists = await checkImageExists(ssh, 'test-deployer-build', '1.0.0')
       if (imageExists) {
-        await ssh.docker.deleteImage('test-deployer', '1.0.0')
+        await ssh.docker.removeImage('test-deployer-build', '1.0.0')
       }
 
       await buildImage(ssh, {
-        app: 'test-deployer',
+        app: 'test-deployer-build',
         version: '1.0.0',
         source: tmpPath
       })
 
-      const imageExists1 = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      const imageExists1 = await checkImageExists(ssh, 'test-deployer-build', '1.0.0')
       expect(imageExists1).toBeTruthy()
 
-      await ssh.docker.deleteImage('test-deployer', '1.0.0')
+      await ssh.docker.removeImage('test-deployer-build', '1.0.0')
 
-      const imageExists2 = await checkImageExists(ssh, 'test-deployer', '1.0.0')
+      const imageExists2 = await checkImageExists(ssh, 'test-deployer-build', '1.0.0')
       expect(imageExists2).toBeFalsy()
 
       await ssh.disconnect()

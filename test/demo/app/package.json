@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sumor/ssl-server": "^1.0.12"
+    "@sumor/ssl-server": "^1.0.12",
+    "fs-extra": "^11.2.0"
   }
 }

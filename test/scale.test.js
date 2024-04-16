@@ -1,9 +1,76 @@
 import {
+  afterAll,
   describe, expect, it
 } from '@jest/globals'
+import os from 'os'
+import buildNodeJS from '../src/version/build/buildNodeJS.js'
+import buildImage from '../src/version/build/buildImage.js'
+import SSH from '../src/ssh/index.js'
+import testConfig from './config.js'
+import scaleNodeJSInstance from '../src/scale/scaleNodeJSInstance.js'
+import axios from 'axios'
+import https from 'https'
 
+const tmpPath = `${os.tmpdir()}/sumor-deployer-test/scale`
+const sourceFolder = `${process.cwd()}/test/demo/app`
+const configFolder = `${process.cwd()}/test/demo/config`
+const remoteConfigPath = '/usr/sumor-cloud/config/demo_test'
 describe('Scale Version', () => {
+  afterAll(async () => {
+    const ssh = new SSH(testConfig.server.main)
+    await ssh.connect()
+    await ssh.exec(`rm -rf ${remoteConfigPath}`)
+    await ssh.disconnect()
+  })
   it('Scale Node.JS Docker Instance', async () => {
+    await buildNodeJS(sourceFolder, tmpPath)
+
+    const ssh = new SSH(testConfig.server.main)
+    try {
+      await ssh.connect()
+
+      // clean up the image before testing
+      await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
+      await buildImage(ssh, {
+        app: 'test-deployer-scale',
+        version: '1.0.0',
+        source: tmpPath
+      })
+
+      console.log(`Scale NodeJS Instance with Domain: ${testConfig.server.main.domain}`)
+      const dockerId = await scaleNodeJSInstance(ssh, {
+        app: 'test-deployer-scale',
+        version: '1.0.0',
+        env: 'test',
+        localConfig: configFolder,
+        remoteConfig: remoteConfigPath
+      })
+
+      const domain = testConfig.server.main.domain
+      const port = dockerId.split('_').pop()
+      const url = `https://${domain}:${port}`
+
+      console.log(`Check if the instance is running at ${url}`)
+      const response = await axios.get(url, {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false
+        })
+      })
+
+      expect(response.data.status).toBe('OK')
+      expect(response.data.config.title).toBe('DEMO')
+
+      await ssh.docker.remove(dockerId)
+      await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
+
+      await ssh.disconnect()
+    } catch (e) {
+      await ssh.disconnect()
+    }
     expect(1).toBe(1)
+  }, 60 * 1000)
+  it('Scale Node.JS Docker Instance With SSL', async () => {
+
+    // domain: testConfig.server.main.domain,
   }, 60 * 1000)
 })
