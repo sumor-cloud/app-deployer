@@ -24,7 +24,7 @@ describe('Scale Version', () => {
     await ssh.connect()
     await ssh.lock.lock(lockName, 2 * 60 * 1000)
     await ssh.disconnect()
-  }, 2 * 60 * 1000)
+  }, 10 * 60 * 1000)
   afterAll(async () => {
     const ssh = new SSH(testConfig.server.main)
     await ssh.connect()
@@ -32,7 +32,7 @@ describe('Scale Version', () => {
     await ssh.exec(`rm -rf /usr/sumor-cloud/lock/${lockName}.lock`)
     // await lockInstance.release()
     await ssh.disconnect()
-  }, 2 * 60 * 1000)
+  }, 10 * 60 * 1000)
   it('Scale Node.JS Docker Instance', async () => {
     await buildNodeJS(sourceFolder, tmpPath)
 
