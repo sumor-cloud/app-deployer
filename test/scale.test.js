@@ -9,8 +9,6 @@ import buildImage from '../src/version/build/buildImage.js'
 import SSH from '../src/ssh/index.js'
 import testConfig from './config.js'
 import scaleNodeJSInstance from '../src/scale/scaleNodeJSInstance.js'
-import axios from 'axios'
-import https from 'https'
 
 const tmpPath = `${os.tmpdir()}/sumor-deployer-test/scale`
 const sourceFolder = `${process.cwd()}/test/demo/app`
@@ -57,32 +55,32 @@ describe('Scale Version', () => {
 
       console.log(`Docker running with ID: ${dockerId}`)
 
-      const domain = testConfig.server.main.domain
       const port = dockerId.split('_').pop()
-      const url = `https://${domain}:${port}`
 
-      console.log(`Check if the instance is running at ${url}`)
+      console.log(`Check if the instance is running at ${port}`)
       let response
-      let axiosError
+      let pingError
       try {
-        response = await axios.get(url, {
-          httpsAgent: new https.Agent({
-            rejectUnauthorized: false
-          })
+        await new Promise((resolve) => {
+          setTimeout(resolve, 5 * 1000)
         })
+        response = await ssh.exec(`curl --insecure https://localhost:${port}`, {
+          cwd: '/'
+        })
+        response = JSON.parse(response)
       } catch (e) {
-        axiosError = e
+        pingError = e
       }
 
       await ssh.docker.remove(dockerId)
       await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
 
-      if (axiosError) {
-        throw axiosError
+      if (pingError) {
+        throw pingError
       }
 
-      expect(response.data.status).toBe('OK')
-      expect(response.data.config.title).toBe('DEMO')
+      expect(response.status).toBe('OK')
+      expect(response.config.title).toBe('DEMO')
 
       await ssh.disconnect()
     } catch (e) {
