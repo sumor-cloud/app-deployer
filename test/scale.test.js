@@ -62,17 +62,27 @@ describe('Scale Version', () => {
       const url = `https://${domain}:${port}`
 
       console.log(`Check if the instance is running at ${url}`)
-      const response = await axios.get(url, {
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false
+      let response
+      let axiosError
+      try {
+        response = await axios.get(url, {
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+          })
         })
-      })
-
-      expect(response.data.status).toBe('OK')
-      expect(response.data.config.title).toBe('DEMO')
+      } catch (e) {
+        axiosError = e
+      }
 
       await ssh.docker.remove(dockerId)
       await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
+
+      if (axiosError) {
+        throw axiosError
+      }
+
+      expect(response.data.status).toBe('OK')
+      expect(response.data.config.title).toBe('DEMO')
 
       await ssh.disconnect()
     } catch (e) {
