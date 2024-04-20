@@ -18,19 +18,17 @@ const configFolder = `${process.cwd()}/test/demo/config`
 const remoteConfigPath = '/usr/sumor-cloud/config/demo_test'
 const lockName = 'test-deployer-scale'
 describe('Scale Version', () => {
-  // let lockInstance
+  let lockId
   beforeAll(async () => {
     const ssh = new SSH(testConfig.server.main)
     await ssh.connect()
-    await ssh.lock.lock(lockName, 2 * 60 * 1000)
+    lockId = await ssh.lock.lock(lockName, 2 * 60 * 1000)
     await ssh.disconnect()
   }, 10 * 60 * 1000)
   afterAll(async () => {
     const ssh = new SSH(testConfig.server.main)
     await ssh.connect()
-    await ssh.exec(`rm -rf ${remoteConfigPath}`)
-    await ssh.exec(`rm -rf /usr/sumor-cloud/lock/${lockName}.lock`)
-    // await lockInstance.release()
+    await ssh.lock.release(lockName, lockId)
     await ssh.disconnect()
   }, 10 * 60 * 1000)
   it('Scale Node.JS Docker Instance', async () => {
@@ -57,6 +55,8 @@ describe('Scale Version', () => {
         remoteConfig: remoteConfigPath
       })
 
+      console.log(`Docker running with ID: ${dockerId}`)
+
       const domain = testConfig.server.main.domain
       const port = dockerId.split('_').pop()
       const url = `https://${domain}:${port}`
@@ -77,8 +77,8 @@ describe('Scale Version', () => {
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
+      throw e
     }
-    // expect(1).toBe(1)
   }, 5 * 60 * 1000)
   // it('Scale Node.JS Docker Instance With SSL', async () => {
   //

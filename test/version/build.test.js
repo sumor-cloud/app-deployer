@@ -57,6 +57,7 @@ describe('Build Version', () => {
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
+      throw e
     }
-  }, 3 * 60 * 1000)
+  }, 5 * 60 * 1000)
 })
