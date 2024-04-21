@@ -1,4 +1,3 @@
-// import property from "./formatter/property";
 import entity from './formatter/entity.js'
 import connect from './formatter/connect.js'
 import httpServer from './httpServer.js'
@@ -7,12 +6,10 @@ import upstream from './upstream.js'
 import httpsServer from './httpsServer.js'
 import property from './formatter/property.js'
 
-export default (apps, options) => {
-  options = options || {}
-  options.user = options.user || 'root'
-
+export default (apps) => {
   const sections = []
   for (const app of apps) {
+    app.name = app.domain.replace(/\./g, '_')
     app.port = app.port || 443
     if (app.instances.length > 0) {
       sections.push(upstream(app.name, app.instances))
@@ -22,7 +19,7 @@ export default (apps, options) => {
 
   return connect([
     entity({
-      user: options.user,
+      user: 'root',
       worker_processes: 1
     }),
     section('events', [
@@ -33,7 +30,6 @@ export default (apps, options) => {
       property('proxy_send_timeout', '600s'),
       property('proxy_read_timeout', '600s'),
       property('server_tokens', 'off'),
-      // property("more_clear_headers", "Server"),
       property('client_max_body_size', '10m'),
       httpServer(),
       connect(sections)

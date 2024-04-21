@@ -4,6 +4,7 @@ import clone from '../version/setup/index.js'
 import buildNodeJS from '../version/build/buildNodeJS.js'
 import buildImage from '../version/build/buildImage.js'
 import checkImageExists from '../version/build/checkImageExists.js'
+import scaleNodeJSInstance from './scaleNodeJSInstance.js'
 
 export default async ({
   server, app, env, git, version, domain
@@ -33,28 +34,18 @@ export default async ({
   if (await fse.exists(envPath)) {
     await fse.copy(envPath, deployPath)
   }
-  const port = await ssh.port.getPort()
 
-  const instanceInfo = {
+  const dockerId = await scaleNodeJSInstance(ssh, {
     app,
-    env,
     version: version.name,
-    server: server.name,
-    port,
-    upTime: Date.now(),
-    versionTime: version.committerDate
-  }
-  const remoteEnv = `/usr/sumor-cloud/env/${app}_${env}`
-  await ssh.file.putFolder(deployPath, remoteEnv)
-  await fse.remove(deployPath)
-
-  const remoteInstance = `/usr/sumor-cloud/instance/${app}_${env}/${Date.now()}.json`
-  await ssh.file.writeFile(remoteInstance, JSON.stringify(instanceInfo, null, 4))
-
-  const dockerId = `sumor_app_${app}_${env}_${version.name}_${port}`
-  console.log(`正在部署实例到容器${dockerId}`)
-  await ssh.docker.execCommand(`docker run -itd --restart=on-failure -v ${remoteInstance}:/usr/source/instance.json:ro -v ${remoteEnv}:/usr/source/config:ro -v /usr/sumor-cloud/ssl/${domain}:/usr/source/ssl:ro -p ${port}:443 --name ${dockerId} -d ${app}:${version.name}`)
-
+    versionTime: version.committerDate,
+    env,
+    localConfig: deployPath,
+    remoteConfig: `/usr/sumor-cloud/env/${app}_${env}`,
+    domain,
+    server: server.name
+  })
+  console.log(`已部署新实例${dockerId}`)
   await ssh.disconnect()
 
   return dockerId

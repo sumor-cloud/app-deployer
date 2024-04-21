@@ -18,7 +18,8 @@ export default (app) => {
   }
   return section('server', [
     entity({
-      listen: `${app.port} ssl`,
+      server_tokens: 'off',
+      listen: `${app.port} ssl http2`,
       server_name: app.domain,
       access_log: `/tmp/${app.name}_access.log`,
       error_log: `/tmp/${app.name}_error.log`,

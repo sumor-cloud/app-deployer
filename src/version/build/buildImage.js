@@ -18,7 +18,7 @@ CMD ["npm", "start"]`
   await ssh.file.ensureDir(sourcePath)
   await ssh.file.putFolder(options.source, sourcePath)
   await ssh.file.writeFile(`${root}/Dockerfile`, dockerfile)
-  const logs = await ssh.docker.execCommand(`docker build -t ${options.app}:${options.version} .`, { cwd: root })
+  const logs = await ssh.docker.cmd(`docker build -t ${options.app}:${options.version} .`, { cwd: root })
   console.log(logs)
   await ssh.file.remove(root)
 }

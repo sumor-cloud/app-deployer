@@ -15,7 +15,7 @@
     "logging"
   ],
   "bin": {
-    "ade": "index.js"
+    "ade": "cli.js"
   },
   "dependencies": {
     "commander": "^12.0.0",
@@ -52,6 +52,7 @@
     "test-docker": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/docker.test.js'",
     "test-version": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/version/**/*.test.js'",
     "test-scale": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/scale.test.js'",
+    "test-route": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/route/**/*.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
