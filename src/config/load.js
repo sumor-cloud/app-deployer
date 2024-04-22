@@ -24,5 +24,5 @@ export default async (root, name) => {
     const filePath = path.normalize(path.join(process.cwd(), 'tmp/test', name))
     console.log(`Failed to parse configuration file ${filePath}.yml`)
   }
-  return result || {}
+  return result
 }

@@ -31,6 +31,7 @@ describe('Scale Version', () => {
   }, 10 * 60 * 1000)
   it('Scale Node.JS Docker Instance', async () => {
     await buildNodeJS(sourceFolder, tmpPath)
+    console.log('Build NodeJS Package Finished')
 
     const ssh = new SSH(testConfig.server.main)
     try {
@@ -53,7 +54,14 @@ describe('Scale Version', () => {
         remoteConfig: remoteConfigPath
       })
 
+      const instances = await ssh.docker.instances()
+      const exists = instances.filter((instance) => instance.instanceId === dockerId)
+      expect(exists.length).toBe(1)
       console.log(`Docker running with ID: ${dockerId}`)
+
+      const result = await ssh.docker.exec(dockerId, 'cat /usr/source/config/config.json')
+      const config = JSON.parse(result)
+      expect(config.title).toBe('DEMO')
 
       const port = dockerId.split('_').pop()
 
@@ -73,6 +81,7 @@ describe('Scale Version', () => {
       }
 
       await ssh.docker.remove(dockerId)
+      await ssh.docker.remove(dockerId) // Just for testing docker remove error handling
       await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
 
       if (pingError) {

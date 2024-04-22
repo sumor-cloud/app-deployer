@@ -3,15 +3,17 @@ import convert from './convert.js'
 import configFormatter from './formatter/index.js'
 
 export default async (root, type) => {
-  const config = await load(root, 'scope')
-
+  const config = await load(root, 'scope') || {}
   if (type) {
     await convert(root, 'scope', type)
   }
 
   const scale = await load(root, 'scale')
-  if (type) {
-    await convert(root, 'scale', type)
+  if (scale) {
+    config.scale = scale
+    if (type) {
+      await convert(root, 'scale', type)
+    }
   }
 
   // 补全数据
@@ -19,7 +21,6 @@ export default async (root, type) => {
     config.server[i].name = i
   }
 
-  config.scale = scale
   Object.assign(config, configFormatter(config))
 
   return config

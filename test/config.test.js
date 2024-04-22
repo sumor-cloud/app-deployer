@@ -59,7 +59,7 @@ describe('Config', () => {
   it('加载配置文件失败', async () => {
     await fse.writeFile(`${root}/dummy.yaml`, '{"type":!@123}')
     const config = await load(root, 'dummy')
-    expect(config.type).toBe(undefined)
+    expect(config).toBe(undefined)
   })
   it('Load scope config', async () => {
     await fse.writeFile(`${root}/scope.json`, JSON.stringify({

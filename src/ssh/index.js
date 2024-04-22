@@ -1,5 +1,5 @@
 import SSHBasic from '@sumor/ssh-tools'
-import docker from './tools/docker.js'
+import docker from './docker/index.js'
 
 class SSH extends SSHBasic {
   constructor (config) {
@@ -9,10 +9,3 @@ class SSH extends SSHBasic {
 }
 
 export default SSH
-// export default (config) => {
-//   const ssh = new SSHTools(config)
-//
-//   ssh.addTool('docker', docker)
-//
-//   return ssh
-// }
