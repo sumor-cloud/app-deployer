@@ -40,9 +40,7 @@ export default async (ssh, options) => {
   runConfig.push(`-p ${port}:443`)
   runConfig.push(`--name ${dockerId}`)
   runConfig.push(`-d ${app}:${version}`)
-  await ssh.docker.cmd(runConfig.join(' '), {
-    cwd: '/'
-  })
+  await ssh.docker.cmd(runConfig.join(' '))
 
   return dockerId
 }

@@ -12,9 +12,10 @@ export default async (server, nginxConfig, force) => {
 
   const instanceId = 'sumor_site'
 
-  if (force) {
-    await ssh.docker.remove(instanceId)
-  }
+  // if (force) {
+  //   await ssh.docker.remove(instanceId)
+  // }
+  await ssh.docker.remove(instanceId)
 
   // 确保站点存在
   const dockerInstances = await ssh.docker.instances()
@@ -23,27 +24,39 @@ export default async (server, nginxConfig, force) => {
     const sslPath = '/usr/sumor-cloud/ssl'
     await ssh.file.ensureDir(sslPath)
 
-    console.log('正在站点实例初始化')
+    // console.log('正在站点实例初始化')
     const runConfig = [
-      'docker run -itd --restart=on-failure',
-            `-v ${sitePath}/nginx.conf:/etc/nginx/nginx.conf:ro`,
-            `-v ${sitePath}/pages:/etc/nginx/pages:ro`,
+      'docker run -itd',
+            `-v ${sitePath}/nginx.conf:/etc/nginx/nginx.conf`,
+            `-v ${sitePath}/pages:/etc/nginx/pages`,
             `-v ${sslPath}:/etc/nginx/ssl:ro`,
-            '-v /tmp/sumor-cloud/nginx:/tmp',
-            '-v /tmp/sumor-cloud/nginx/main:/var/log/nginx'
+            '-v /tmp/sumor-cloud/site:/tmp',
+            '-v /tmp/sumor-cloud/site-nginx:/var/log/nginx'
     ]
     runConfig.push('-p 443:443 -p 80:80')
     runConfig.push(`--name ${instanceId}`)
     runConfig.push('-d nginx')
-    await ssh.docker.cmd(runConfig.join(' '), {
-      cwd: '/'
-    })
+    await ssh.docker.cmd(runConfig.join(' '))
+
+    console.log('站点实例已更新')
   }
 
-  await ssh.docker.exec(instanceId, 'nginx -s stop')
-  await ssh.docker.exec(instanceId, 'nginx -c /etc/nginx/nginx.conf')
-  // await ssh.docker.exec(instanceId, "nginx -s reload");
-  // service nginx start
+  // try {
+  //   await ssh.docker.cmd(`docker stop ${instanceId}`)
+  // }catch (e){
+  //   console.log(e)
+  // }
+  // try {
+  //   await ssh.docker.cmd(`docker start ${instanceId}`)
+  // }catch (e){
+  //   console.log(e)
+  // }
+  // try {
+  //   await ssh.docker.exec(instanceId, 'nginx -s stop')
+  //   await ssh.docker.exec(instanceId, 'nginx -c /etc/nginx/nginx.conf')
+  // }catch (e){
+  //   console.log(e)
+  // }
 
   await ssh.disconnect()
 }
