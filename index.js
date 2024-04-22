@@ -1,4 +1,4 @@
-import deployScope from './src/deploy.js'
+import deployScope from './src/deploy/index.js'
 import loadConfig from './src/config/index.js'
 
 const deploy = async (options) => {

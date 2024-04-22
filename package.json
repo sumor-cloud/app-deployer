@@ -46,13 +46,18 @@
     "lint": "eslint .",
     "audit": "npm audit fix --force",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
+
     "test-config": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/config.test.js'",
-    "test-updateSSL": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/updateSSL.test.js'",
+
+    "test-ssl": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssl/*.test.js'",
     "test-monitor": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/monitor.test.js'",
+    "test-site": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/site/**/*.test.js'",
+    "test-scale-version": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/version/**/*.test.js'",
+    "test-scale-scale": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/scale.test.js'",
+    "test-utils": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/utils/*.test.js'",
+
     "test-docker": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/docker.test.js'",
-    "test-version": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/version/**/*.test.js'",
-    "test-scale": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/scale.test.js'",
-    "test-route": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/route/**/*.test.js'",
+
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",

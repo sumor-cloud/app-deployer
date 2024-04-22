@@ -11,7 +11,7 @@ import load from '../src/config/load.js'
 import entry from '../src/config/index.js'
 import os from 'os'
 import configFormatter from '../src/config/formatter/index.js'
-import testConfig from './config.js'
+import testConfig from './assets/config.js'
 
 describe('Config', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/config`
@@ -137,7 +137,7 @@ describe('Config', () => {
       url: 'https://github.com/demo/demo.git'
     }
     const scopeConfig = configFormatter(config)
-    const expectFilePath = `${process.cwd()}/test/expect/configFormatter.json`
+    const expectFilePath = `${process.cwd()}/test/assets/expect/configFormatter.json`
     // await fse.writeFile(expectFilePath, JSON.stringify(scopeConfig, null, 4))
     const expectResult = await fse.readJson(expectFilePath)
     expect(scopeConfig).toEqual(expectResult)

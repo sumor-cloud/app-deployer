@@ -5,35 +5,12 @@ export default (ssh) => ({
   },
   async remove (id) {
     try {
-      await this.cmd(`docker rm -f ${id}`)
+      return await this.cmd(`docker rm -f ${id}`)
     } catch (e) {
       if (e.message.indexOf('No such container') < 0) {
         throw e
       }
     }
-  },
-  async run ({ mode, image, name, folder, port }) {
-    folder = folder || []
-    port = port || []
-
-    const cmd = ['docker', 'run']
-    cmd.push('-itd')
-    for (const i in folder) {
-      cmd.push(`-v ${folder[i].from}:${folder[i].to}${folder[i].readOnly ? ':ro' : ''}`)
-    }
-    for (const i in port) {
-      cmd.push(`-p ${port[i].from}:${port[i].to}`)
-    }
-    if (name) {
-      cmd.push(`--name ${name}`)
-    }
-    if (image) {
-      cmd.push(`-d ${image}`)
-    }
-    if (mode !== '') {
-      cmd.push(mode || '/bin/bash')
-    }
-    return await this.cmd(cmd.join(' '))
   },
   async exec (id, cmd, options) {
     options = options || {}
@@ -49,27 +26,14 @@ export default (ssh) => ({
       options: { pty: true }
     })
   },
-  async export (id, path) {
-    await this.cmd(`docker export ${id} > ${path}`)
-  },
-  async import ({ path, name, version }) {
-    const imageName = `${name}:${version}`
-    const imageList = await this.images()
-    const existingImage = imageList.filter((obj) => obj.Repository === name && obj.Tag === version)[0]
-    if (!existingImage) {
-      await this.cmd(`cat ${path} | docker import - ${imageName}`)
-    } else {
-      throw new Error(`镜像已存在，如需删除请手工执行命令：docker rmi ${imageName}`)
-    }
-  },
   async images () {
     return await this._checkInfo('docker images', ['Repository', 'Tag', 'Size'])
   },
   async removeImage (app, version) {
-    await this.cmd(`docker image rmi -f ${app}:${version}`)
+    return await this.cmd(`docker image rmi -f ${app}:${version}`)
   },
   async build (app, version, remotePath) {
-    await this.cmd(`docker build -t ${app}:${version} .`, { cwd: remotePath })
+    return await this.cmd(`docker build -t ${app}:${version} .`, { cwd: remotePath })
   },
   async instances () {
     const list = await this._checkInfo('docker ps -a', ['Names', 'CreatedAt', 'Status', 'Ports', 'Size'])
@@ -80,10 +44,6 @@ export default (ssh) => ({
       list[i].createdTime = new Date(createAt.join(' '))
     }
     return list
-  },
-  async instance (instanceId) {
-    const instances = await this.instances()
-    return instances.filter((obj) => obj.instanceId === instanceId)[0]
   },
   async _checkInfo (cmd, fields) {
     const formatArr = []
