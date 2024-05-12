@@ -1,9 +1,9 @@
 import loadConfig from './src/config/index.js'
 import updateSSL from './src/deploy/ssl/index.js'
-import monitoring from './src/deploy/monitor/index.js'
-import SSH from './src/utils/ssh/index.js'
+import monitoring from './src/monitor/index.js'
 import scale from './src/deploy/scale/index.js'
 import updateSite from './src/deploy/site/index.js'
+import getInstances from './src/deploy/instance/index.js'
 
 const config = async (options) => {
   const configData = await loadConfig(options)
@@ -11,6 +11,7 @@ const config = async (options) => {
   console.log('Config Data:')
   console.log(JSON.stringify(configData, null, 4))
 }
+
 const deploy = async (options) => {
   const config = await loadConfig(options)
 
@@ -23,14 +24,7 @@ const deploy = async (options) => {
 
   // 获取服务器实例状态
   console.log('\n\n ==================== 获取服务器实例状态 ==================== \n')
-  const instances = {}
-  for (const server in config.server) {
-    const ssh = new SSH(config.server[server])
-    let serverInstances = await ssh.docker.instances()
-    serverInstances = serverInstances.filter((obj) => obj.instanceId.indexOf('sumor_app') === 0)
-    instances[server] = serverInstances.map((o) => o.instanceId)
-    await ssh.disconnect()
-  }
+  const instances = await getInstances(config.server)
   for (const server in instances) {
     console.log(`服务器${server}现存实例列表`)
     for (const i in instances[server]) {
@@ -65,6 +59,7 @@ export {
   deploy,
   monitor
 }
+
 export default {
   config,
   deploy,

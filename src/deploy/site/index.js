@@ -2,7 +2,7 @@ import generateConfig from './generateConfig/index.js'
 import parseInstancesToPorts from './utils/parseInstancesToPorts.js'
 import deployNginx from './deployNginx/index.js'
 
-export default async (config, instances, force) => {
+export default async (config, instances) => {
   const site = {}
   for (const envApp of config.live) {
     const { env, app, domain, entry, version: liveVersion } = envApp
@@ -32,6 +32,6 @@ export default async (config, instances, force) => {
 
     const nginxConfig = generateConfig(apps)
 
-    await deployNginx(config.server[server], nginxConfig, force)
+    await deployNginx(config.server[server], nginxConfig)
   }
 }

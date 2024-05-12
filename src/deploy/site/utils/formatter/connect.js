@@ -1,4 +1,4 @@
-import type from '../../utils/type.js'
+import type from '../../../../utils/type.js'
 
 export default (items) => {
   const result = []

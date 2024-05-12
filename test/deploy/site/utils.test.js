@@ -3,12 +3,10 @@ import {
 } from '@jest/globals'
 
 import parseInstancesToPorts from '../../../src/deploy/site/utils/parseInstancesToPorts.js'
-import type from '../../../src/deploy/site/utils/type.js'
-
-import property from '../../../src/deploy/site/generateConfig/formatter/property.js'
-import entity from '../../../src/deploy/site/generateConfig/formatter/entity.js'
-import section from '../../../src/deploy/site/generateConfig/formatter/section.js'
-import connect from '../../../src/deploy/site/generateConfig/formatter/connect.js'
+import property from '../../../src/deploy/site/utils/formatter/property.js'
+import entity from '../../../src/deploy/site/utils/formatter/entity.js'
+import section from '../../../src/deploy/site/utils/formatter/section.js'
+import connect from '../../../src/deploy/site/utils/formatter/connect.js'
 
 describe('Route Utils', () => {
   it('Parse instances to ports', async () => {
@@ -29,16 +27,6 @@ describe('Route Utils', () => {
     const ports = parseInstancesToPorts(instances, app, env, version)
 
     expect(ports).toEqual([32516, 32517, 32518])
-  })
-  it('Data type parser', () => {
-    expect(type('hello')).toEqual('string')
-    expect(type(1)).toEqual('number')
-    expect(type(true)).toEqual('boolean')
-    expect(type(null)).toEqual('null')
-    expect(type(undefined)).toEqual('undefined')
-    expect(type([])).toEqual('array')
-    expect(type({})).toEqual('object')
-    expect(type(/.*/)).toEqual('regexp')
   })
   it('Nginx Formatter', () => {
     const result1 = property('proxy_connect_timeout', '600s')

@@ -1,4 +1,4 @@
-import section from './formatter/section.js'
+import section from '../utils/formatter/section.js'
 
 export default (name, items) => section(`upstream ${name}_stream`, items.map((obj) => {
   const result = ['server']

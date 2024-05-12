@@ -1,4 +1,4 @@
-import section from './formatter/section.js'
+import section from '../utils/formatter/section.js'
 
 export default () => section('server', [
   'listen 80 default_server;',

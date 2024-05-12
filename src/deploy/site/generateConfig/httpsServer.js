@@ -1,5 +1,5 @@
-import section from './formatter/section.js'
-import entity from './formatter/entity.js'
+import section from '../utils/formatter/section.js'
+import entity from '../utils/formatter/entity.js'
 
 export default (app) => {
   let host

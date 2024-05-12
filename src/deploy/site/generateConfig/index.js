@@ -1,10 +1,10 @@
-import entity from './formatter/entity.js'
-import connect from './formatter/connect.js'
+import entity from '../utils/formatter/entity.js'
+import connect from '../utils/formatter/connect.js'
 import httpServer from './httpServer.js'
-import section from './formatter/section.js'
+import section from '../utils/formatter/section.js'
 import upstream from './upstream.js'
 import httpsServer from './httpsServer.js'
-import property from './formatter/property.js'
+import property from '../utils/formatter/property.js'
 
 export default (apps) => {
   const sections = []

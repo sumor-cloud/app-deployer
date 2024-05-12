@@ -2,11 +2,11 @@ import {
   describe, expect, it
 } from '@jest/globals'
 
-import testConfig from '../assets/config.js'
-import monitorSystem from '../../src/deploy/monitor/system.js'
-import formatTime from '../../src/deploy/monitor/formatTime.js'
-import formatSize from '../../src/deploy/monitor/formatSize.js'
-import entry from '../../src/deploy/monitor/index.js'
+import testConfig from './assets/config.js'
+import monitorSystem from '../src/monitor/system.js'
+import formatTime from '../src/monitor/formatTime.js'
+import formatSize from '../src/monitor/formatSize.js'
+import entry from '../src/monitor/index.js'
 
 describe('Monitor', () => {
   it('System Info', async () => {

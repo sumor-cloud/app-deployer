@@ -1,7 +1,7 @@
 import SSH from '../../../utils/ssh/index.js'
 import pages from './pages.js'
 
-export default async (server, nginxConfig, force) => {
+export default async (server, nginxConfig) => {
   const ssh = new SSH(server)
   const sitePath = '/usr/sumor-cloud/nginx'
   await ssh.file.ensureDir(sitePath)
@@ -12,9 +12,6 @@ export default async (server, nginxConfig, force) => {
 
   const instanceId = 'sumor_site'
 
-  // if (force) {
-  //   await ssh.docker.remove(instanceId)
-  // }
   await ssh.docker.remove(instanceId)
 
   // 确保站点存在

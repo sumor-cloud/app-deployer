@@ -9,6 +9,7 @@ import buildImage from '../../../src/deploy/scale/version/build/buildImage.js'
 import SSH from '../../../src/utils/ssh/index.js'
 import testConfig from '../../assets/config.js'
 import scaleNodeJSInstance from '../../../src/deploy/scale/scaleNodeJSInstance.js'
+import getInstances from '../../../src/deploy/instance/index.js'
 
 const tmpPath = `${os.tmpdir()}/sumor-deployer-test/scale`
 const sourceFolder = `${process.cwd()}/test/assets/demo/app`
@@ -80,6 +81,9 @@ describe('Scale Version', () => {
         pingError = e
       }
 
+      const serverInstances = await getInstances(testConfig.server)
+      const existsDocker = serverInstances.main.filter((o) => o.instanceId === dockerId)
+
       await ssh.docker.remove(dockerId)
       await ssh.docker.remove(dockerId) // Just for testing docker remove error handling
       await ssh.docker.removeImage('test-deployer-scale', '1.0.0')
@@ -87,11 +91,11 @@ describe('Scale Version', () => {
       if (pingError) {
         throw pingError
       }
+      await ssh.disconnect()
 
       expect(response.status).toBe('OK')
       expect(response.config.title).toBe('DEMO')
-
-      await ssh.disconnect()
+      expect(existsDocker.length).toBe(0)
     } catch (e) {
       await ssh.disconnect()
       throw e
