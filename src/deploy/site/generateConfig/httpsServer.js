@@ -8,7 +8,9 @@ export default (app) => {
       'proxy_set_header Host': '$host',
       'proxy_set_header X-Real-IP': '$remote_addr',
       'proxy_set_header X-Forwarded-For': '$remote_addr',
-      proxy_pass: `https://${app.name}_stream`
+      proxy_pass: `https://${app.name}_stream`,
+      proxy_ssl_server_name: 'on',
+      proxy_ssl_name: '$host'
     })
   } else {
     host = entity({
@@ -25,10 +27,10 @@ export default (app) => {
       error_log: `/tmp/${app.name}_error.log`,
       ssl_certificate: `ssl/${app.domain}/domain.crt`,
       ssl_certificate_key: `ssl/${app.domain}/domain.key`,
-      ssl_session_timeout: '5m'
-      // ssl_ciphers: 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4',
-      // ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2',
-      // ssl_prefer_server_ciphers: 'on'
+      ssl_session_timeout: '5m',
+      ssl_ciphers: 'EECDH+AESGCM:EECDH+CHACHA20:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS',
+      ssl_protocols: 'TLSv1.2 TLSv1.3',
+      ssl_prefer_server_ciphers: 'on'
     }),
     section('location /', [
       host

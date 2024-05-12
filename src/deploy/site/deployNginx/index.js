@@ -23,7 +23,7 @@ export default async (server, nginxConfig) => {
 
     // console.log('正在站点实例初始化')
     const runConfig = [
-      'docker run -itd',
+      'docker run -itd --restart=on-failure',
             `-v ${sitePath}/nginx.conf:/etc/nginx/nginx.conf`,
             `-v ${sitePath}/pages:/etc/nginx/pages`,
             `-v ${sslPath}:/etc/nginx/ssl:ro`,
