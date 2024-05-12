@@ -72,7 +72,10 @@ describe('Config', () => {
     await fse.writeFile(`${root}/scale.json`, JSON.stringify({
 
     }))
-    const config = await entry(root, 'yml')
+    const config = await entry({
+      root,
+      type: 'yaml'
+    })
     expect(config).toEqual({
       env: {},
       server: {

@@ -6,7 +6,7 @@ import {
 import os from 'os'
 import buildNodeJS from '../../../src/deploy/scale/version/build/buildNodeJS.js'
 import buildImage from '../../../src/deploy/scale/version/build/buildImage.js'
-import SSH from '../../../src/ssh/index.js'
+import SSH from '../../../src/utils/ssh/index.js'
 import testConfig from '../../assets/config.js'
 import scaleNodeJSInstance from '../../../src/deploy/scale/scaleNodeJSInstance.js'
 

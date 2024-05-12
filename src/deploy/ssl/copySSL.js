@@ -1,4 +1,4 @@
-import SSH from '../../ssh/index.js'
+import SSH from '../../utils/ssh/index.js'
 import fse from 'fs-extra'
 import os from 'os'
 import selfsigned from 'selfsigned'

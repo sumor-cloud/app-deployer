@@ -8,7 +8,7 @@ import buildNodeJS from '../../../../src/deploy/scale/version/build/buildNodeJS.
 import buildImage from '../../../../src/deploy/scale/version/build/buildImage.js'
 import checkImageExists from '../../../../src/deploy/scale/version/build/checkImageExists.js'
 import testConfig from '../../../assets/config.js'
-import SSH from '../../../../src/ssh/index.js'
+import SSH from '../../../../src/utils/ssh/index.js'
 
 const tmpPath = `${os.tmpdir()}/sumor-deployer-test/build`
 

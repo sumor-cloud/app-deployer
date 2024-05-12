@@ -2,7 +2,11 @@ import load from './load.js'
 import convert from './convert.js'
 import configFormatter from './formatter/index.js'
 
-export default async (root, type) => {
+export default async (options) => {
+  options = options || {}
+  const root = options.root || process.cwd()
+  const type = options.type
+
   const config = await load(root, 'scope') || {}
   if (type) {
     await convert(root, 'scope', type)

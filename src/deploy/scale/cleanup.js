@@ -1,5 +1,5 @@
 import updateSite from '../site/index.js'
-import SSH from '../../ssh/index.js'
+import SSH from '../../utils/ssh/index.js'
 
 export default async (config, keep, server, cut) => {
   await updateSite(config, keep)

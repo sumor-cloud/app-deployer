@@ -23,13 +23,12 @@ export default (app) => {
       server_name: app.domain,
       access_log: `/tmp/${app.name}_access.log`,
       error_log: `/tmp/${app.name}_error.log`,
-      ssl_certificate: `ssl/${app.domain}/domain.cer`,
+      ssl_certificate: `ssl/${app.domain}/domain.crt`,
       ssl_certificate_key: `ssl/${app.domain}/domain.key`,
-      ssl_client_certificate: `ssl/${app.domain}/ca.cer`,
-      ssl_session_timeout: '5m',
-      ssl_ciphers: 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4',
-      ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2',
-      ssl_prefer_server_ciphers: 'on'
+      ssl_session_timeout: '5m'
+      // ssl_ciphers: 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4',
+      // ssl_protocols: 'TLSv1 TLSv1.1 TLSv1.2',
+      // ssl_prefer_server_ciphers: 'on'
     }),
     section('location /', [
       host
