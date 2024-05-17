@@ -1,58 +1,58 @@
 {
-    "0.0.0": {
-        "id": "bb56693ff343289c309b491e2e46c8a67783eacc",
-        "name": "0.0.0",
-        "authorDate": 1712037975000,
-        "committerDate": 1712037975000,
-        "beta": true
-    },
-    "1.0.0": {
-        "id": "6cdcbfc7784bdb3cddf09270f5aa853634620c38",
-        "name": "1.0.0",
-        "authorDate": 1712037993000,
-        "committerDate": 1712037993000,
-        "beta": false
-    },
-    "1.0.1": {
-        "id": "63394ad4b154f93051e982b464d920398069922e",
-        "name": "1.0.1",
-        "authorDate": 1712038950000,
-        "committerDate": 1712038950000,
-        "beta": false
-    },
-    "1.0.2": {
-        "id": "c5af4ce6a17813f118b9d9b8c502f6fe6494ef22",
-        "name": "1.0.2",
-        "authorDate": 1712039210000,
-        "committerDate": 1712039210000,
-        "beta": false
-    },
-    "2.0.0": {
-        "id": "5145ac7f2e331e644c5ae341596f33ec58d7c577",
-        "name": "2.0.0",
-        "authorDate": 1712039135000,
-        "committerDate": 1712039135000,
-        "beta": false
-    },
-    "1.0.3": {
-        "id": "6b8a097bed2313ac99a2ceeeb55fe8e37e5a4b1e",
-        "name": "1.0.3",
-        "authorDate": 1712039232000,
-        "committerDate": 1712039232000,
-        "beta": true
-    },
-    "1.1.0": {
-        "id": "d0d72127ca8105b8de621749d671fb5c1258938b",
-        "name": "1.1.0",
-        "authorDate": 1712039283000,
-        "committerDate": 1712039283000,
-        "beta": false
-    },
-    "1.1.1": {
-        "id": "feaacdb722c8d72fa8b4f0aa511bd0cce9f1ef89",
-        "name": "1.1.1",
-        "authorDate": 1712040148000,
-        "committerDate": 1712040148000,
-        "beta": true
-    }
+  "0.0.0": {
+    "id": "bb56693ff343289c309b491e2e46c8a67783eacc",
+    "name": "0.0.0",
+    "authorDate": 1712037975000,
+    "committerDate": 1712037975000,
+    "beta": true
+  },
+  "1.0.0": {
+    "id": "6cdcbfc7784bdb3cddf09270f5aa853634620c38",
+    "name": "1.0.0",
+    "authorDate": 1712037993000,
+    "committerDate": 1712037993000,
+    "beta": false
+  },
+  "1.0.1": {
+    "id": "63394ad4b154f93051e982b464d920398069922e",
+    "name": "1.0.1",
+    "authorDate": 1712038950000,
+    "committerDate": 1712038950000,
+    "beta": false
+  },
+  "1.0.2": {
+    "id": "c5af4ce6a17813f118b9d9b8c502f6fe6494ef22",
+    "name": "1.0.2",
+    "authorDate": 1712039210000,
+    "committerDate": 1712039210000,
+    "beta": false
+  },
+  "2.0.0": {
+    "id": "5145ac7f2e331e644c5ae341596f33ec58d7c577",
+    "name": "2.0.0",
+    "authorDate": 1712039135000,
+    "committerDate": 1712039135000,
+    "beta": false
+  },
+  "1.0.3": {
+    "id": "6b8a097bed2313ac99a2ceeeb55fe8e37e5a4b1e",
+    "name": "1.0.3",
+    "authorDate": 1712039232000,
+    "committerDate": 1712039232000,
+    "beta": true
+  },
+  "1.1.0": {
+    "id": "d0d72127ca8105b8de621749d671fb5c1258938b",
+    "name": "1.1.0",
+    "authorDate": 1712039283000,
+    "committerDate": 1712039283000,
+    "beta": false
+  },
+  "1.1.1": {
+    "id": "feaacdb722c8d72fa8b4f0aa511bd0cce9f1ef89",
+    "name": "1.1.1",
+    "authorDate": 1712040148000,
+    "committerDate": 1712040148000,
+    "beta": true
+  }
 }

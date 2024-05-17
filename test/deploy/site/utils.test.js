@@ -1,6 +1,4 @@
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import parseInstancesToPorts from '../../../src/deploy/site/utils/parseInstancesToPorts.js'
 import property from '../../../src/deploy/site/utils/formatter/property.js'
@@ -38,24 +36,12 @@ describe('Route Utils', () => {
       user: 'root',
       worker_processes: 1
     })
-    expect(result3).toEqual([
-      'user root;',
-      'worker_processes 1;'
-    ])
+    expect(result3).toEqual(['user root;', 'worker_processes 1;'])
 
-    const result4 = section('events', [
-      'worker_connections  1024;'
-    ])
-    expect(result4).toEqual([
-      'events {',
-      '\tworker_connections  1024;',
-      '}'
-    ])
+    const result4 = section('events', ['worker_connections  1024;'])
+    expect(result4).toEqual(['events {', '\tworker_connections  1024;', '}'])
 
-    const result5 = connect([
-      ['a', 'b'],
-      'c'
-    ])
+    const result5 = connect([['a', 'b'], 'c'])
     expect(result5).toEqual(['a', 'b', 'c'])
   })
 })

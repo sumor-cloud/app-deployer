@@ -1,9 +1,9 @@
 {
-    "2.0.0": {
-        "id": "5145ac7f2e331e644c5ae341596f33ec58d7c577",
-        "name": "2.0.0",
-        "authorDate": 1712039135000,
-        "committerDate": 1712039135000,
-        "beta": false
-    }
+  "2.0.0": {
+    "id": "5145ac7f2e331e644c5ae341596f33ec58d7c577",
+    "name": "2.0.0",
+    "authorDate": 1712039135000,
+    "committerDate": 1712039135000,
+    "beta": false
+  }
 }

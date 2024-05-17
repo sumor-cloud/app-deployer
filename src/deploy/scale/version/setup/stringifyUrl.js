@@ -1,11 +1,5 @@
 export default (options) => {
-  let {
-    url,
-    user,
-    username,
-    password,
-    token
-  } = options || {}
+  let { url, user, username, password, token } = options || {}
 
   user = user || username
 

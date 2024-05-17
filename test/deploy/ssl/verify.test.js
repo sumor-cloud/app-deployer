@@ -1,8 +1,6 @@
 // port number prefix is 111
 
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import selfsigned from 'selfsigned'
 import checkSSL from '../../../src/deploy/ssl/verify/checkSSL.js'
@@ -38,9 +36,9 @@ describe('SSL', () => {
     const sslInfo = await checkSSL(`https://${domain}:11111`)
 
     expect(sslInfo.domain).toStrictEqual('localhost')
-    expect((Date.now() - sslInfo.validFrom) < 5000).toStrictEqual(true)
-    expect((sslInfo.validTo - Date.now()) > 364 * 24 * 60 * 60 * 1000).toStrictEqual(true)
-    expect((sslInfo.validTo - Date.now()) < 365 * 24 * 60 * 60 * 1000).toStrictEqual(true)
+    expect(Date.now() - sslInfo.validFrom < 5000).toStrictEqual(true)
+    expect(sslInfo.validTo - Date.now() > 364 * 24 * 60 * 60 * 1000).toStrictEqual(true)
+    expect(sslInfo.validTo - Date.now() < 365 * 24 * 60 * 60 * 1000).toStrictEqual(true)
 
     closer()
   })

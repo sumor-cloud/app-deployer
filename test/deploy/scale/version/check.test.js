@@ -1,7 +1,4 @@
-import {
-  beforeAll,
-  describe, expect, it
-} from '@jest/globals'
+import { beforeAll, describe, expect, it } from '@jest/globals'
 import parseTagVersion from '../../../../src/deploy/scale/version/check/parseTagVersion.js'
 import fse from 'fs-extra'
 import clone from '../../../../src/deploy/scale/version/setup/index.js'
@@ -40,47 +37,55 @@ describe('Version Tools', () => {
     expect(version.patch).toBe(1)
   })
 
-  it('Branches', async () => {
-    const path = `${root}/branch`
-    await clone(path, repo.version)
-    const branches = await getBranches(path)
-    expect(branches).toBeDefined()
+  it(
+    'Branches',
+    async () => {
+      const path = `${root}/branch`
+      await clone(path, repo.version)
+      const branches = await getBranches(path)
+      expect(branches).toBeDefined()
 
-    const expectResult = [
-      {
-        current: true,
-        name: 'main',
-        commit: 'feaacdb'
-      },
-      {
-        name: 'main',
-        commit: 'feaacdb',
-        remote: 'remotes/origin/main'
-      },
-      {
-        name: 'v1.x',
-        commit: 'b1ece30',
-        remote: 'remotes/origin/v1.x'
-      },
-      {
-        name: 'v2.x',
-        commit: '5145ac7',
-        remote: 'remotes/origin/v2.x'
-      }
-    ]
-    expect(branches).toEqual(expectResult)
-  }, 60 * 1000)
-  it('Commits', async () => {
-    const path = `${root}/version`
-    await clone(path, repo.version)
-    const commits = await getCommits(path, 'v1.x')
-    expect(commits).toBeDefined()
+      const expectResult = [
+        {
+          current: true,
+          name: 'main',
+          commit: 'feaacdb'
+        },
+        {
+          name: 'main',
+          commit: 'feaacdb',
+          remote: 'remotes/origin/main'
+        },
+        {
+          name: 'v1.x',
+          commit: 'b1ece30',
+          remote: 'remotes/origin/v1.x'
+        },
+        {
+          name: 'v2.x',
+          commit: '5145ac7',
+          remote: 'remotes/origin/v2.x'
+        }
+      ]
+      expect(branches).toEqual(expectResult)
+    },
+    60 * 1000
+  )
+  it(
+    'Commits',
+    async () => {
+      const path = `${root}/version`
+      await clone(path, repo.version)
+      const commits = await getCommits(path, 'v1.x')
+      expect(commits).toBeDefined()
 
-    const expectFilePath = `${process.cwd()}/test/assets/expect/commits.json`
-    // await fse.writeFile(expectFilePath,JSON.stringify(commits,null,4));
-    const expectResult = await fse.readJson(expectFilePath)
-    expect(commits).toEqual(expectResult)
-  }, 60 * 1000)
+      const expectFilePath = `${process.cwd()}/test/assets/expect/commits.json`
+      // await fse.writeFile(expectFilePath,JSON.stringify(commits,null,4));
+      const expectResult = await fse.readJson(expectFilePath)
+      expect(commits).toEqual(expectResult)
+    },
+    60 * 1000
+  )
   it('Default Version', async () => {
     const version1 = parseBranchVersion('v1.x')
     expect(version1).toEqual({
@@ -125,50 +130,58 @@ describe('Version Tools', () => {
       priority: 1
     })
   })
-  it('Versions', async () => {
-    const path = `${root}/version`
-    await clone(path, repo.version)
+  it(
+    'Versions',
+    async () => {
+      const path = `${root}/version`
+      await clone(path, repo.version)
 
-    const versions = await getVersions(path, 'main')
-    expect(versions).toBeDefined()
-    const expectFilePath = `${process.cwd()}/test/assets/expect/versions.json`
-    // await fse.writeFile(expectFilePath,JSON.stringify(versions,null,4));
-    const expectResult = await fse.readJson(expectFilePath)
-    expect(versions).toEqual(expectResult)
+      const versions = await getVersions(path, 'main')
+      expect(versions).toBeDefined()
+      const expectFilePath = `${process.cwd()}/test/assets/expect/versions.json`
+      // await fse.writeFile(expectFilePath,JSON.stringify(versions,null,4));
+      const expectResult = await fse.readJson(expectFilePath)
+      expect(versions).toEqual(expectResult)
 
-    const versions1 = await getVersions(path, 'v1.x')
-    expect(versions1).toBeDefined()
-    const expectFilePath1 = `${process.cwd()}/test/assets/expect/versions1.json`
-    // await fse.writeFile(expectFilePath1,JSON.stringify(versions1,null,4));
-    const expectResult1 = await fse.readJson(expectFilePath1)
-    expect(versions1).toEqual(expectResult1)
+      const versions1 = await getVersions(path, 'v1.x')
+      expect(versions1).toBeDefined()
+      const expectFilePath1 = `${process.cwd()}/test/assets/expect/versions1.json`
+      // await fse.writeFile(expectFilePath1,JSON.stringify(versions1,null,4));
+      const expectResult1 = await fse.readJson(expectFilePath1)
+      expect(versions1).toEqual(expectResult1)
 
-    const versions2 = await getVersions(path, 'v2.x')
-    expect(versions2).toBeDefined()
-    const expectFilePath2 = `${process.cwd()}/test/assets/expect/versions2.json`
-    // await fse.writeFile(expectFilePath2,JSON.stringify(versions2,null,4));
-    const expectResult2 = await fse.readJson(expectFilePath2)
-    expect(versions2).toEqual(expectResult2)
+      const versions2 = await getVersions(path, 'v2.x')
+      expect(versions2).toBeDefined()
+      const expectFilePath2 = `${process.cwd()}/test/assets/expect/versions2.json`
+      // await fse.writeFile(expectFilePath2,JSON.stringify(versions2,null,4));
+      const expectResult2 = await fse.readJson(expectFilePath2)
+      expect(versions2).toEqual(expectResult2)
 
-    const branchVersion = await getBranchVersions(path)
-    expect(branchVersion).toBeDefined()
-    const expectFilePath3 = `${process.cwd()}/test/assets/expect/branchVersion.json`
-    // await fse.writeFile(expectFilePath3,JSON.stringify(branchVersion,null,4));
-    const expectResult3 = await fse.readJson(expectFilePath3)
-    expect(branchVersion).toEqual(expectResult3)
-  }, 60 * 1000)
-  it('Entry', async () => {
-    const config = {
-      source: {
-        version: repo.version
+      const branchVersion = await getBranchVersions(path)
+      expect(branchVersion).toBeDefined()
+      const expectFilePath3 = `${process.cwd()}/test/assets/expect/branchVersion.json`
+      // await fse.writeFile(expectFilePath3,JSON.stringify(branchVersion,null,4));
+      const expectResult3 = await fse.readJson(expectFilePath3)
+      expect(branchVersion).toEqual(expectResult3)
+    },
+    60 * 1000
+  )
+  it(
+    'Entry',
+    async () => {
+      const config = {
+        source: {
+          version: repo.version
+        }
       }
-    }
-    const versions = await check(config)
-    expect(versions).toBeDefined()
-    const expectFilePath = `${process.cwd()}/test/assets/expect/branchVersion.json`
-    const expectResult = await fse.readJson(expectFilePath)
-    expect(versions).toEqual({
-      version: expectResult
-    })
-  }, 60 * 1000)
+      const versions = await check(config)
+      expect(versions).toBeDefined()
+      const expectFilePath = `${process.cwd()}/test/assets/expect/branchVersion.json`
+      const expectResult = await fse.readJson(expectFilePath)
+      expect(versions).toEqual({
+        version: expectResult
+      })
+    },
+    60 * 1000
+  )
 })

@@ -1,14 +1,6 @@
 export default async (ssh, options) => {
-  const {
-    app,
-    version,
-    versionTime,
-    env,
-    localConfig,
-    remoteConfig,
-    domain,
-    server
-  } = options || {}
+  const { app, version, versionTime, env, localConfig, remoteConfig, domain, server } =
+    options || {}
 
   const port = await ssh.port.getPort()
   const dockerId = `sumor_app_${app}_${env}_${version}_${port}`
@@ -29,7 +21,7 @@ export default async (ssh, options) => {
 
   const runConfig = [
     'docker run -itd --restart=on-failure',
-        `-v ${remoteConfig}:/usr/source/config:ro`
+    `-v ${remoteConfig}:/usr/source/config:ro`
   ]
   if (domain) {
     runConfig.push(`-v /usr/sumor-cloud/ssl/${domain}:/usr/source/ssl:ro`)

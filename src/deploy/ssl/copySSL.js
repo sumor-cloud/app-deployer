@@ -7,7 +7,7 @@ export default async (server, domain) => {
   let localPath = `${process.cwd()}/assets/ssl/${domain}`
   const remotePath = `/usr/sumor-cloud/ssl/${domain}`
   const ssh = new SSH(server)
-  if (!await fse.exists(localPath)) {
+  if (!(await fse.exists(localPath))) {
     localPath = `${os.homedir()}/sumor-cloud-deployer/ssl/${domain}`
     await fse.ensureDir(localPath)
 

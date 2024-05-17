@@ -22,9 +22,7 @@ export default (apps) => {
       user: 'root',
       worker_processes: 1
     }),
-    section('events', [
-      'worker_connections  1024;'
-    ]),
+    section('events', ['worker_connections  1024;']),
     section('http', [
       property('proxy_connect_timeout', '600s'),
       property('proxy_send_timeout', '600s'),

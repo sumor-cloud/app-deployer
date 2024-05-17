@@ -7,7 +7,7 @@ export default async (folder, config, branch) => {
   // if(process.platform === 'win32') {
   //   await cmd("ipconfig /flushdns", { cwd: folder });
   // }
-  if (!await fse.exists(folder)) {
+  if (!(await fse.exists(folder))) {
     const parentFolder = folder.split('/').slice(0, -1).join('/')
     const name = folder.split('/').pop()
 

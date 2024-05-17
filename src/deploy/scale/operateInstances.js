@@ -1,10 +1,10 @@
 class InstanceOperator {
-  constructor (config, instances) {
+  constructor(config, instances) {
     this.config = config
     this.instances = instances
   }
 
-  invalidVersion (env, app) {
+  invalidVersion(env, app) {
     const envScale = this.config.scale[env] || {}
     const appScale = envScale[app] || {}
     const result = {}
@@ -22,12 +22,14 @@ class InstanceOperator {
     return result
   }
 
-  remove (server, instances) {
+  remove(server, instances) {
     this.instances[server] = this.instances[server].filter((o) => instances.indexOf(o) < 0)
   }
 
-  current (server, env, app, version) {
-    return this.instances[server].filter((o) => o.indexOf(`sumor_app_${app}_${env}_${version}`) === 0)
+  current(server, env, app, version) {
+    return this.instances[server].filter(
+      (o) => o.indexOf(`sumor_app_${app}_${env}_${version}`) === 0
+    )
   }
 }
 export default InstanceOperator

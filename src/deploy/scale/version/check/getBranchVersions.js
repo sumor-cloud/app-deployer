@@ -8,15 +8,13 @@ export default async (root) => {
 
   for (const branch of branches) {
     if (branch.remote) {
-      const { priority } =
-          parseBranchVersion(branch.remote)
+      const { priority } = parseBranchVersion(branch.remote)
       if (priority) {
         const branchVersions = await getVersions(root, branch.remote)
         for (const version in branchVersions) {
           branchVersions[version].priority = priority
           branchVersions[version].branch = branch.remote
-          if (!versions[version] ||
-              versions[version].priority < priority) {
+          if (!versions[version] || versions[version].priority < priority) {
             versions[version] = branchVersions[version]
           }
         }

@@ -1,7 +1,6 @@
 export default async (ssh, options) => {
   options = options || {}
-  const dockerfile =
-`FROM node:18.15.0
+  const dockerfile = `FROM node:18.15.0
 
 # 创建/usr/runtime目录
 RUN mkdir -p /usr/runtime

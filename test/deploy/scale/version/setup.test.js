@@ -1,6 +1,4 @@
-import {
-  describe, expect, it, beforeAll
-} from '@jest/globals'
+import { describe, expect, it, beforeAll } from '@jest/globals'
 
 import stringifyUrl from '../../../../src/deploy/scale/version/setup/stringifyUrl.js'
 import repo from '../../../assets/repo.js'
@@ -48,29 +46,41 @@ describe('Git Tools', () => {
     const result4 = stringifyUrl(info4)
     expect(result4).toBe('https://github.com/sumor-cloud/priate-app.git')
   })
-  it('Clone', async () => {
-    const path1 = `${root}/clone1`
-    await clone(path1, repo.version)
-    const exists1 = await fse.exists(`${path1}/LICENSE`)
-    expect(exists1).toBeTruthy()
+  it(
+    'Clone',
+    async () => {
+      const path1 = `${root}/clone1`
+      await clone(path1, repo.version)
+      const exists1 = await fse.exists(`${path1}/LICENSE`)
+      expect(exists1).toBeTruthy()
 
-    const path2 = `${root}/clone2`
-    await clone(path2, repo.private)
-    const exists2 = await fse.exists(`${path2}/LICENSE`)
-    expect(exists2).toBeTruthy()
-  }, 60 * 1000)
-  it('Fetch', async () => {
-    const path1 = `${root}/clone1`
-    await clone(path1, repo.version)
-    const exists1 = await fse.exists(`${path1}/LICENSE`)
-    expect(exists1).toBeTruthy()
-  }, 60 * 1000)
-  it('Checkout', async () => {
-    const path1 = `${root}/clone1`
-    const currentBranch = await getCurrentBranch(path1)
-    expect(currentBranch).toBe('main')
-    await clone(path1, repo.version, 'v1.x')
-    const newBranch = await getCurrentBranch(path1)
-    expect(newBranch).toBe('v1.x')
-  }, 60 * 1000)
+      const path2 = `${root}/clone2`
+      await clone(path2, repo.private)
+      const exists2 = await fse.exists(`${path2}/LICENSE`)
+      expect(exists2).toBeTruthy()
+    },
+    60 * 1000
+  )
+  it(
+    'Fetch',
+    async () => {
+      const path1 = `${root}/clone1`
+      await clone(path1, repo.version)
+      const exists1 = await fse.exists(`${path1}/LICENSE`)
+      expect(exists1).toBeTruthy()
+    },
+    60 * 1000
+  )
+  it(
+    'Checkout',
+    async () => {
+      const path1 = `${root}/clone1`
+      const currentBranch = await getCurrentBranch(path1)
+      expect(currentBranch).toBe('main')
+      await clone(path1, repo.version, 'v1.x')
+      const newBranch = await getCurrentBranch(path1)
+      expect(newBranch).toBe('v1.x')
+    },
+    60 * 1000
+  )
 })

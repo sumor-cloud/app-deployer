@@ -1,6 +1,4 @@
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import testConfig from './assets/config.js'
 import monitorSystem from '../src/monitor/system.js'

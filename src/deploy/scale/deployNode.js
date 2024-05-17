@@ -6,16 +6,14 @@ import buildImage from './version/build/buildImage.js'
 import checkImageExists from './version/build/checkImageExists.js'
 import scaleNodeJSInstance from './scaleNodeJSInstance.js'
 
-export default async ({
-  server, app, env, git, version, domain
-}) => {
+export default async ({ server, app, env, git, version, domain }) => {
   const ssh = new SSH(server)
 
   const existsImage = await checkImageExists(ssh, app, version.name)
   if (!existsImage) {
     console.log('开始构建代码')
     const buildPath = `${process.cwd()}/tmp/build/${app}/${version.name}`
-    if (!await fse.exists(buildPath)) {
+    if (!(await fse.exists(buildPath))) {
       console.log(`正在构建源代码到${buildPath}`)
       await fse.ensureDir(`${process.cwd()}/tmp/build`)
       await clone(buildPath, git, version.id)

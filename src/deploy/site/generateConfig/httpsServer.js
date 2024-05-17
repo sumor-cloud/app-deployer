@@ -28,12 +28,11 @@ export default (app) => {
       ssl_certificate: `ssl/${app.domain}/domain.crt`,
       ssl_certificate_key: `ssl/${app.domain}/domain.key`,
       ssl_session_timeout: '5m',
-      ssl_ciphers: 'EECDH+AESGCM:EECDH+CHACHA20:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS',
+      ssl_ciphers:
+        'EECDH+AESGCM:EECDH+CHACHA20:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS',
       ssl_protocols: 'TLSv1.2 TLSv1.3',
       ssl_prefer_server_ciphers: 'on'
     }),
-    section('location /', [
-      host
-    ])
+    section('location /', [host])
   ])
 }

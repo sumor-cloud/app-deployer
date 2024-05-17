@@ -7,7 +7,7 @@ export default async (options) => {
   const root = options.root || process.cwd()
   const type = options.type
 
-  const config = await load(root, 'scope') || {}
+  const config = (await load(root, 'scope')) || {}
   if (type) {
     await convert(root, 'scope', type)
   }

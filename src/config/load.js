@@ -11,12 +11,12 @@ export default async (root, name) => {
       result = YAML.parse(data)
     }
     const yamlPath = `${root}/${name}.yaml`
-    if (!result && await fse.exists(yamlPath)) {
+    if (!result && (await fse.exists(yamlPath))) {
       const data = await fse.readFile(yamlPath, 'utf-8')
       result = YAML.parse(data)
     }
     const jsonPath = `${root}/${name}.json`
-    if (!result && await fse.exists(jsonPath)) {
+    if (!result && (await fse.exists(jsonPath))) {
       const data = await fse.readFile(jsonPath, 'utf-8')
       result = JSON.parse(data)
     }

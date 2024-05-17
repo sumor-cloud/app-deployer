@@ -54,11 +54,7 @@ const monitor = async (options) => {
   }
 }
 
-export {
-  config,
-  deploy,
-  monitor
-}
+export { config, deploy, monitor }
 
 export default {
   config,

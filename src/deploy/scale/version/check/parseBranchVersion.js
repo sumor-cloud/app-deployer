@@ -51,11 +51,7 @@ export default (branch) => {
   } else if (rule6.test(branch)) {
     result.major = parseInt(branch)
     result.priority = 2
-  } else if (
-    branch === 'master' ||
-        branch === 'main' ||
-        branch === 'develop' ||
-        branch === 'dev') {
+  } else if (branch === 'master' || branch === 'main' || branch === 'develop' || branch === 'dev') {
     result.priority = 1
   }
 

@@ -7,8 +7,7 @@ const timeFormatter = (val) => Math.round(new Date(val).getTime())
 export default async (folder, branch) => {
   const commits = await getCommits(folder, branch)
 
-  const { major: defaultMajor, minor: defaultMinor } =
-        parseBranchVersion(branch)
+  const { major: defaultMajor, minor: defaultMinor } = parseBranchVersion(branch)
 
   const versions = {}
 
@@ -21,9 +20,11 @@ export default async (folder, branch) => {
       const versionInfo = parseTagVersion(tag)
       if (
         versionInfo &&
-                (!defaultMajor || versionInfo.major === defaultMajor) &&
-                (!defaultMinor || versionInfo.minor === defaultMinor) &&
-                typeof versionInfo.patch === 'number') { // 符合当前版本的子版本
+        (!defaultMajor || versionInfo.major === defaultMajor) &&
+        (!defaultMinor || versionInfo.minor === defaultMinor) &&
+        typeof versionInfo.patch === 'number'
+      ) {
+        // 符合当前版本的子版本
         const version = versionInfo.name
 
         betaMajor = versionInfo.major

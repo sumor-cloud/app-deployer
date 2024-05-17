@@ -24,11 +24,11 @@ export default async (server, nginxConfig) => {
     // console.log('正在站点实例初始化')
     const runConfig = [
       'docker run -itd --restart=on-failure',
-            `-v ${sitePath}/nginx.conf:/etc/nginx/nginx.conf`,
-            `-v ${sitePath}/pages:/etc/nginx/pages`,
-            `-v ${sslPath}:/etc/nginx/ssl:ro`,
-            '-v /tmp/sumor-cloud/site:/tmp',
-            '-v /tmp/sumor-cloud/site-nginx:/var/log/nginx'
+      `-v ${sitePath}/nginx.conf:/etc/nginx/nginx.conf`,
+      `-v ${sitePath}/pages:/etc/nginx/pages`,
+      `-v ${sslPath}:/etc/nginx/ssl:ro`,
+      '-v /tmp/sumor-cloud/site:/tmp',
+      '-v /tmp/sumor-cloud/site-nginx:/var/log/nginx'
     ]
     runConfig.push('-p 443:443 -p 80:80')
     runConfig.push(`--name ${instanceId}`)

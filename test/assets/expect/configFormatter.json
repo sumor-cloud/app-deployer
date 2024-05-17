@@ -1,57 +1,57 @@
 {
-    "source": {
-        "demo": {
-            "url": "https://github.com/demo/demo.git"
+  "source": {
+    "demo": {
+      "url": "https://github.com/demo/demo.git"
+    }
+  },
+  "server": {
+    "main": {
+      "host": "1.2.3.4",
+      "port": 22,
+      "username": "root",
+      "password": "Abcd1234"
+    }
+  },
+  "env": {
+    "production": {
+      "demo": {
+        "domain": "www.demo.com",
+        "entry": "main"
+      }
+    }
+  },
+  "scale": {
+    "production": {
+      "demo": {
+        "1.0.0": {
+          "instance": {
+            "main": 2
+          }
+        },
+        "1.0.1": {
+          "live": true,
+          "instance": {
+            "main": 4
+          }
         }
-    },
-    "server": {
-        "main": {
-            "host": "1.2.3.4",
-            "port": 22,
-            "username": "root",
-            "password": "Abcd1234"
+      }
+    }
+  },
+  "live": [
+    {
+      "env": "production",
+      "app": "demo",
+      "domain": "www.demo.com",
+      "entry": "main",
+      "version": "1.0.1",
+      "instance": {
+        "1.0.0": {
+          "main": 2
+        },
+        "1.0.1": {
+          "main": 4
         }
-    },
-    "env": {
-        "production": {
-            "demo": {
-                "domain": "www.demo.com",
-                "entry": "main"
-            }
-        }
-    },
-    "scale": {
-        "production": {
-            "demo": {
-                "1.0.0": {
-                    "instance": {
-                        "main": 2
-                    }
-                },
-                "1.0.1": {
-                    "live": true,
-                    "instance": {
-                        "main": 4
-                    }
-                }
-            }
-        }
-    },
-    "live": [
-        {
-            "env": "production",
-            "app": "demo",
-            "domain": "www.demo.com",
-            "entry": "main",
-            "version": "1.0.1",
-            "instance": {
-                "1.0.0": {
-                    "main": 2
-                },
-                "1.0.1": {
-                    "main": 4
-                }
-            }
-        }
-    ]
+      }
+    }
+  ]
 }

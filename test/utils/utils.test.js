@@ -1,6 +1,4 @@
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import generatePassword from '../../src/utils/generatePassword.js'
 import type from '../../src/utils/type.js'
