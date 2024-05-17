@@ -1,6 +1,6 @@
 import type from '../../../../utils/type.js'
 
-export default (items) => {
+export default items => {
   const result = []
   for (const i in items) {
     if (type(items[i]) === 'array') {

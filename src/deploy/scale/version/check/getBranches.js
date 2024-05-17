@@ -10,14 +10,14 @@ import cmd from '../../../../utils/cmd.js'
   remotes/origin/v2.x 5145ac7 2.0.0
 */
 
-export default async (folder) => {
+export default async folder => {
   const info = await cmd('git branch -vva', { cwd: folder })
   const branches = []
 
   const rows = info.split('\n')
   for (const i in rows) {
     // Split the row by space and remove empty strings
-    const fields = rows[i].split(' ').filter((obj) => obj !== '')
+    const fields = rows[i].split(' ').filter(obj => obj !== '')
 
     const obj = {}
     if (fields[0] === '*') {

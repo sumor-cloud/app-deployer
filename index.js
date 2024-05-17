@@ -5,14 +5,14 @@ import scale from './src/deploy/scale/index.js'
 import updateSite from './src/deploy/site/index.js'
 import getInstances from './src/deploy/instance/index.js'
 
-const config = async (options) => {
+const config = async options => {
   const configData = await loadConfig(options)
 
   console.log('Config Data:')
   console.log(JSON.stringify(configData, null, 4))
 }
 
-const deploy = async (options) => {
+const deploy = async options => {
   const config = await loadConfig(options)
 
   const startTime = Date.now()
@@ -43,7 +43,7 @@ const deploy = async (options) => {
   console.log(`所有应用已完成部署 ${Date.now() - startTime}ms`)
 }
 
-const monitor = async (options) => {
+const monitor = async options => {
   const config = await loadConfig(options)
 
   console.log('\n\n ==================== 获取服务器运行状态 ==================== \n')

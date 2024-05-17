@@ -7,10 +7,10 @@ export default async (sourceFolder, targetFolder) => {
   if (sourceFolder !== targetFolder) {
     await fse.copy(sourceFolder, targetFolder)
   }
-  await cmd('npm i', { cwd: targetFolder }, (data) => {
+  await cmd('npm i', { cwd: targetFolder }, data => {
     console.log(data)
   })
-  await cmd('npm run build', { cwd: targetFolder }, (data) => {
+  await cmd('npm run build', { cwd: targetFolder }, data => {
     console.log(data)
   })
   await fse.remove(`${targetFolder}/node_modules`)

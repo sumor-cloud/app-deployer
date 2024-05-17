@@ -1,4 +1,4 @@
-export default (branch) => {
+export default branch => {
   branch = branch.replace('remotes/origin/', '')
 
   const result = {}

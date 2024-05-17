@@ -2,7 +2,7 @@ import getCommits from './getCommits.js'
 import parseTagVersion from './parseTagVersion.js'
 import parseBranchVersion from './parseBranchVersion.js'
 
-const timeFormatter = (val) => Math.round(new Date(val).getTime())
+const timeFormatter = val => Math.round(new Date(val).getTime())
 
 export default async (folder, branch) => {
   const commits = await getCommits(folder, branch)

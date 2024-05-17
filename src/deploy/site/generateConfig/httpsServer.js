@@ -1,7 +1,7 @@
 import section from '../utils/formatter/section.js'
 import entity from '../utils/formatter/entity.js'
 
-export default (app) => {
+export default app => {
   let host
   if (app.instances.length > 0) {
     host = entity({

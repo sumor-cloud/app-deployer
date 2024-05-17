@@ -1,7 +1,7 @@
 import https from 'https'
 import parseUrl from './parseUrl.js'
 
-export default (sslUrl) => {
+export default sslUrl => {
   return new Promise((resolve, reject) => {
     const sslUrlObject = parseUrl(sslUrl)
     const hostname = sslUrlObject.hostname
@@ -14,7 +14,7 @@ export default (sslUrl) => {
       rejectUnauthorized: false // 禁用证书验证
     }
 
-    const req = https.request(options, (res) => {
+    const req = https.request(options, res => {
       const cert = res.socket.getPeerCertificate()
 
       const sslInfo = {
@@ -26,7 +26,7 @@ export default (sslUrl) => {
       resolve(sslInfo)
     })
 
-    req.on('error', (error) => {
+    req.on('error', error => {
       reject(error)
     })
 

@@ -2,7 +2,7 @@ import formatTime from './formatTime.js'
 import formatSize from './formatSize.js'
 import monitorSystem from './system.js'
 
-export default async (server) => {
+export default async server => {
   const system = await monitorSystem(server)
 
   return `- CPU：${system.cpu.cores}核，已占用${system.cpu.usage}%

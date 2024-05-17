@@ -1,4 +1,4 @@
-export default (config) => {
+export default config => {
   const servers = {}
   for (const env in config.env) {
     for (const app in config.env[env]) {
@@ -9,7 +9,7 @@ export default (config) => {
         domains: []
       }
 
-      const existsDomain = servers[entry].domains.find((item) => item === domain)
+      const existsDomain = servers[entry].domains.find(item => item === domain)
       if (!existsDomain) {
         servers[entry].domains.push(domain)
       }

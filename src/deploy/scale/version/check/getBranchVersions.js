@@ -2,7 +2,7 @@ import getBranches from './getBranches.js'
 import getVersions from './getVersions.js'
 import parseBranchVersion from './parseBranchVersion.js'
 
-export default async (root) => {
+export default async root => {
   const branches = await getBranches(root)
   const versions = {}
 

@@ -23,7 +23,7 @@ export default async (config, instances) => {
     for (const domain in site[server]) {
       const app = {
         domain,
-        instances: site[server][domain].map((url) => ({
+        instances: site[server][domain].map(url => ({
           url
         }))
       }

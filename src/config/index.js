@@ -2,7 +2,7 @@ import load from './load.js'
 import convert from './convert.js'
 import configFormatter from './formatter/index.js'
 
-export default async (options) => {
+export default async options => {
   options = options || {}
   const root = options.root || process.cwd()
   const type = options.type

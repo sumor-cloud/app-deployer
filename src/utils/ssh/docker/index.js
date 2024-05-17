@@ -1,5 +1,5 @@
 import dockerCmd from './cmd.js'
-export default (ssh) => ({
+export default ssh => ({
   async cmd(cmd, options) {
     return await dockerCmd(ssh, cmd, options)
   },

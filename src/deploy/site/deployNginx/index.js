@@ -16,7 +16,7 @@ export default async (server, nginxConfig) => {
 
   // 确保站点存在
   const dockerInstances = await ssh.docker.instances()
-  const dockerInstance = dockerInstances.filter((obj) => obj.instanceId === instanceId)[0]
+  const dockerInstance = dockerInstances.filter(obj => obj.instanceId === instanceId)[0]
   if (!dockerInstance) {
     const sslPath = '/usr/sumor-cloud/ssl'
     await ssh.file.ensureDir(sslPath)

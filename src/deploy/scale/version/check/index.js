@@ -2,7 +2,7 @@ import clone from '../setup/index.js'
 import getBranchVersions from './getBranchVersions.js'
 import os from 'os'
 
-export default async (config) => {
+export default async config => {
   const versions = {}
   for (const app in config.source) {
     // console.log(`应用${app}正在检查应用版本`)

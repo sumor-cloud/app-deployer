@@ -1,6 +1,6 @@
 import live from './live.js'
 
-export default (config) => {
+export default config => {
   const result = { ...config }
 
   result.live = live(config)

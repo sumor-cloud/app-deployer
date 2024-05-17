@@ -1,4 +1,4 @@
-export default (config) => {
+export default config => {
   const live = []
   for (const env in config.env) {
     const envInfo = config.env[env]

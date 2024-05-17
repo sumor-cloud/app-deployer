@@ -1,4 +1,4 @@
-export default (tag) => {
+export default tag => {
   // example: 1.0.0
   const shortVersionNameRule = /^\d+\.\d+\.\d+?$/
 

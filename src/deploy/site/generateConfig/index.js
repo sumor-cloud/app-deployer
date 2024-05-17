@@ -6,7 +6,7 @@ import upstream from './upstream.js'
 import httpsServer from './httpsServer.js'
 import property from '../utils/formatter/property.js'
 
-export default (apps) => {
+export default apps => {
   const sections = []
   for (const app of apps) {
     app.name = app.domain.replace(/\./g, '_')

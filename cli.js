@@ -20,21 +20,21 @@ program
   .command('config')
   .description('Config')
   .option('-t, --type [type]', 'Target configuration file type, such as yaml, json')
-  .action(async (options) => {
+  .action(async options => {
     await entry.config(options)
   })
 
 program
   .command('deploy')
   .description('Deploy')
-  .action(async (options) => {
+  .action(async options => {
     await entry.deploy(options)
   })
 
 program
   .command('monitor')
   .description('Monitor')
-  .action(async (options) => {
+  .action(async options => {
     await entry.monitor(options)
   })
 

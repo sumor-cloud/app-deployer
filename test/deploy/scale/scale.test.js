@@ -60,7 +60,7 @@ describe('Scale Version', () => {
         })
 
         const instances = await ssh.docker.instances()
-        const exists = instances.filter((instance) => instance.instanceId === dockerId)
+        const exists = instances.filter(instance => instance.instanceId === dockerId)
         expect(exists.length).toBe(1)
         console.log(`Docker running with ID: ${dockerId}`)
 
@@ -74,7 +74,7 @@ describe('Scale Version', () => {
         let response
         let pingError
         try {
-          await new Promise((resolve) => {
+          await new Promise(resolve => {
             setTimeout(resolve, 5 * 1000)
           })
           response = await ssh.exec(`curl --insecure https://localhost:${port}`, {
@@ -86,7 +86,7 @@ describe('Scale Version', () => {
         }
 
         const serverInstances = await getInstances(testConfig.server)
-        const existsDocker = serverInstances.main.filter((o) => o.instanceId === dockerId)
+        const existsDocker = serverInstances.main.filter(o => o.instanceId === dockerId)
 
         await ssh.docker.remove(dockerId)
         await ssh.docker.remove(dockerId) // Just for testing docker remove error handling

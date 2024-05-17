@@ -5,18 +5,18 @@ export default (execString, parameter, logCallback) =>
     const childProcess = exec(execString, parameter)
     let log = ''
     let err = ''
-    const formatData = (data) => {
+    const formatData = data => {
       data = data.toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n')
       return data
     }
-    childProcess.stdout.on('data', async (data) => {
+    childProcess.stdout.on('data', async data => {
       data = formatData(data)
       log += data
       if (logCallback) {
         logCallback(data)
       }
     })
-    childProcess.stderr.on('data', async (data) => {
+    childProcess.stderr.on('data', async data => {
       data = formatData(data)
       log += data
       err += data
@@ -24,7 +24,7 @@ export default (execString, parameter, logCallback) =>
         logCallback(data)
       }
     })
-    childProcess.on('close', async (code) => {
+    childProcess.on('close', async code => {
       if (code !== 0) {
         reject(err)
       } else {
