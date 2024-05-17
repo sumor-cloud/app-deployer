@@ -1,5 +1,3 @@
-// port number prefix is 111
-
 import { describe, expect, it, beforeEach, afterEach } from '@jest/globals'
 import fse from 'fs-extra'
 import YAML from 'yaml'
