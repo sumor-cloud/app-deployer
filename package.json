@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "sumor-cloud/app-deployer",
   "author": "Sumor Cloud Ltd",
-  "homepage": "https://sumor.cloud",
+  "homepage": "https://sumor.cloud/app-deployer",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
@@ -47,6 +47,7 @@
   "scripts": {
     "link": "npm link",
     "lint": "eslint .",
+    "autofix": "eslint --fix . && prettier --write . && npm audit fix --force",
     "audit": "npm audit fix --force",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
     "test-config": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/config.test.js'",
