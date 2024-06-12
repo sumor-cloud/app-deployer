@@ -6,6 +6,7 @@ import selfsigned from 'selfsigned'
 import checkSSL from '../../../src/deploy/ssl/verify/checkSSL.js'
 import hostSSL from '../../../src/deploy/ssl/verify/hostSSL.js'
 import parseUrl from '../../../src/deploy/ssl/verify/parseUrl.js'
+// import ssl from '../../../src/deploy/ssl/index.js'
 
 describe('SSL', () => {
   it('parse URL', async () => {
@@ -51,4 +52,10 @@ describe('SSL', () => {
     }
     expect(err).not.toBeNull()
   })
+  //  it('display atmba.cn SSL info', async () => {
+  //    const startTime = Date.now()
+  //    const sslInfo = await checkSSL('https://atmba.cn')
+  //    console.log(new Date(sslInfo.validTo).toISOString())
+  //    console.log(Date.now() - startTime)
+  // })
 })
