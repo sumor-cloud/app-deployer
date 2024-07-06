@@ -5,16 +5,16 @@ import scale from './src/deploy/scale/index.js'
 import updateSite from './src/deploy/site/index.js'
 import getInstances from './src/deploy/instance/index.js'
 
-const config = async options => {
-  const configData = await loadConfig(options)
+const config = async () => {
+  const configData = await loadConfig()
 
   console.log('Config Data:')
   console.log(JSON.stringify(configData, null, 4))
 }
 
-const deploy = async options => {
+const deploy = async () => {
   try {
-    const config = await loadConfig(options)
+    const config = await loadConfig()
 
     const startTime = Date.now()
     console.log('正在启动部署')
@@ -48,8 +48,8 @@ const deploy = async options => {
   }
 }
 
-const monitor = async options => {
-  const config = await loadConfig(options)
+const monitor = async () => {
+  const config = await loadConfig()
 
   console.log('\n\n ==================== 获取服务器运行状态 ==================== \n')
   for (const server in config.server) {

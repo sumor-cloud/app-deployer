@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import cmd from '../../../../utils/cmd.js'
+import cmd from '../cmd.js'
 
 export default async (sourceFolder, targetFolder) => {
   targetFolder = targetFolder || sourceFolder

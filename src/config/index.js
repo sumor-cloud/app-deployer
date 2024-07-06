@@ -1,31 +1,17 @@
-import load from './load.js'
-import convert from './convert.js'
-import configFormatter from './formatter/index.js'
+import format from './format.js'
+import { load } from '@sumor/config'
 
 export default async options => {
-  options = options || {}
-  const root = options.root || process.cwd()
-  const type = options.type
+  const root = process.cwd()
 
-  const config = (await load(root, 'scope')) || {}
-  if (type) {
-    await convert(root, 'scope', type)
-  }
-
-  const scale = await load(root, 'scale')
-  if (scale) {
-    config.scale = scale
-    if (type) {
-      await convert(root, 'scale', type)
-    }
-  }
+  const config = await load(root, 'scope')
 
   // 补全数据
   for (const i in config.server) {
     config.server[i].name = i
   }
 
-  Object.assign(config, configFormatter(config))
+  Object.assign(config, format(config))
 
   return config
 }

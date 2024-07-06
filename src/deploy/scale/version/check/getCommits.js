@@ -1,4 +1,4 @@
-import cmd from '../../../../utils/cmd.js'
+import cmd from '../cmd.js'
 
 export default async (root, branch) => {
   await cmd(`git checkout ${branch}`, { cwd: root })

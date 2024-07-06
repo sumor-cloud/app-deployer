@@ -1,4 +1,4 @@
-import SSH from '../../../utils/ssh/index.js'
+import SSH from '../../../SSH.js'
 import pages from './pages.js'
 
 export default async (server, nginxConfig) => {

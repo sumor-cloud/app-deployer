@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import SSH from '../../utils/ssh/index.js'
+import SSH from '../../SSH.js'
 import updateSite from '../site/index.js'
 import deployNode from './deployNode.js'
 import cleanup from './cleanup.js'

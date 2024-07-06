@@ -19,9 +19,8 @@ program
 program
   .command('config')
   .description('Config')
-  .option('-t, --type [type]', 'Target configuration file type, such as yaml, json')
-  .action(async options => {
-    await entry.config(options)
+  .action(async () => {
+    await entry.config()
   })
 
 program

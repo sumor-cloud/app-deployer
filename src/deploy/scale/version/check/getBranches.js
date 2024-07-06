@@ -1,4 +1,4 @@
-import cmd from '../../../../utils/cmd.js'
+import cmd from '../cmd.js'
 
 /* Example CMD [git branch -vva] output:
 
