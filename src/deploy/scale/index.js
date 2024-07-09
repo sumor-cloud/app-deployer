@@ -4,7 +4,7 @@ import updateSite from '../site/index.js'
 import deployNode from './deployNode.js'
 import cleanup from './cleanup.js'
 import OperateInstances from './operateInstances.js'
-import checkVersions from './version/check/index.js'
+import checkVersions from '../../pack/check/index.js'
 
 export default async (config, instances) => {
   const versions = await checkVersions(config)

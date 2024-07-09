@@ -1,4 +1,4 @@
-import cmd from '../cmd.js'
+import cmd from '../../deploy/scale/version/cmd.js'
 
 /* Example CMD [git branch -vva] output:
 

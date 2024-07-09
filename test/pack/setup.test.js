@@ -1,11 +1,12 @@
 import { describe, expect, it, beforeAll } from '@jest/globals'
 
-import stringifyUrl from '../../../../src/deploy/scale/version/setup/stringifyUrl.js'
-import repo from '../../../assets/repo.js'
-import clone from '../../../../src/deploy/scale/version/setup/index.js'
+import repo from '../assets/repo.js'
 import fse from 'fs-extra'
-import getCurrentBranch from '../../../../src/deploy/scale/version/setup/getCurrentBranch.js'
 import os from 'os'
+
+import clone from '../../src/pack/setup/index.js'
+import stringifyUrl from '../../src/pack/setup/stringifyUrl.js'
+import getCurrentBranch from '../../src/pack/setup/getCurrentBranch.js'
 
 describe('Git Tools', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/git/version/setup`

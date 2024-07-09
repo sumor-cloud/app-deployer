@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import SSH from '../../SSH.js'
-import clone from './version/setup/index.js'
+import clone from '../../pack/setup/index.js'
 import buildNodeJS from './version/build/buildNodeJS.js'
 import buildImage from './version/build/buildImage.js'
 import checkImageExists from './version/build/checkImageExists.js'
