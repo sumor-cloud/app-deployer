@@ -1,4 +1,4 @@
-import getCommits from './getCommits.js'
+import getCommits from '../git/getCommits.js'
 import parseTagVersion from './parseTagVersion.js'
 import parseBranchVersion from './parseBranchVersion.js'
 

@@ -1,8 +1,8 @@
 import fse from 'fs-extra'
-import cmd from '../cmd.js'
+import cmd from '../git/cmd.js'
 import stringifyUrl from './stringifyUrl.js'
 
-export default async (folder, config, branch) => {
+export default async (config, folder, branch) => {
   // if OS is windows
   // if(process.platform === 'win32') {
   //   await cmd("ipconfig /flushdns", { cwd: folder });

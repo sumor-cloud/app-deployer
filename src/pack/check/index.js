@@ -7,7 +7,7 @@ export default async config => {
   for (const app in config.source) {
     // console.log(`应用${app}正在检查应用版本`)
     const clonePath = `${os.tmpdir()}/sumor-deploy/version/${app}`
-    await clone(clonePath, config.source[app])
+    await clone(config.source[app], clonePath)
     versions[app] = await getBranchVersions(clonePath)
     // console.log('应用版本列表')
     // for (const version in versions[app]) {

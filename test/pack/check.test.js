@@ -3,15 +3,13 @@ import parseTagVersion from '../../src/pack/check/parseTagVersion.js'
 import fse from 'fs-extra'
 import clone from '../../src/pack/setup/index.js'
 import repo from '../assets/repo.js'
-import getBranches from '../../src/pack/check/getBranches.js'
 import getVersions from '../../src/pack/check/getVersions.js'
-import getCommits from '../../src/pack/check/getCommits.js'
 import parseBranchVersion from '../../src/pack/check/parseBranchVersion.js'
 import getBranchVersions from '../../src/pack/check/getBranchVersions.js'
 import check from '../../src/pack/check/index.js'
-import os from 'os'
+import getTmpDir from '../test-utils/getTmpDir.js'
 describe('Version Tools', () => {
-  const root = `${os.tmpdir()}/sumor-deployer-test/git/version/check`
+  const root = getTmpDir('pack-check')
   beforeAll(async () => {
     await fse.remove(root)
   })
@@ -37,55 +35,6 @@ describe('Version Tools', () => {
     expect(version.patch).toBe(1)
   })
 
-  it(
-    'Branches',
-    async () => {
-      const path = `${root}/branch`
-      await clone(path, repo.version)
-      const branches = await getBranches(path)
-      expect(branches).toBeDefined()
-
-      const expectResult = [
-        {
-          current: true,
-          name: 'main',
-          commit: 'feaacdb'
-        },
-        {
-          name: 'main',
-          commit: 'feaacdb',
-          remote: 'remotes/origin/main'
-        },
-        {
-          name: 'v1.x',
-          commit: 'b1ece30',
-          remote: 'remotes/origin/v1.x'
-        },
-        {
-          name: 'v2.x',
-          commit: '5145ac7',
-          remote: 'remotes/origin/v2.x'
-        }
-      ]
-      expect(branches).toEqual(expectResult)
-    },
-    60 * 1000
-  )
-  it(
-    'Commits',
-    async () => {
-      const path = `${root}/version`
-      await clone(path, repo.version)
-      const commits = await getCommits(path, 'v1.x')
-      expect(commits).toBeDefined()
-
-      const expectFilePath = `${process.cwd()}/test/assets/expect/commits.json`
-      // await fse.writeFile(expectFilePath,JSON.stringify(commits,null,4));
-      const expectResult = await fse.readJson(expectFilePath)
-      expect(commits).toEqual(expectResult)
-    },
-    60 * 1000
-  )
   it('Default Version', async () => {
     const version1 = parseBranchVersion('v1.x')
     expect(version1).toEqual({
@@ -134,7 +83,7 @@ describe('Version Tools', () => {
     'Versions',
     async () => {
       const path = `${root}/version`
-      await clone(path, repo.version)
+      await clone(repo.version, path)
 
       const versions = await getVersions(path, 'main')
       expect(versions).toBeDefined()

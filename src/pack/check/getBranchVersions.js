@@ -1,4 +1,4 @@
-import getBranches from './getBranches.js'
+import getBranches from '../git/getBranches.js'
 import getVersions from './getVersions.js'
 import parseBranchVersion from './parseBranchVersion.js'
 

@@ -1,12 +1,12 @@
 import { describe, expect, it, beforeEach, afterEach } from '@jest/globals'
 import fse from 'fs-extra'
-import os from 'os'
 import format from '../src/config/format.js'
 import testConfig from './assets/config.js'
 import loadConfig from '../src/config/index.js'
+import getTmpDir from './test-utils/getTmpDir.js'
 
 describe('Config', () => {
-  const root = `${os.tmpdir()}/sumor-deployer-test/config`
+  const root = getTmpDir('config')
   beforeEach(async () => {
     await fse.remove(root)
     await fse.ensureDir(root)

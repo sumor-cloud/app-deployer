@@ -2,14 +2,14 @@ import { describe, expect, it, beforeAll } from '@jest/globals'
 
 import repo from '../assets/repo.js'
 import fse from 'fs-extra'
-import os from 'os'
 
 import clone from '../../src/pack/setup/index.js'
 import stringifyUrl from '../../src/pack/setup/stringifyUrl.js'
-import getCurrentBranch from '../../src/pack/setup/getCurrentBranch.js'
+import getCurrentBranch from '../../src/pack/git/getCurrentBranch.js'
+import getTmpDir from '../test-utils/getTmpDir.js'
 
 describe('Git Tools', () => {
-  const root = `${os.tmpdir()}/sumor-deployer-test/git/version/setup`
+  const root = getTmpDir('pack-setup')
   beforeAll(async () => {
     await fse.remove(root)
   })
@@ -51,12 +51,12 @@ describe('Git Tools', () => {
     'Clone',
     async () => {
       const path1 = `${root}/clone1`
-      await clone(path1, repo.version)
+      await clone(repo.version, path1)
       const exists1 = await fse.exists(`${path1}/LICENSE`)
       expect(exists1).toBeTruthy()
 
       const path2 = `${root}/clone2`
-      await clone(path2, repo.private)
+      await clone(repo.private, path2)
       const exists2 = await fse.exists(`${path2}/LICENSE`)
       expect(exists2).toBeTruthy()
     },
@@ -66,7 +66,7 @@ describe('Git Tools', () => {
     'Fetch',
     async () => {
       const path1 = `${root}/clone1`
-      await clone(path1, repo.version)
+      await clone(repo.version, path1)
       const exists1 = await fse.exists(`${path1}/LICENSE`)
       expect(exists1).toBeTruthy()
     },
@@ -78,7 +78,7 @@ describe('Git Tools', () => {
       const path1 = `${root}/clone1`
       const currentBranch = await getCurrentBranch(path1)
       expect(currentBranch).toBe('main')
-      await clone(path1, repo.version, 'v1.x')
+      await clone(repo.version, path1, 'v1.x')
       const newBranch = await getCurrentBranch(path1)
       expect(newBranch).toBe('v1.x')
     },
