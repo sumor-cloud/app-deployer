@@ -1,4 +1,4 @@
-import cmd from '../../deploy/scale/version/cmd.js'
+import cmd from '../cmd.js'
 
 export default async (root, branch) => {
   await cmd(`git checkout ${branch}`, { cwd: root })

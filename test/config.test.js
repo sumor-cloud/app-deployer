@@ -3,6 +3,7 @@ import fse from 'fs-extra'
 import os from 'os'
 import format from '../src/config/format.js'
 import testConfig from './assets/config.js'
+import loadConfig from '../src/config/index.js'
 
 describe('Config', () => {
   const root = `${os.tmpdir()}/sumor-deployer-test/config`
@@ -88,5 +89,11 @@ describe('Config', () => {
       },
       live: []
     })
+  })
+  it('Load config', async () => {
+    const tmpConfigPath = `${root}/scope.json`
+    await fse.writeJson(tmpConfigPath, testConfig)
+    const config = await loadConfig(root)
+    expect(config.server.main.name).toBe('main')
   })
 })

@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeAll, afterAll } from '@jest/globals'
 
-import testConfig from '../../assets/config.js'
-import SSH from '../../../src/SSH.js'
+import testConfig from '../../../../test/assets/config.js'
+import SSH from '../../../../src/SSH.js'
 import updateSSL from '../../../src/deploy/ssl/index.js'
 
 describe('Update SSL', () => {

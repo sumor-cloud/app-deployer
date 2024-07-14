@@ -32,6 +32,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "http-server": "^14.1.1",
     "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-html-reporter": "^3.10.2",
@@ -55,7 +56,6 @@
     "test-config": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/config.test.js'",
     "test-monitor": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/monitor.test.js'",
     "test-pack": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/pack/*.test.js'",
-
     "test-deploy-ssl": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssl/*.test.js'",
     "test-deploy-site": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/site/**/*.test.js'",
     "test-deploy-version": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/version/**/*.test.js'",
@@ -67,6 +67,7 @@
     "publish-release-minor": "npm version minor && npm run push-tag",
     "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky",
-    "check": "eslint --fix . && prettier --write . && npm audit fix --force && npm run coverage"
+    "check": "npm run autofix && npm run coverage",
+    "view-coverage": "http-server output/coverage/ -p 8080"
   }
 }

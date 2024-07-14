@@ -6,7 +6,7 @@ import updateSite from './src/deploy/site/index.js'
 import getInstances from './src/deploy/instance/index.js'
 
 const config = async () => {
-  const configData = await loadConfig()
+  const configData = await loadConfig(process.cwd())
 
   console.log('Config Data:')
   console.log(JSON.stringify(configData, null, 4))

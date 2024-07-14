@@ -4,8 +4,8 @@ import fse from 'fs-extra'
 import buildNodeJS from '../../../../src/deploy/scale/version/build/buildNodeJS.js'
 import buildImage from '../../../../src/deploy/scale/version/build/buildImage.js'
 import checkImageExists from '../../../../src/deploy/scale/version/build/checkImageExists.js'
-import testConfig from '../../../assets/config.js'
-import SSH from '../../../../src/SSH.js'
+import testConfig from '../../../../../test/assets/config.js'
+import SSH from '../../../../../src/SSH.js'
 
 const tmpPath = `${os.tmpdir()}/sumor-deployer-test/build`
 
