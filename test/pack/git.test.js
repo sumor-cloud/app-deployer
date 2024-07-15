@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from '@jest/globals'
+import { beforeAll, afterAll, describe, expect, it } from '@jest/globals'
 import fse from 'fs-extra'
 import clone from '../../src/pack/setup/index.js'
 import repo from '../assets/repo.js'
@@ -8,6 +8,10 @@ import getTmpDir from '../test-utils/getTmpDir.js'
 describe('Version Tools', () => {
   const root = getTmpDir('pack-git')
   beforeAll(async () => {
+    await fse.remove(root)
+    await fse.ensureDir(root)
+  })
+  afterAll(async () => {
     await fse.remove(root)
   })
 

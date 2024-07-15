@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from '@jest/globals'
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import parseTagVersion from '../../src/pack/version/parseTagVersion.js'
 import fse from 'fs-extra'
 import clone from '../../src/pack/setup/index.js'
@@ -11,6 +11,10 @@ import getTmpDir from '../test-utils/getTmpDir.js'
 describe('Version Tools', () => {
   const root = getTmpDir('pack-version')
   beforeAll(async () => {
+    await fse.remove(root)
+    await fse.ensureDir(root)
+  })
+  afterAll(async () => {
     await fse.remove(root)
   })
   it('Parse Version Failed', async () => {

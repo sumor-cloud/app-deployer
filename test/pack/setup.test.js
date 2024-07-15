@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeAll } from '@jest/globals'
+import { describe, expect, it, beforeAll, afterAll } from '@jest/globals'
 
 import repo from '../assets/repo.js'
 import fse from 'fs-extra'
@@ -11,6 +11,10 @@ import getTmpDir from '../test-utils/getTmpDir.js'
 describe('Git Tools', () => {
   const root = getTmpDir('pack-setup')
   beforeAll(async () => {
+    await fse.remove(root)
+    await fse.ensureDir(root)
+  })
+  afterAll(async () => {
     await fse.remove(root)
   })
   it('Stringify URL', async () => {

@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from '@jest/globals'
+import { beforeAll, afterAll, describe, expect, it } from '@jest/globals'
 import fse from 'fs-extra'
 import repo from '../assets/repo.js'
 import pack from '../../src/pack/index.js'
@@ -13,6 +13,10 @@ const config = {
 describe('Version Tools', () => {
   const root = getTmpDir('pack-entry')
   beforeAll(async () => {
+    await fse.remove(root)
+    await fse.ensureDir(root)
+  })
+  afterAll(async () => {
     await fse.remove(root)
   })
   it(

@@ -70,7 +70,7 @@ export default async (config, app, version) => {
       const tmpPath = await getTmpDir()
       try {
         await clone(config.source[app], tmpPath)
-        await zip(tmpPath, versionPath, ['*.git*'])
+        await zip(tmpPath, versionPath, ['.git/**', '*.git*'])
       } catch (e) {
         await fse.remove(tmpPath)
         throw e
