@@ -66,16 +66,16 @@ describe('Git Tools', () => {
     },
     60 * 1000
   )
-  // it(
-  //   'Fetch',
-  //   async () => {
-  //     const path1 = `${root}/clone1`
-  //     await clone(repo.version, path1)
-  //     const exists1 = await fse.exists(`${path1}/LICENSE`)
-  //     expect(exists1).toBeTruthy()
-  //   },
-  //   60 * 1000
-  // )
+  it(
+    'Fetch',
+    async () => {
+      const path1 = `${root}/clone1`
+      await clone(repo.version, path1)
+      const exists1 = await fse.exists(`${path1}/LICENSE`)
+      expect(exists1).toBeTruthy()
+    },
+    60 * 1000
+  )
   it(
     'Checkout',
     async () => {
