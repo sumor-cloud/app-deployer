@@ -11,16 +11,19 @@ const lockName = 'test-deployer-deploy'
 describe('Deploy', () => {
   let lockId
   const root = getTmpDir('deploy')
-  beforeAll(async () => {
-    config.root = root
-    await fse.remove(root)
-    await fse.ensureDir(root)
+  beforeAll(
+    async () => {
+      config.root = root
+      await fse.remove(root)
+      await fse.ensureDir(root)
 
-    const ssh = new SSH(config.server.main)
-    await ssh.connect()
-    lockId = await ssh.lock.lock(lockName, 2 * 60 * 1000)
-    await ssh.disconnect()
-  }, 60 * 1000)
+      const ssh = new SSH(config.server.main)
+      await ssh.connect()
+      lockId = await ssh.lock.lock(lockName, 2 * 60 * 1000)
+      await ssh.disconnect()
+    },
+    5 * 60 * 1000
+  )
   afterAll(async () => {
     await fse.remove(root)
     const ssh = new SSH(config.server.main)

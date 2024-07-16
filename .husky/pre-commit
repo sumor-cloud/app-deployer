@@ -7,9 +7,9 @@ printf "System version: $(uname -a)\n"
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" || -n "$GITHUB_ACTIONS" ]]; then
     npm.cmd run lint
     npm.cmd audit
- #   npm.cmd test
+    npm.cmd test
 else
     npm run lint
     npm audit
- #   npm test
+    npm test
 fi
