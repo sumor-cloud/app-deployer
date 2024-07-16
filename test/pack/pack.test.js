@@ -3,6 +3,7 @@ import fse from 'fs-extra'
 import repo from '../assets/repo.js'
 import pack from '../../src/pack/index.js'
 import getTmpDir from '../test-utils/getTmpDir.js'
+import unzip from '../../src/utils/unzip.js'
 
 const config = {
   source: {
@@ -13,6 +14,7 @@ const config = {
 describe('Version Tools', () => {
   const root = getTmpDir('pack-entry')
   beforeAll(async () => {
+    config.root = root
     await fse.remove(root)
     await fse.ensureDir(root)
   })
@@ -22,15 +24,22 @@ describe('Version Tools', () => {
   it(
     'Pack',
     async () => {
-      config.root = root
-      await pack(config, 'version', '1.0.0')
+      const id = await pack(config, 'version', '1.0.0')
       const cachePath = `${root}/versions/version/cache.json`
       const existsCacheFile = await fse.exists(cachePath)
       expect(existsCacheFile).toBeTruthy()
+      expect(id).toEqual('6cdcbfc7784bdb3cddf09270f5aa853634620c38')
 
       const versionPath = `${root}/versions/version/6cdcbfc7784bdb3cddf09270f5aa853634620c38.zip`
       const existsVersionFile = await fse.exists(versionPath)
       expect(existsVersionFile).toBeTruthy()
+
+      // unzip version file
+      const tmpPath = `${root}/pack-test/version1`
+      await fse.ensureDir(tmpPath)
+      await unzip(versionPath, tmpPath)
+      const versionPackage = await fse.readJson(`${tmpPath}/package.json`)
+      expect(versionPackage.version).toEqual('1.0.0')
 
       const cacheFile = await fse.readJson(cachePath)
 

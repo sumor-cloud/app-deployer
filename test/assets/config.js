@@ -10,7 +10,7 @@ export default {
   env: {
     production: {
       demo: {
-        domain: 'demo.sumor.com',
+        domain: server.domain,
         entry: 'main'
       }
     }
