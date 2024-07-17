@@ -19,14 +19,14 @@ describe('Deploy', () => {
 
       const ssh = new SSH(config.server.main)
       await ssh.connect()
-      lockId = await ssh.lock.lock(lockName, 2 * 60 * 1000)
+      lockId = await ssh.lock.lock(lockName, 20 * 60 * 1000)
 
       const app = 'demo'
       const remotePath = `/usr/sumor-cloud/version/${app}`
       await ssh.file.remove(remotePath)
       await ssh.disconnect()
     },
-    5 * 60 * 1000
+    10 * 60 * 1000
   )
   afterAll(async () => {
     await fse.remove(root)
