@@ -3,7 +3,7 @@ import monitoring from './src/monitor/index.js'
 import deployEntry from './src/deploy/index.js'
 
 const config = async () => {
-  const configData = await loadConfig(process.cwd())
+  const configData = await loadConfig()
 
   console.log('Config Data:')
   console.log(JSON.stringify(configData, null, 4))
@@ -11,7 +11,6 @@ const config = async () => {
 
 const deploy = async () => {
   const config = await loadConfig()
-  config.root = process.cwd()
   await deployEntry(config)
 }
 
