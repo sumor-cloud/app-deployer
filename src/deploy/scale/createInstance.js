@@ -6,7 +6,7 @@ import fse from 'fs-extra'
 
 import logger from '../../utils/Logger.js'
 
-export default async (config, { app, env, version, server }) => {
+export default async (config, { app, env, version, server, versionName, versionTime }) => {
   const root = config.root || process.cwd()
   const remoteVersionPath = `/usr/sumor-cloud/version/${app}/${version}`
 
@@ -49,10 +49,14 @@ export default async (config, { app, env, version, server }) => {
   await ssh.file.ensureDir(remoteRuntimePath)
   // await ssh.file.copy(remoteVersionPath, remoteRuntimePath)
   await ssh.exec(`cp -r ${remoteVersionPath}/* ${remoteRuntimePath}`)
+
+  // prepare config
   const localConfigPath = `${root}/configs/${app}/${env}`
   const remoteRuntimeConfigPath = `${remoteRuntimePath}/config`
   await ssh.file.ensureDir(remoteRuntimeConfigPath)
   await ssh.file.putFolder(localConfigPath, remoteRuntimeConfigPath)
+
+  // prepare ssl
   const domain = config.env[env][app].domain
   const localSSLPath = `${root}/ssl/${domain}`
   const remoteRuntimeSSLPath = `${remoteRuntimePath}/ssl`
@@ -60,6 +64,19 @@ export default async (config, { app, env, version, server }) => {
   if (await fse.exists(localSSLPath)) {
     await ssh.file.putFolder(localSSLPath, remoteRuntimeSSLPath)
   }
+
+  // prepare instance info
+  const remoteInstance = `${remoteRuntimePath}/instance.json`
+  const instanceInfo = {
+    app,
+    env,
+    version: versionName,
+    server,
+    port,
+    upTime: Date.now(),
+    versionTime
+  }
+  await ssh.file.writeFile(remoteInstance, JSON.stringify(instanceInfo, null, 4))
 
   const shortId = version.substring(0, 7)
   const dockerId = `sumor_app_${app}_${env}_${shortId}_${port}`

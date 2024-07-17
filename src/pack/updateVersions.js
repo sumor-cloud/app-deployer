@@ -3,7 +3,9 @@ import fse from 'fs-extra'
 import getBranchVersions from './version/getBranchVersions.js'
 import getTmpDir from '../utils/getTmpDir.js'
 
-export default async (root, git, app) => {
+export default async (config, app) => {
+  const root = config.root || process.cwd()
+  const git = config.source[app]
   const versionsPath = root + '/versions'
 
   const cache = {

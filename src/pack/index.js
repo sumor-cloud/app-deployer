@@ -5,7 +5,7 @@ export default async (config, app, version) => {
   const root = config.root || process.cwd()
   const versionsPath = root + '/versions'
 
-  const versions = await updateVersions(root, config.source[app], app)
+  const versions = await updateVersions(config, app)
 
   const versionInfo = versions[version]
   if (versionInfo) {

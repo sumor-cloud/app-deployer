@@ -4,6 +4,7 @@ import convertScaleVersion from './calc/convertScaleVersion.js'
 import calcInstanceDiff from './calc/calcInstanceDiff.js'
 import calcUpdatedSite from './calc/calcUpdatedSite.js'
 
+import updateVersions from '../pack/updateVersions.js'
 import createInstance from './scale/createInstance.js'
 import removeInstances from './scale/removeInstances.js'
 import applySite from './scale/applySite.js'
@@ -21,17 +22,24 @@ export default async config => {
   logger.code('DEPLOY_ADD_INSTANCE')
   for (const env in scale) {
     for (const app in scale[env]) {
+      const versions = await updateVersions(config, app)
+      const getVersion = versionId => {
+        for (const version in versions) {
+          if (versions[version].id === versionId) {
+            return version
+          }
+        }
+      }
       for (const versionId in scale[env][app]) {
-        const { versions, add, instance } = scale[env][app][versionId]
+        const { name: versionName, time: versionTime } = getVersion(versionId)
+        const { add, instance } = scale[env][app][versionId]
         for (const server in add) {
           const target = instance[server]
           const diff = add[server]
-
-          const versionString = versions.join(', ')
           logger.code('DEPLOY_ADD_INSTANCE_SUMMARY', {
             app,
             env,
-            version: versionString,
+            version: versionName,
             server,
             current: target - diff,
             target
@@ -41,7 +49,9 @@ export default async config => {
               app,
               env,
               version: versionId,
-              server
+              server,
+              versionName,
+              versionTime
             })
           }
         }
