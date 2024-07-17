@@ -1,7 +1,7 @@
 {
   "name": "@sumor/app-deployer",
   "description": "A simple tool to deploy docker containers to a remote server.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "repository": "sumor-cloud/app-deployer",
   "author": "Sumor Cloud Ltd",
