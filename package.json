@@ -44,6 +44,7 @@
   "files": [
     "src",
     "LICENSE",
+    "cli.js",
     "index.js",
     ".gitignore"
   ],
