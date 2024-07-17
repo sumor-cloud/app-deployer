@@ -56,11 +56,8 @@ describe('Build Version', () => {
 
         const imageExists2 = await checkImageExists(ssh, 'test-deployer-build', '1.0.0')
         expect(imageExists2).toBeFalsy()
-
+      } finally {
         await ssh.disconnect()
-      } catch (e) {
-        await ssh.disconnect()
-        throw e
       }
     },
     60 * 1000

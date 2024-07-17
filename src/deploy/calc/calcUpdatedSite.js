@@ -1,5 +1,4 @@
 export default (config, scale, instances) => {
-  console.log(config, scale, instances)
   const sites = {}
   for (const env in config.env) {
     for (const app in config.env[env]) {

@@ -20,6 +20,10 @@ describe('Deploy', () => {
       const ssh = new SSH(config.server.main)
       await ssh.connect()
       lockId = await ssh.lock.lock(lockName, 2 * 60 * 1000)
+
+      const app = 'demo'
+      const remotePath = `/usr/sumor-cloud/version/${app}`
+      await ssh.file.remove(remotePath)
       await ssh.disconnect()
     },
     5 * 60 * 1000
@@ -37,8 +41,15 @@ describe('Deploy', () => {
     async () => {
       const app = 'demo'
       const env = 'production'
-      const version = '6cdcbfc7784bdb3cddf09270f5aa853634620c38'
+      const version = 'd0d72127ca8105b8de621749d671fb5c1258938b' // 1.1.0
       const server = 'main'
+
+      const configPath = `${root}/assets/${app}/${env}/config.json`
+      await fse.ensureFile(configPath)
+      await fse.writeJson(configPath, { name: 'DEMO' })
+
+      const ssh = new SSH(config.server.main)
+      await ssh.connect()
       const dockerId = await createInstance(config, {
         app,
         env,
@@ -48,8 +59,6 @@ describe('Deploy', () => {
 
       const port = dockerId.split('_').pop()
 
-      const ssh = new SSH(config.server.main)
-      await ssh.connect()
       let response
       let pingError
       try {
@@ -64,15 +73,17 @@ describe('Deploy', () => {
         pingError = e
       }
 
-      const containers = await ssh.docker.containers()
+      const existsConfigFile = await ssh.file.exists(
+        `/usr/sumor-cloud/runtime/${env}/${app}/${port}/config/config.json`
+      )
+
       await ssh.docker.remove(dockerId)
       await ssh.disconnect()
 
-      console.log(containers)
-
       expect(pingError).toBeUndefined()
-      expect(response.feature1).toBe('ABC1234DE5')
-      expect(response.feature2).toBe('ABC')
+      expect(response.feature1).toBe('ABC1234DE')
+
+      expect(existsConfigFile).toBe(true)
     },
     60 * 1000
   )
@@ -82,7 +93,7 @@ describe('Deploy', () => {
     async () => {
       const app = 'demo'
       const env = 'production'
-      const version = '6cdcbfc7784bdb3cddf09270f5aa853634620c38'
+      const version = '6cdcbfc7784bdb3cddf09270f5aa853634620c38' // 1.0.0
       const server = 'main'
       const dockerId1 = await createInstance(config, {
         app,
@@ -143,7 +154,7 @@ describe('Deploy', () => {
       await ssh.disconnect()
 
       expect(pingError).toBeUndefined()
-      expect(response.feature1).toBe('ABC12')
+      expect(response.feature1).toBe('ABC12') // 1.0.1
 
       expect(containers1.indexOf(dockerId1)).toBe(-1)
       expect(containers1.indexOf(dockerId2)).toBeGreaterThan(-1)

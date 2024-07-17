@@ -26,11 +26,9 @@ export default async (root, git, app) => {
       cache.versions = versions
       await fse.ensureDir(`${versionsPath}/${app}`)
       await fse.writeJson(`${versionsPath}/${app}/cache.json`, cache)
-    } catch (e) {
+    } finally {
       await fse.remove(tmpPath)
-      throw e
     }
-    await fse.remove(tmpPath)
   }
 
   return versions

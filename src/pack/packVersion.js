@@ -12,10 +12,8 @@ export default async (git, versionId, target) => {
     try {
       await clone(git, tmpPath, versionId)
       await zip(tmpPath, target, ['.git/**', '*.git*'])
-    } catch (e) {
+    } finally {
       await fse.remove(tmpPath)
-      throw e
     }
-    await fse.remove(tmpPath)
   }
 }

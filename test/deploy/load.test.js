@@ -45,7 +45,6 @@ describe('Deploy', () => {
     async () => {
       const instances = await loadInstances(config)
       expect(instances.main).toBeDefined()
-      console.log(instances)
     },
     60 * 1000
   )

@@ -95,14 +95,12 @@ describe('Scale Version', () => {
         if (pingError) {
           throw pingError
         }
-        await ssh.disconnect()
 
         expect(response.status).toBe('OK')
         expect(response.config.title).toBe('DEMO')
         expect(existsDocker.length).toBe(0)
-      } catch (e) {
+      } finally {
         await ssh.disconnect()
-        throw e
       }
     },
     5 * 60 * 1000
