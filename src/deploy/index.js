@@ -26,12 +26,12 @@ export default async config => {
       const getVersion = versionId => {
         for (const version in versions) {
           if (versions[version].id === versionId) {
-            return version
+            return versions[version]
           }
         }
       }
       for (const versionId in scale[env][app]) {
-        const { name: versionName, time: versionTime } = getVersion(versionId)
+        const { name: versionName, authorDate: versionTime } = getVersion(versionId)
         const { add, instance } = scale[env][app][versionId]
         for (const server in add) {
           const target = instance[server]
