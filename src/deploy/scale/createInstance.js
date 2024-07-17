@@ -49,12 +49,12 @@ export default async (config, { app, env, version, server }) => {
   await ssh.file.ensureDir(remoteRuntimePath)
   // await ssh.file.copy(remoteVersionPath, remoteRuntimePath)
   await ssh.exec(`cp -r ${remoteVersionPath}/* ${remoteRuntimePath}`)
-  const localConfigPath = `${root}/assets/${app}/${env}`
+  const localConfigPath = `${root}/configs/${app}/${env}`
   const remoteRuntimeConfigPath = `${remoteRuntimePath}/config`
   await ssh.file.ensureDir(remoteRuntimeConfigPath)
   await ssh.file.putFolder(localConfigPath, remoteRuntimeConfigPath)
   const domain = config.env[env][app].domain
-  const localSSLPath = `${root}/assets/ssl/${domain}`
+  const localSSLPath = `${root}/ssl/${domain}`
   const remoteRuntimeSSLPath = `${remoteRuntimePath}/ssl`
   await ssh.file.ensureDir(remoteRuntimeSSLPath)
   if (await fse.exists(localSSLPath)) {

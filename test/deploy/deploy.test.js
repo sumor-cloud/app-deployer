@@ -44,7 +44,7 @@ describe('Deploy', () => {
       const version = 'd0d72127ca8105b8de621749d671fb5c1258938b' // 1.1.0
       const server = 'main'
 
-      const configPath = `${root}/assets/${app}/${env}/config.json`
+      const configPath = `${root}/configs/${app}/${env}/config.json`
       await fse.ensureFile(configPath)
       await fse.writeJson(configPath, { name: 'DEMO' })
 
