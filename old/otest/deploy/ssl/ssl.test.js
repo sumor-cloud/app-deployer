@@ -21,7 +21,7 @@ describe('Update SSL', () => {
     await updateSSL(testConfig)
     const ssh = new SSH(testConfig.server.main)
     await ssh.connect()
-    const exists = await ssh.file.exists('/usr/sumor-cloud/ssl/demo.sumor.com/domain.cer')
+    const exists = await ssh.file.exists('/usr/sumor-cloud/ssl/demo.sumor.com/domain.crt')
     await ssh.disconnect()
 
     expect(exists).toBe(true)

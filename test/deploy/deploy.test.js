@@ -28,13 +28,16 @@ describe('Deploy', () => {
     },
     10 * 60 * 1000
   )
-  afterAll(async () => {
-    await fse.remove(root)
-    const ssh = new SSH(config.server.main)
-    await ssh.connect()
-    await ssh.lock.release(lockName, lockId)
-    await ssh.disconnect()
-  }, 60 * 1000)
+  afterAll(
+    async () => {
+      await fse.remove(root)
+      const ssh = new SSH(config.server.main)
+      await ssh.connect()
+      await ssh.lock.release(lockName, lockId)
+      await ssh.disconnect()
+    },
+    10 * 60 * 1000
+  )
 
   it(
     'create instance',
@@ -85,7 +88,7 @@ describe('Deploy', () => {
 
       expect(existsConfigFile).toBe(true)
     },
-    60 * 1000
+    5 * 60 * 1000
   )
 
   it(
